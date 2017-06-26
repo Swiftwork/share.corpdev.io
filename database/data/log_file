@@ -1,0 +1,72 @@
+2017-06-25T12:09:02.718756600 0.006405s notice: In recursion: removing file 'D:\\Git\\share.corpdev.io\\database\\data\\tmp'
+2017-06-25T12:09:02.719259100 0.006988s warn: Trying to delete non-existent file 'D:\\Git\\share.corpdev.io\\database\\data\\tmp'
+2017-06-25T12:09:02.720762700 0.008427s notice: Initializing directory D:\\Git\\share.corpdev.io\\database\\data
+2017-06-25T12:09:02.721765500 0.009205s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory 'D:\\Git\\share.corpdev.io\\database\\data' did not already exist or is empty.)
+2017-06-25T12:09:02.721765501 0.009239s notice: Running rethinkdb 2.3.5-windows (MSC 190023506)...
+2017-06-25T12:09:02.721765502 0.009601s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2017-06-25T12:09:02.722266500 0.009787s notice: Loading data from directory D:\\Git\\share.corpdev.io\\database\\data
+2017-06-25T12:09:02.906302800 0.194108s info: Automatically using cache size of 3708 MB
+2017-06-25T12:09:02.907806900 0.195513s notice: Listening for intracluster connections on port 29015
+2017-06-25T12:09:02.908810200 0.196459s notice: Listening for client driver connections on port 28015
+2017-06-25T12:09:02.908810201 0.196570s notice: Listening for administrative HTTP connections on port 8080
+2017-06-25T12:09:02.908810202 0.196571s notice: Listening on cluster address: 127.0.0.1
+2017-06-25T12:09:02.908810203 0.196573s notice: Listening on driver address: 127.0.0.1
+2017-06-25T12:09:02.908810204 0.196573s notice: Listening on http address: 127.0.0.1
+2017-06-25T12:09:02.908810205 0.196575s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-06-25T12:09:02.908810206 0.196576s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2017-06-25T12:09:08.610758600 5.898379s notice: Server got Control-C; shutting down...
+2017-06-25T12:09:08.610758601 5.898573s notice: Shutting down client connections...
+2017-06-25T12:09:08.611259900 5.898704s notice: All client connections closed.
+2017-06-25T12:09:08.611259901 5.898711s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-06-25T12:09:08.611761700 5.899454s notice: Storage engine shut down.
+2017-06-25T12:21:02.699643200 0.006987s notice: Running rethinkdb 2.3.5-windows (MSC 190023506)...
+2017-06-25T12:21:02.699643201 0.007178s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2017-06-25T12:21:02.700143700 0.007409s notice: Loading data from directory D:\\Git\\share.corpdev.io\\database\\data
+2017-06-25T12:21:02.704154900 0.011298s info: Automatically using cache size of 3406 MB
+2017-06-25T12:21:02.705158200 0.012512s notice: Listening for intracluster connections on port 29015
+2017-06-25T12:21:02.706160700 0.013242s notice: Listening for client driver connections on port 28015
+2017-06-25T12:21:02.706160701 0.013332s notice: Listening for administrative HTTP connections on port 8080
+2017-06-25T12:21:02.706160702 0.013333s notice: Listening on cluster address: 127.0.0.1
+2017-06-25T12:21:02.706160703 0.013334s notice: Listening on driver address: 127.0.0.1
+2017-06-25T12:21:02.706160704 0.013335s notice: Listening on http address: 127.0.0.1
+2017-06-25T12:21:02.706160705 0.013336s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-06-25T12:21:02.706160706 0.013337s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2017-06-25T12:21:04.403576300 1.710901s notice: Server got Control-C; shutting down...
+2017-06-25T12:21:04.403576301 1.711047s notice: Shutting down client connections...
+2017-06-25T12:21:04.403576302 1.711138s notice: All client connections closed.
+2017-06-25T12:21:04.403576303 1.711142s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-06-25T12:21:04.404078000 1.711629s notice: Storage engine shut down.
+2017-06-26T13:30:25.150535100 0.009121s notice: Running rethinkdb 2.3.5-windows (MSC 190023506)...
+2017-06-26T13:30:25.151537700 0.010045s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2017-06-26T13:30:25.151537701 0.010186s notice: Loading data from directory D:\\Git\\share.corpdev.io\\database\\data
+2017-06-26T13:30:25.160060300 0.018656s info: Automatically using cache size of 4391 MB
+2017-06-26T13:30:25.161565100 0.020319s notice: Listening for intracluster connections on port 29015
+2017-06-26T13:30:25.163068700 0.021529s notice: Listening for client driver connections on port 28015
+2017-06-26T13:30:25.163068701 0.021636s notice: Listening for administrative HTTP connections on port 8080
+2017-06-26T13:30:25.163068702 0.021637s notice: Listening on cluster address: 127.0.0.1
+2017-06-26T13:30:25.163068703 0.021638s notice: Listening on driver address: 127.0.0.1
+2017-06-26T13:30:25.163068704 0.021639s notice: Listening on http address: 127.0.0.1
+2017-06-26T13:30:25.163068705 0.021639s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-06-26T13:30:25.163068706 0.021641s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2017-06-26T13:31:24.461979800 59.320671s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 1.
+2017-06-26T13:31:24.462982800 59.322130s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Added replica on this server.
+2017-06-26T13:31:24.465986100 59.324699s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 1. Latest log index is 0.
+2017-06-26T16:38:47.724515100 11302.603298s notice: Server got Control-C; shutting down...
+2017-06-26T16:38:47.725523000 11302.603931s notice: Shutting down client connections...
+2017-06-26T16:38:47.725523001 11302.604317s notice: All client connections closed.
+2017-06-26T16:38:47.725523002 11302.604325s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-06-26T16:38:47.756113800 11302.634970s notice: Storage engine shut down.
+2017-06-26T16:39:14.145101000 0.007002s notice: Running rethinkdb 2.3.5-windows (MSC 190023506)...
+2017-06-26T16:39:14.145101001 0.007150s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2017-06-26T16:39:14.145602000 0.007219s notice: Loading data from directory D:\\Git\\share.corpdev.io\\database\\data
+2017-06-26T16:39:14.151640700 0.013308s info: Automatically using cache size of 4342 MB
+2017-06-26T16:39:14.152642800 0.014543s notice: Listening for intracluster connections on port 29015
+2017-06-26T16:39:14.159936200 0.022168s notice: Listening for client driver connections on port 28015
+2017-06-26T16:39:14.159936201 0.022278s notice: Listening for administrative HTTP connections on port 8080
+2017-06-26T16:39:14.159936202 0.022280s notice: Listening on cluster address: 127.0.0.1
+2017-06-26T16:39:14.159936203 0.022280s notice: Listening on driver address: 127.0.0.1
+2017-06-26T16:39:14.159936204 0.022281s notice: Listening on http address: 127.0.0.1
+2017-06-26T16:39:14.159936205 0.022284s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-06-26T16:39:14.159936206 0.022285s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2017-06-26T16:39:15.377571300 1.239275s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 2.
+2017-06-26T16:39:15.377571301 1.240078s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 2. Latest log index is 2.

@@ -1,0 +1,3 @@
+{
+  "extends": "./client/.config/stylelint.config.js"
+}
