@@ -70,3 +70,17 @@
 2017-06-26T16:39:14.159936206 0.022285s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
 2017-06-26T16:39:15.377571300 1.239275s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 2.
 2017-06-26T16:39:15.377571301 1.240078s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 2. Latest log index is 2.
+2017-06-27T19:19:46.522519300 0.007098s notice: Running rethinkdb 2.3.5-windows (MSC 190023506)...
+2017-06-27T19:19:46.540515800 0.025793s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2017-06-27T19:19:46.541518300 0.026072s notice: Loading data from directory D:\\Git\\share.corpdev.io\\database\\data
+2017-06-27T19:19:46.548537900 0.033734s info: Automatically using cache size of 4376 MB
+2017-06-27T19:19:46.550544000 0.035269s notice: Listening for intracluster connections on port 29015
+2017-06-27T19:19:46.570626200 0.055337s notice: Listening for client driver connections on port 28015
+2017-06-27T19:19:46.570626201 0.055622s notice: Listening for administrative HTTP connections on port 8080
+2017-06-27T19:19:46.570626202 0.055624s notice: Listening on cluster address: 127.0.0.1
+2017-06-27T19:19:46.570626203 0.055626s notice: Listening on driver address: 127.0.0.1
+2017-06-27T19:19:46.570626204 0.055627s notice: Listening on http address: 127.0.0.1
+2017-06-27T19:19:46.570626205 0.055636s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-06-27T19:19:46.570626206 0.055638s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2017-06-27T19:19:48.187151700 1.672041s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 3.
+2017-06-27T19:19:48.189150900 1.674431s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 3. Latest log index is 5.
