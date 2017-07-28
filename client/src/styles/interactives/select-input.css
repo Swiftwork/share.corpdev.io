@@ -1,0 +1,103 @@
+.c-select-input {
+  position: relative;
+  display: block;
+  margin-bottom: 1vr;
+
+  /* FLOATING LABEL
+  ================================================================================ */
+
+  &--label {
+    position: absolute;
+    top: -0.25vr;
+    left: 0.5vr;
+    font-style: normal;
+    font-size: 0.75em;
+    pointer-events: none;
+    transition: all calc($t_animation * 0.5) linear;
+    transform: translateY(0.35vr);
+  }
+
+  &--label + &--select {
+    padding: 0.85vr 0.5vr 0.15vr;
+  }
+
+  /* SELECT FIELD
+  ================================================================================ */
+
+  &--select {
+    padding: 0.5vr 1.25vr 0.5vr 0.5vr;
+    width: 100%;
+    height: 2vr;
+    line-height: 1vr;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid $c_light_beta;
+    background-color: $c_light_alpha;
+    background-image: url('../../assets/images/icons/select-arrows-disabled.svg');
+    background-position: right 0.5vr center;
+    background-size: 0.8em;
+    background-repeat: no-repeat;
+
+    &:focus {
+      border-bottom-width: 3px;
+      border-bottom-color: $c_color_alpha;
+    }
+
+    &&::-ms-expand {
+      display: none;
+    }
+  }
+
+  /* OPTIONS
+  ================================================================================ */
+
+  &--option, &--optgroup {
+    background: white;
+  }
+}
+
+/* STATES
+================================================================================ */
+
+@define-mixin state $color {
+  &--label {
+    color: $color;
+  }
+
+  &--select {
+    border-bottom-color: $color;
+  }
+}
+
+.focused .c-select-input {
+  @mixin state $c_color_alpha;
+
+  &--select {
+    background-image: url('../../assets/images/icons/select-arrows.svg');
+  }
+}
+
+.valid .c-select-input {
+  @mixin state $c_valid;
+
+  &--select {
+    background-image: url('../../assets/images/icons/select-arrows-valid.svg');
+  }
+}
+
+.invalid .c-select-input {
+  @mixin state $c_invalid;
+
+  &--select {
+    background-image: url('../../assets/images/icons/select-arrows-invalid.svg');
+  }
+}
+
+.disabled .c-select-input {
+  &--select {
+    color: $c_light_gamma;
+    border-style: dashed;
+    background-image: url('../../assets/images/icons/select-arrows-disabled.svg');
+  }
+}

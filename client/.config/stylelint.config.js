@@ -15,6 +15,15 @@ module.exports = {
     /* Custom */
     'block-no-empty': null,
     'unit-no-unknown': [true, { ignoreUnits: ['vr'] }],
+    'selector-attribute-operator-space-after': null,
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        'ignorePseudoClasses': [
+          'class-starts-with', 'class-ends-with', 'class-contains'
+        ]
+      }
+    ],
     'selector-type-no-unknown': [
       true,
       {

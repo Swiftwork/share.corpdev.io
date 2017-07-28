@@ -1,0 +1,116 @@
+.c-textarea-input {
+  position: relative;
+  display: block;
+  margin-bottom: 1vr;
+
+  /* FLOATING LABEL
+  ================================================================================ */
+
+  &--label {
+    position: absolute;
+    top: -0.35vr;
+    left: 0.5vr;
+    width: calc(100% - 1.5vr);
+    font-style: italic;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+    transition: all calc($t_animation * 0.5) linear;
+    transform: translateY(0.85vr);
+
+    &.floating {
+      font-style: normal;
+      font-size: 0.75em;
+      transform: translateY(0.35vr);
+    }
+  }
+
+  &--label + &--textarea {
+    padding: 0.85vr 0.5vr 0.15vr;
+
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+
+  /* INPUT FIELD
+  ================================================================================ */
+
+  &--textarea {
+    padding: 0.5vr;
+    width: 100%;
+    min-height: 6vr;
+    line-height: 1vr;
+    appearance: none;
+    outline: none;
+    border: 1px solid $c_light_beta;
+    background-color: $c_light_alpha;
+    resize: vertical;
+
+    &::placeholder {
+      opacity: 1;
+      transition: opacity calc($t_animation * 0.5) linear;
+    }
+
+    &:focus {
+      padding-left: calc(0.5vr - 2px);
+      border-left-width: 3px;
+      border-left-color: $c_color_alpha;
+
+      &::placeholder {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* ERROR
+  ================================================================================ */
+
+  &--error {
+    position: relative;
+    padding: 0.25vr 0 0.25vr 0.5vr;
+    color: $c_invalid;
+
+    &::before {
+      position: absolute;
+      display: inline-block;
+      content: '!';
+      left: 0;
+      width: 0.5vr;
+      text-align: center;
+    }
+  }
+}
+
+/* STATES
+================================================================================ */
+
+@define-mixin state $color {
+  &--label {
+    color: $color;
+  }
+
+  &--textarea {
+    border-left-color: $color;
+  }
+}
+
+.focused .c-textarea-input {
+  @mixin state $c_color_alpha;
+}
+
+.valid .c-textarea-input {
+  @mixin state $c_valid;
+}
+
+.invalid .c-textarea-input {
+  @mixin state $c_invalid;
+}
+
+.disabled .c-textarea-input {
+  &--input {
+    color: $c_light_gamma;
+    border-style: dashed;
+  }
+}

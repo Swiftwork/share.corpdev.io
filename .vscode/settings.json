@@ -1,0 +1,21 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "files.insertFinalNewline": true,
+  "tslint.enable": true,
+  "tslint.configFile": "./client/.config/tslint.config.js",
+  "tslint.autoFixOnSave": true,
+  "stylelint.enable": true,
+  "scss.validate": false,
+  "postcssSorting": "./client/.config/postcss.sorting.js",
+  "stylefmt.config": "./client/.config/stylelint.config.js",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "docthis.includeMemberOfOnInterfaceMembers": false,
+  "docthis.includeMemberOfOnClassMembers": false,
+  "html.format.wrapAttributes": "force",
+  "search.exclude": {
+    "**/node_modules": true,
+    "dev": true,
+    "prod": true,
+    "docs": true
+  }
+}

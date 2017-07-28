@@ -20,9 +20,12 @@ router.post('/', (request, response, next) => {
         .then((authenticated) => {
           if (authenticated) {
             var currentUser = {
-              name: user.name,
-              email: user.email,
-              token: token.generate(user)
+              token: token.generate(user),
+              profile: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+              }
             };
 
             response.json(currentUser);

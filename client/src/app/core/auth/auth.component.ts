@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'c-auth',
@@ -15,7 +16,7 @@ export class AuthComponent implements OnInit {
   public loginForm: FormGroup;
 
   constructor(
-    private http: Http,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -28,24 +29,14 @@ export class AuthComponent implements OnInit {
   onSubmit(form: FormGroup) {
     if (!form.valid) return;
 
-    let details = {
+    let params = {
       email: form.value.email,
       password: form.value.password,
     }
 
-    const request = this.http.post('/api/login', details).map(
-      res => {
-        return res.json() || {};
-      }
-    ).catch(
-      err => {
-        console.error(err);
-        return Observable.throw(err);
-      }
-      );
-
-    request.subscribe(res => {
-      console.log(res);
-    });
+    this.authService.login(params)
+      .subscribe((res: any) => {
+        console.log(res);
+      });
   }
 }

@@ -1,0 +1,96 @@
+.c-radio-input {
+  position: relative;
+  display: block;
+  margin-bottom: 1vr;
+
+  /* RADIO
+  ================================================================================ */
+
+  &--radio {
+    position: absolute;
+    opacity: 0;
+  }
+
+  /* LABEL
+  ================================================================================ */
+
+  &--label {
+    position: relative;
+    display: inline-flex;
+    margin-bottom: 0;
+    cursor: pointer;
+    align-items: center;
+
+    &::before {
+      @mixin iconBase;
+
+      content: $i_radio;
+      margin-right: 0.25em;
+      height: 1em;
+      color: $c_color_alpha;
+      font-size: 2em;
+      vertical-align: middle; /* IE9 Fix */
+      border-radius: 50%;
+    }
+  }
+
+  &--radio:checked + &--label::before {
+    content: $i_radio_checked;
+  }
+
+  /* ERROR
+  ================================================================================ */
+
+  &--error {
+    position: relative;
+    display: block;
+    padding: 0.25vr 0 0.25vr 2.5em;
+    color: $c_invalid;
+
+    &::before {
+      position: absolute;
+      display: inline-block;
+      content: '!';
+      left: calc(1em - 4px);
+      width: 0.5em;
+      text-align: center;
+    }
+  }
+}
+
+/* STATES
+================================================================================ */
+
+@define-mixin state $color {
+  &--radio + .c-radio-input--label::before {
+    color: $color;
+  }
+
+  &--radio:focus + .c-radio-input--label {
+    color: $color;
+
+    &::before {
+      background: color($color alpha(20%));
+    }
+  }
+}
+
+.focused .c-radio-input {
+  @mixin state $c_color_alpha;
+}
+
+.valid .c-radio-input {
+  @mixin state $c_valid;
+}
+
+.invalid .c-radio-input {
+  @mixin state $c_invalid;
+}
+
+.disabled .c-radio-input {
+  @mixin state $c_light_gamma;
+
+  &--label {
+    cursor: not-allowed;
+  }
+}

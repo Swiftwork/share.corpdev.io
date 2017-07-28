@@ -1,0 +1,23 @@
+<h2 class="c-sidebar--title">
+  <img src="../../../../assets/images/logo.svg" /> {{title}}
+</h2>
+<nav class="c-sidebar--navigation">
+
+  <ng-container *ngFor="let topic of topicLinks">
+
+    <a [routerLink]="topic.route"
+      class="c-sidebar--navigation-topic">{{topic.title}}</a>
+
+    <ul class="c-sidebar--navigation-articles"
+      *ngIf="topic.articles.length">
+
+      <ng-container *ngFor="let article of topic.articles">
+        <a [routerLink]="topic.route"
+          class="c-sidebar--navigation-article">{{article.title}}</a>
+      </ng-container>
+
+    </ul>
+
+  </ng-container>
+
+</nav>

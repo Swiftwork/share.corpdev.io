@@ -1,0 +1,72 @@
+.c-button-input {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1vr;
+
+  /* BUTTON
+  ================================================================================ */
+
+  &--button {
+    position: relative;
+    display: block;
+    padding: 1em 3em;
+    width: auto;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 0;
+    background-color: $c_color_alpha;
+    transition: color 0.15s ease, background-color 0.15s ease;
+
+    &:hover, &:focus {
+      background-color: color($c_color_alpha blackness(50%));
+    }
+
+    &:active {
+      background-color: color($c_color_alpha blackness(30%));
+    }
+  }
+}
+
+/* STATES
+================================================================================ */
+
+.focused .c-button-input {
+  /* TODO */
+}
+
+.disabled .c-button-input {
+  &--button {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+/* STYLES
+================================================================================ */
+
+.ghost .c-button-input {
+  &--button {
+    color: $c_color_alpha;
+    border: 1px solid $c_color_alpha;
+    background: none;
+
+    &:hover, &:focus {
+      background-color: color($c_color_alpha alpha(20%));
+    }
+
+    &:active {
+      background-color: color($c_color_alpha alpha(30%));
+    }
+
+    &::after {
+      content: none;
+    }
+  }
+}

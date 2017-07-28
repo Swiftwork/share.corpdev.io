@@ -5,25 +5,34 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 
+import { AppRoutingModule } from './app.routing';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+
 import { AppComponent } from './app.component';
 import { AppState, InternalStateType } from './app.state';
-import { AuthComponent } from './auth/auth.component';
 
 type StoreType = {
   state: InternalStateType,
   restoreInputValues: () => void,
-  disposeOldHosts: () => void
+  disposeOldHosts: () => void,
 };
 
 @NgModule({
   imports: [
+
+    /*=== ANGULAR MODULES ===*/
     BrowserModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+
+    /*=== APP MODULES ===*/
+    AppRoutingModule,
+    CoreModule.forRoot(),
+    SharedModule.forRoot(),
   ],
   declarations: [
     AppComponent,
-    AuthComponent,
   ],
   providers: [
     AppState,
@@ -34,7 +43,7 @@ export class AppModule {
 
   constructor(
     public appRef: ApplicationRef,
-    public appState: AppState
+    public appState: AppState,
   ) { }
 
   public hmrOnInit(store: StoreType) {

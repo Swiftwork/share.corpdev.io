@@ -1,6 +1,7 @@
 var path = require('path');
 var extend = require('webpack-merge');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /* Import common configuration for dev and prod */
 var commonConfig = require('./common.config.js');
@@ -21,9 +22,21 @@ module.exports = extend(true, commonConfig, {
   },
 
   plugins: [
+    new ExtractTextPlugin({ disable: true }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({
-      debug: true
+      debug: true,
+      options: {
+        styleLoader: {
+          sourceMap: true,
+        },
+        cssLoader: {
+          sourceMap: true,
+        },
+        postcssLoader: {
+          sourceMap: true,
+        },
+      },
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -32,5 +45,5 @@ module.exports = extend(true, commonConfig, {
     }),
   ],
 
-  devtool: 'source-map',
+  devtool: 'cheap-eval-source-map',
 });

@@ -1,0 +1,18 @@
+.m-app {
+  display: grid;
+  grid: 'sidebar topbar' 'sidebar main';
+  grid-template-rows: 3vr auto;
+  grid-template-columns: minmax(10vr, 3fr) 9fr;
+
+  .c-sidebar {
+    grid-area: sidebar;
+  }
+
+  .c-topbar {
+    grid-area: topbar;
+  }
+
+  main {
+    grid-area: main;
+  }
+}

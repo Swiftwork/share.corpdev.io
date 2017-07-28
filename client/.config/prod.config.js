@@ -1,6 +1,7 @@
 var path = require('path');
 var extend = require('webpack-merge');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var AotPlugin = require('@ngtools/webpack').AotPlugin;
 
 /* Import common configuration for dev and prod */
@@ -18,6 +19,7 @@ module.exports = extend(true, commonConfig, {
   },
 
   plugins: [
+    new ExtractTextPlugin('[name].css?[hash]'),
     new AotPlugin({
       tsConfigPath: path.resolve(process.cwd(), 'tsconfig-aot.json'),
       entryModule: path.resolve(process.cwd(), 'client/src/app/app.module#AppModule'),

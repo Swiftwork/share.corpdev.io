@@ -1,0 +1,35 @@
+@import '/styles/constmix.css';
+
+.c-sidebar {
+  background-color: white;
+  box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05);
+
+  &--title {
+    padding: 0.5vr 2vr;
+    color: color($c_color_alpha a(40%));
+    font-weight: 300;
+
+    img {
+      margin-right: 0.5vr;
+      height: 1vr;
+    }
+  }
+
+  &--navigation {
+    &-topic, &-article {
+      color: color($c_color_alpha a(80%));
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.5vr 2vr;
+      font-weight: 600;
+    }
+
+    &-article {
+      font-weight: 200;
+      padding-left: 3vr;
+    }
+
+    &-articles {
+    }
+  }
+}

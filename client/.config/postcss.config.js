@@ -77,6 +77,6 @@ module.exports = (webpack) => ({
     require('autoprefixer')({ browsers: AUTOPREFIXER_BROWSERS }),
     // Removes /* Comment */ but keeps /*! Comment */ to clean up code
     // https://github.com/ben-eb/postcss-discard-comments
-    require('postcss-discard-comments')()
+    require('postcss-discard-comments')(),
   ]
 });

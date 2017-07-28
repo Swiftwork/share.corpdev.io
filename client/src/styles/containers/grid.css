@@ -1,0 +1,86 @@
+/* GRID
+================================================================================ */
+
+.c-grid {
+  @mixin clearfix;
+
+  display: block; /* IE9 Fix */
+  display: flex;
+  margin: 0 -1vr;
+  padding: 0 0.5vr;
+  flex-flow: row wrap;
+
+  > * {
+    position: relative;
+    margin: 0 0.5vr 1vr;
+    width: calc(100% - 1vr);
+    min-height: 1px;
+    float: left; /* IE9 Fix */
+    box-sizing: border-box;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    &.c-grid {
+      margin: 0 -0.5vr 1vr;
+    }
+
+    &.layout-half {
+      @mixin colspan 12;
+
+      @media $b_sm {
+        @mixin colspan 6;
+      }
+    }
+
+    &.layout-third {
+      @mixin colspan 12;
+
+      @media $b_sm {
+        @mixin colspan 6;
+      }
+
+      @media $b_md {
+        @mixin colspan 4;
+      }
+    }
+
+    &.layout-two-thirds {
+      @mixin colspan 12;
+
+      @media $b_md {
+        @mixin colspan 8;
+      }
+    }
+  }
+
+  /* DEVICES
+  ================================================================================ */
+
+  /* ALL DEVICES
+  -------------------------------------------------------------------------------- */
+  @mixin columns;
+
+  /* PHABLETS AND UP
+  -------------------------------------------------------------------------------- */
+  @media $b_sm {
+    @mixin columns -sm;
+  }
+
+  /* TABLETS AND UP
+  -------------------------------------------------------------------------------- */
+  @media $b_md {
+    @mixin columns -md;
+  }
+
+  /* LAPTOPS AND UP
+  -------------------------------------------------------------------------------- */
+  @media $b_lg {
+    @mixin columns -lg;
+  }
+
+  /* DESKTOPS AND UP
+  -------------------------------------------------------------------------------- */
+  @media $b_xl {
+    @mixin columns -xl;
+  }
+}

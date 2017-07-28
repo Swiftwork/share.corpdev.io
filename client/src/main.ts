@@ -1,7 +1,9 @@
-import { enableProdMode, NgModuleRef } from '@angular/core';
+import { enableProdMode, NgModuleRef, ViewEncapsulation } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
+
+import './styles/index.css';
 
 if (process.env.NODE_ENV === 'production') {
   enableProdMode();
@@ -12,7 +14,7 @@ if (process.env.NODE_ENV === 'production') {
  * This will automatically be replaced with platform
  * browser in an ahead-of-time environment.
  */
-export function main(): Promise<NgModuleRef<AppModule>> {
+export function main(): Promise<void | NgModuleRef<AppModule>> {
   document.removeEventListener('DOMContentLoaded', main, false);
   return platformBrowserDynamic()
     .bootstrapModule(AppModule)

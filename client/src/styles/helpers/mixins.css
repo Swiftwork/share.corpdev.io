@@ -1,0 +1,86 @@
+/* MIXINS
+================================================================================ */
+
+/* FONT STYLES */
+
+@define-mixin iconBase {
+  line-height: 1;
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+
+  /* use !important to prevent issues with browser extensions that change fonts */
+
+  font-family: 'HP Icons' !important;
+  text-transform: none;
+
+  /* Better Font Rendering =========== */
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+}
+
+/* CLEARFIX */
+
+@define-mixin clearfocus {
+  &:focus {
+    color: inherit;
+    background-color: transparent;
+  }
+}
+
+/* CLEARFIX */
+
+@define-mixin clearfix {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+/* FONT SCALING */
+
+@define-mixin font-scaling $f_xs, $f_xl {
+  font-size: calc(100vw * (strip($f_xl) * 10 / strip($d_xl)));
+
+  @media $b_xs {
+    font-size: $f_xs;
+  }
+
+  @media $b_xl {
+    font-size: $f_xl;
+  }
+}
+
+/* GRID COLUMNS */
+
+@define-mixin columns $device {
+  @for $i from 1 to 12 {
+    &[data-columns$(device)="$i"] > * {
+      width: calc(100% / $i - 1vr - 0.01rem);
+
+      /* @DEPRECATED consider removing if no issues arise
+      flex-basis: calc(100% / @i - 1vr - 0.01rem);
+      */
+
+      &.c-grid {
+        width: calc(100% / $i - 0.01rem);
+
+        /* @DEPRECATED consider removing if no issues arise
+        flex-basis: calc(100% / @i - 0.01rem);
+      */
+      }
+    }
+  }
+}
+
+@define-mixin colspan $count {
+  width: calc(100% / 12 * $count - 1vr - 0.01rem) !important;
+  flex-grow: 0 !important;
+
+  /* @DEPRECATED consider removing if no issues arise
+  flex-basis: calc(100% / $g_columns * $count - 1vr - 0.01rem) !important;
+  */
+}

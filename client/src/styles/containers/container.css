@@ -1,0 +1,30 @@
+/* CONTAINER
+================================================================================ */
+
+.c-container {
+  @mixin clearfix;
+
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  padding: 0 0.5vr;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+
+  @media $b_sm {
+    padding: 0 1vr;
+  }
+
+  & > & {
+    padding: 0;
+  }
+
+  &.layout-fluid {
+    max-width: none;
+  }
+
+  &.layout-narrow {
+    max-width: $d_md;
+  }
+}
