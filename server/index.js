@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 
   /* Require webpack for building */
   const webpack = require('webpack');
-  const webpackConfig = require('../client/.config/dev.config.js');
+  const webpackConfig = require('../client/.config/debug.config.js');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
 
@@ -36,6 +36,7 @@ if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(webpackConfig);
 
   app.use(webpackDevMiddleware(compiler, {
+    publicPath: '/',
     hot: true,
     inline: true,
     stats: {
@@ -46,26 +47,45 @@ if (process.env.NODE_ENV === 'development') {
 
   app.use(webpackHotMiddleware(compiler, {
     log: console.log,
+    noInfo: true,
     path: '/__webpack_hmr',
     heartbeat: 10 * 1000,
   }));
+
+  /* Enpoints */
+  endpoints(app);
+
+  app.use('*', function (req, res, next) {
+    const filename = path.join(compiler.outputPath, 'index.html');
+    compiler.outputFileSystem.readFile(filename, function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      res.set('content-type', 'text/html');
+      res.send(result);
+      res.end();
+    });
+  });
+
+} else {
+
+  /* Enpoints */
+  endpoints(app);
+
+  app.get('*', (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, 'public/index.html'));
+  });
 }
 
 //------------------------------------------------------------------------------------
 // SERVER
 //------------------------------------------------------------------------------------
 
-/* Enpoints */
-endpoints(app);
-
-app.get('*', (req, res) => {
-  res.sendFile('index.html');
-});
 
 /* Init Server */
 const server = app.listen(3000, 'localhost', () => {
-  let host = server.address().address;
-  let port = server.address().port;
+  const host = server.address().address;
+  const port = server.address().port;
 
   console.log(`App is listening on http://${host}:${port}`);
 });

@@ -1,6 +1,7 @@
 @import '/styles/constmix.css';
 
 .c-sidebar {
+  display: block;
   background-color: white;
   box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05);
 
@@ -16,7 +17,7 @@
   }
 
   &--navigation {
-    &-topic, &-article {
+    &-topic, &-article, &-add {
       color: color($c_color_alpha a(80%));
       text-transform: uppercase;
       text-decoration: none;
@@ -30,6 +31,10 @@
     }
 
     &-articles {
+    }
+
+    &-add {
+      color: color($c_color_alpha a(60%));
     }
   }
 }

@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt-nodejs');
+const token = require('./token');
 
 module.exports.authorize = (request, response, next) => {
-  let apiToken = request.headers['x-api-token'];
-  token.verify(apiToken, next);
+  const map = request.headers['authorization'].split(' ');
+  const bearer = map[map.indexOf('Bearer') + 1]
+  token.verify(bearer, next);
   next();
 };
 

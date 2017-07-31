@@ -1,5 +1,6 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
+import { AuthView } from '../../shared/views/auth/auth.view';
 import { TopicsView } from '../../shared/views/topics/topics.view';
 
 /* Views */
@@ -10,7 +11,7 @@ import { TopicsView } from '../../shared/views/topics/topics.view';
 export const CODE_ROUTES: Routes = [
   {
     path: '',
-    component: TopicsView,
+    component: AuthView,
   },
 ];
 

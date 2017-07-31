@@ -14,7 +14,7 @@ module.exports.verify = (token, next) => {
     return next(notFoundError);
   }
 
-  if (jwt.decode(token, secret) <= new Date().getTime()) {
+  if (jwt.decode(token, config.TOKEN_SECRET) <= new Date().getTime()) {
     var expiredError = new Error('Token has expired');
     expiredError.status = 401;
     return next(expiredError);

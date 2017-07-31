@@ -1,61 +1,38 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { BaseComponent } from '../../../core/base/base.decorator';
+import { TopicsService } from '../../services/topics.service';
+import { ITopic } from '../topic/topic.component';
 
 export interface IArticleLink {
   title: string,
   route: string,
 }
 
-export interface ITopicLink {
-  title: string,
-  route: string,
-  articles: IArticleLink[],
-}
-
-@BaseComponent({
+@Component({
   selector: 'c-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
+  host: {
+    '[class.c-sidebar]': 'true',
+  },
 })
 export class SidebarComponent implements OnInit {
 
   public title: string;
-  public topicLinks: ITopicLink[];
+  public topics: ITopic[];
+  public showAddTopic: boolean;
 
-  constructor() {
+  constructor(
+    public topicsService: TopicsService,
+  ) {
     this.title = 'code';
-    this.topicLinks = SidebarComponent.MockNavigation();
+    this.topicsService.get().subscribe(topics => {
+      this.topics = topics as ITopic[];
+    });
   }
 
   ngOnInit() { }
 
-  static MockNavigation(): ITopicLink[] {
-    return [
-      {
-        title: 'Evry Modules', route: '/topic/evry-modules', articles: [
-          { title: 'Installing', route: '/topic/evry-modules/installing' },
-          { title: 'Testing', route: '/topic/evry-modules/testing' },
-        ],
-      },
-      {
-        title: 'CSS Guidelines', route: '/topic/evry-modules', articles: [
-          { title: 'Installing', route: '/topic/evry-modules/installing' },
-          { title: 'Testing', route: '/topic/evry-modules/testing' },
-        ],
-      },
-      {
-        title: 'Frameworks', route: '/topic/evry-modules', articles: [
-          { title: 'Installing', route: '/topic/evry-modules/installing' },
-          { title: 'Testing', route: '/topic/evry-modules/testing' },
-        ],
-      },
-      {
-        title: 'Transpilation', route: '/topic/evry-modules', articles: [
-          { title: 'Installing', route: '/topic/evry-modules/installing' },
-          { title: 'Testing', route: '/topic/evry-modules/testing' },
-        ],
-      },
-    ];
+  toggleAddTopic() {
+    this.showAddTopic = !this.showAddTopic;
   }
-
 }

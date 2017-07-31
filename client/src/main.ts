@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 export function main(): Promise<void | NgModuleRef<AppModule>> {
   document.removeEventListener('DOMContentLoaded', main, false);
   return platformBrowserDynamic()
-    .bootstrapModule(AppModule)
+    .bootstrapModule(AppModule, { defaultEncapsulation: ViewEncapsulation.None })
     .catch((err) => console.error(err));
 }
 

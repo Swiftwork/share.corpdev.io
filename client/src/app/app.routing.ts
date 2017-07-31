@@ -1,16 +1,24 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
-import { CodeModule } from './pages/code/code.module';
 
+import { AuthView } from './shared/views/auth/auth.view';
 /* Views */
 
 /* Routing modules */
+import { CodeModule } from './pages/code/code.module';
+
+/* Routing factories */
+export function codeRoutingFactory() { return CodeModule; }
 
 /* Router */
 export const APP_ROUTES: Routes = [
   {
+    path: 'login',
+    component: AuthView,
+  },
+  {
     path: 'code',
-    loadChildren: () => CodeModule,
+    loadChildren: codeRoutingFactory,
   },
   {
     path: '',

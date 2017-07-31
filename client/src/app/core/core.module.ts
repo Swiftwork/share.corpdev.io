@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Http, RequestOptions } from '@angular/http';
+import { UserService } from './services/user.service';
 
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './services/auth.service';
 
 import { BaseView } from './base/base.view';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig(), http, options);
+}
 
 export const DECLARATIONS: any[] = [
   BaseView,
@@ -18,7 +22,6 @@ export const DECLARATIONS: any[] = [
   imports: [
     /*=== VENDOR MODULES ===*/
     CommonModule,
-    ReactiveFormsModule,
     HttpClientModule,
 
     /*=== CORE MODULES ===*/
@@ -33,11 +36,11 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         AuthService,
+        UserService,
         {
           provide: AuthHttp,
           deps: [Http, RequestOptions],
-          useFactory: (http: Http, options: RequestOptions) =>
-            new AuthHttp(new AuthConfig(), http, options),
+          useFactory: authHttpServiceFactory,
         },
       ],
     };

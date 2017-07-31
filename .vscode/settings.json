@@ -14,8 +14,6 @@
   "html.format.wrapAttributes": "force",
   "search.exclude": {
     "**/node_modules": true,
-    "dev": true,
-    "prod": true,
-    "docs": true
+    "dist": true
   }
 }

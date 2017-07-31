@@ -20,4 +20,13 @@
 
   </ng-container>
 
+  <a class="c-sidebar--navigation-add"
+    (click)="toggleAddTopic()">+ Add new topic</a>
+  <ng-container [ngTemplateOutlet]="inputTemplate"
+    *ngIf="showAddTopic"></ng-container>
+
 </nav>
+
+<ng-template #inputTemplate>
+  <input class="c-sidebar--navigation-input" />
+</ng-template>

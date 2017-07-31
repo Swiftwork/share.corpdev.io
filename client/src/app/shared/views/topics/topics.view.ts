@@ -1,9 +1,14 @@
-import { BaseComponent } from '../../../core/base/base.decorator';
+import { Component } from '@angular/core';
+
 import { BaseView } from '../../../core/base/base.view';
 
-@BaseComponent({
+@Component({
   selector: 'v-topics',
-  template: '',
+  templateUrl: './topics.view.html',
+  styleUrls: ['./topics.view.css'],
+  host: {
+    '[class.v-topics]': 'true',
+  },
 })
 export class TopicsView extends BaseView {
 

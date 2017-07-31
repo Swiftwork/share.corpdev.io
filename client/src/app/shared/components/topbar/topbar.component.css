@@ -1,11 +1,15 @@
 @import '/styles/constmix.css';
 
 .c-topbar {
+  display: flex;
+  flex-direction: row;
   padding: 0.5vr 4vr;
   background-color: white;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 
   &--search {
+    flex: 1;
+
     &-input {
       margin: 0;
       width: 100%;
@@ -18,6 +22,15 @@
       &:focus {
         border-bottom: 1px solid $c_color_beta;
       }
+    }
+  }
+
+  &--user {
+    flex: 0;
+
+    img {
+      height: 2vr;
+      border-radius: 50%;
     }
   }
 }

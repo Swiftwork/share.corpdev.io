@@ -1,14 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BaseComponent } from '../../../core/base/base.decorator';
 
-@BaseComponent({
+export interface ITopic {
+  route: string,
+  tags: string[],
+  image: string,
+  date: Date,
+  title: string,
+  preamble: string,
+}
+
+@Component({
   selector: 'c-topic',
   templateUrl: './topic.component.html',
   styleUrls: ['./topic.component.css'],
+  host: {
+    '[class.c-topic]': 'true',
+  },
 })
-export class TopicComponent implements OnInit {
+export class TopicComponent implements OnInit, ITopic {
 
-  @Input() url: string = '/topic/test';
+  @Input() route: string = '/topic/test';
   @Input() tags: string[] = ['news', 'event'];
   @Input() image: string = 'https://unsplash.it/720/480?image=1079';
   @Input() date: Date = new Date();

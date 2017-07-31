@@ -20,10 +20,6 @@ html {
   box-sizing: border-box;
 }
 
-[class^=m-], [class^=c-], [class^=v-], [class*= m-], [class*= c-], [class*= v-] {
-  display: block;
-}
-
 /* Margins and Height */
 
 h1, h2, h3, h4, h5, h6, p, figure, ol, ul, dl, table, form, menu, blockquote, pre, address {

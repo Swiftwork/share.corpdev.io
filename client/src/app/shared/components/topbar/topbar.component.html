@@ -1,5 +1,14 @@
-<form class="c-topbar--search"
+<form [formGroup]="searchForm"
+  class="c-topbar--search"
   (submit)="search()">
   <input class="c-topbar--search-input"
+    formControlName="query"
     placeholder="search for any resource you need..." />
 </form>
+
+<section class="c-topbar--user">
+  <img src="https://unsplash.it/96/96?image=200"
+    *ngIf="user" />
+  <a routerLink="login"
+    *ngIf="!user">Login</a>
+</section>
