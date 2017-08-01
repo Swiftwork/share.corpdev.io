@@ -3,30 +3,39 @@
 </h2>
 <nav class="c-sidebar--navigation">
 
-  <ng-container *ngFor="let topic of topicLinks">
+  <ng-container *ngFor="let topic of topics | async">
 
     <a [routerLink]="topic.route"
       class="c-sidebar--navigation-topic">{{topic.title}}</a>
 
     <ul class="c-sidebar--navigation-articles"
-      *ngIf="topic.articles.length">
+      *ngIf="topic?.articles.length">
 
       <ng-container *ngFor="let article of topic.articles">
         <a [routerLink]="topic.route"
           class="c-sidebar--navigation-article">{{article.title}}</a>
       </ng-container>
 
+      <a class="c-sidebar--navigation-add"
+        (click)="toggleAddTopic()">+ {{instruction}}</a>
+
+      <input class="c-sidebar--navigation-input"
+        [placeholder]="instruction"
+        *ngIf="showAddTopic" />
+
     </ul>
 
   </ng-container>
 
   <a class="c-sidebar--navigation-add"
-    (click)="toggleAddTopic()">+ Add new topic</a>
-  <ng-container [ngTemplateOutlet]="inputTemplate"
-    *ngIf="showAddTopic"></ng-container>
+    (click)="toggleCreateTopic()"
+    *ngIf="!topicState.creating">+ Add new topic</a>
+
+  <input class="c-sidebar--navigation-input"
+    placeholder="Add new topic"
+    [(ngModel)]="topicState.model"
+    (keyup.enter)="createTopic(topicState.model)"
+    (keyup.escape)="toggleCreateTopic()"
+    *ngIf="topicState.creating" />
 
 </nav>
-
-<ng-template #inputTemplate>
-  <input class="c-sidebar--navigation-input" />
-</ng-template>

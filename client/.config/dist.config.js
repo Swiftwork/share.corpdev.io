@@ -1,13 +1,14 @@
 var path = require('path');
-var extend = require('webpack-merge');
+var merge = require('webpack-merge');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var AotPlugin = require('@ngtools/webpack').AotPlugin;
 
 /* Import common configuration for debug and dist */
+var environment = require('../../environment.js')('production');
 var commonConfig = require('./common.config.js');
 
-module.exports = extend(true, commonConfig, {
+module.exports = merge.smart(commonConfig, {
 
   module: {
     rules: [
@@ -57,7 +58,9 @@ module.exports = extend(true, commonConfig, {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': '"production"'
+        'NODE_ENV': `${environment.ENV}`,
+        'HOST': `${environment.HOST}`,
+        'PORT': `${environment.PORT}`,
       }
     }),
   ]

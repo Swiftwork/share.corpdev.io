@@ -17,7 +17,8 @@
   }
 
   &--navigation {
-    &-topic, &-article, &-add {
+    &-topic, &-article, &-add, &-input {
+      display: block;
       color: color($c_color_alpha a(80%));
       text-transform: uppercase;
       text-decoration: none;
@@ -35,6 +36,12 @@
 
     &-add {
       color: color($c_color_alpha a(60%));
+    }
+
+    &-input {
+      width: 100%;
+      outline: none;
+      border: none;
     }
   }
 }

@@ -1,10 +1,10 @@
 const jwt = require('jwt-simple');
-const config = require('../config.js');
+const environment = require('../../environment.js')(process.env.NODE_ENV);
 
 module.exports.generate = (user) => {
   let expires = new Date();
   expires.setDate(expires.getDate() + 7);
-  return jwt.encode({ iss: user.email, exp: expires.getTime() }, config.TOKEN_SECRET);
+  return jwt.encode({ iss: user.email, exp: expires.getTime() }, environment.TOKEN_SECRET);
 };
 
 module.exports.verify = (token, next) => {
@@ -14,7 +14,7 @@ module.exports.verify = (token, next) => {
     return next(notFoundError);
   }
 
-  if (jwt.decode(token, config.TOKEN_SECRET) <= new Date().getTime()) {
+  if (jwt.decode(token, environment.TOKEN_SECRET) <= new Date().getTime()) {
     var expiredError = new Error('Token has expired');
     expiredError.status = 401;
     return next(expiredError);

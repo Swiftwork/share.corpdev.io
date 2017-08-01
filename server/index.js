@@ -1,14 +1,18 @@
 /* Import */
-const express = require('express');
 const path = require('path');
+const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+const environment = require('../environment.js')(process.env.NODE_ENV);
 const endpoints = require('./endpoints/index.js');
 
-const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -53,7 +57,7 @@ if (process.env.NODE_ENV === 'development') {
   }));
 
   /* Enpoints */
-  endpoints(app);
+  endpoints(app, io);
 
   app.use('*', function (req, res, next) {
     const filename = path.join(compiler.outputPath, 'index.html');
@@ -70,7 +74,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
 
   /* Enpoints */
-  endpoints(app);
+  endpoints(app, io);
 
   app.get('*', (req, res) => {
     res.status(200).sendFile(path.join(__dirname, 'public/index.html'));
@@ -78,14 +82,22 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //------------------------------------------------------------------------------------
+// SOCKET IO
+//------------------------------------------------------------------------------------
+
+io.on('connection', (client) => {
+  console.log('Client connected...', client.id);
+});
+
+//------------------------------------------------------------------------------------
 // SERVER
 //------------------------------------------------------------------------------------
 
-
 /* Init Server */
-const server = app.listen(3000, 'localhost', () => {
+server.listen(environment.PORT, environment.HOST, () => {
   const host = server.address().address;
   const port = server.address().port;
 
-  console.log(`App is listening on http://${host}:${port}`);
+  console.log(`Website is hosted at http://${host}:${port}`);
 });
+

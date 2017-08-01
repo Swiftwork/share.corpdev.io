@@ -1,12 +1,13 @@
 var path = require('path');
-var extend = require('webpack-merge');
+var merge = require('webpack-merge');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /* Import common configuration for debug and dist */
+var environment = require('../../environment.js')('development');
 var commonConfig = require('./common.config.js');
 
-module.exports = extend(true, commonConfig, {
+module.exports = merge.smart(commonConfig, {
 
   entry: {
     'hmr': 'webpack-hot-middleware/client',
@@ -40,7 +41,9 @@ module.exports = extend(true, commonConfig, {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': '"development"',
+        'NODE_ENV': `"${environment.ENV}"`,
+        'HOST': `"${environment.HOST}"`,
+        'PORT': `"${environment.PORT}"`,
       },
     }),
   ],

@@ -1,7 +1,7 @@
 const rdb = require('rethinkdb');
-const config = require('../config.js');
+const environment = require('../../environment.js')(process.env.NODE_ENV);
 
-const connection = rdb.connect(config.DATABASE)
+module.exports.connection = rdb.connect(environment.DATABASE)
   .then((connection) => {
 
     module.exports.find = (tableName, id) => {
@@ -11,10 +11,24 @@ const connection = rdb.connect(config.DATABASE)
         });
     };
 
+    module.exports.subscribe = (tableName, id) => {
+      return rdb.table(tableName).get(id).changes().run(connection)
+        .then((cursor) => {
+          return cursor;
+        });
+    };
+
     module.exports.findAll = (tableName) => {
       return rdb.table(tableName).run(connection)
         .then((cursor) => {
           return cursor.toArray();
+        });
+    };
+
+    module.exports.subscribeAll = (tableName, options) => {
+      return rdb.table(tableName).changes().run(connection)
+        .then((cursor) => {
+          return cursor;
         });
     };
 

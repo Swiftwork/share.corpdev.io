@@ -1,4 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { TopicsService } from '../../services/topics.service';
 import { ITopic } from '../topic/topic.component';
 
@@ -18,21 +19,27 @@ export interface IArticleLink {
 export class SidebarComponent implements OnInit {
 
   public title: string;
-  public topics: ITopic[];
-  public showAddTopic: boolean;
+  public topics: Observable<ITopic[]>;
+  public topicState = {
+    model: '',
+    creating: false,
+  };
 
   constructor(
     public topicsService: TopicsService,
   ) {
     this.title = 'code';
-    this.topicsService.get().subscribe(topics => {
-      this.topics = topics as ITopic[];
-    });
+    this.topics = this.topicsService.topics;
   }
 
   ngOnInit() { }
 
-  toggleAddTopic() {
-    this.showAddTopic = !this.showAddTopic;
+  toggleCreateTopic() {
+    this.topicState.creating = !this.topicState.creating;
+  }
+
+  createTopic(title: string) {
+    this.topicState.creating = false;
+    this.topicsService.add(title).subscribe();
   }
 }
