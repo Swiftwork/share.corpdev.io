@@ -2,12 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '_debugger';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
-import { ITopic } from '../components/topic/topic.component';
 
 import * as io from 'socket.io-client';
 
+export interface ITopic {
+  title: string,
+  route: string,
+  articles: string[],
+}
+
 @Injectable()
-export class TopicsService {
+export class TopicService {
 
   private _topics: BehaviorSubject<ITopic[]> = new BehaviorSubject<ITopic[]>([]);
   public topics: Observable<ITopic[]> = this._topics.asObservable();

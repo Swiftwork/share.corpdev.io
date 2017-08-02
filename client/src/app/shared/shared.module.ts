@@ -4,25 +4,29 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { CoreModule } from '../core/core.module';
+import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
-import { TopicComponent } from './components/topic/topic.component';
-import { TopicsService } from './services/topics.service';
+import { ArticleService } from './services/article.service';
+import { TopicService } from './services/topic.service';
+
+import { ArticleView } from './views/article/article.view';
+import { ArticlesView } from './views/articles/articles.view';
 import { AuthView } from './views/auth/auth.view';
-import { TopicsView } from './views/topics/topics.view';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 
 export const DECLARATIONS: any[] = [
   /*=== VIEWS ===*/
+  ArticleView,
+  ArticlesView,
   AuthView,
-  TopicsView,
 
   /*=== COMPONENTS ===*/
   LoginComponent,
   SidebarComponent,
   TopbarComponent,
-  TopicComponent,
+  ArticleComponent,
 ];
 
 @NgModule({
@@ -43,7 +47,8 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        TopicsService,
+        ArticleService,
+        TopicService,
       ],
     };
   }

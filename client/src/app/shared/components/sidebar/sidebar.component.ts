@@ -1,7 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { TopicsService } from '../../services/topics.service';
-import { ITopic } from '../topic/topic.component';
+import { ArticleService } from '../../services/article.service';
+import { ITopic, TopicService } from '../../services/topic.service';
 
 export interface IArticleLink {
   title: string,
@@ -20,13 +21,19 @@ export class SidebarComponent implements OnInit {
 
   public title: string;
   public topics: Observable<ITopic[]>;
-  public topicState = {
+  public topicsState = {
+    model: '',
+    creating: false,
+  };
+  public articlesState = {
     model: '',
     creating: false,
   };
 
   constructor(
-    public topicsService: TopicsService,
+    public router: Router,
+    public topicsService: TopicService,
+    public articlesService: ArticleService,
   ) {
     this.title = 'code';
     this.topics = this.topicsService.topics;
@@ -34,12 +41,25 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() { }
 
+  /*=== TOPICS ===*/
+
   toggleCreateTopic() {
-    this.topicState.creating = !this.topicState.creating;
+    this.topicsState.creating = !this.topicsState.creating;
   }
 
   createTopic(title: string) {
-    this.topicState.creating = false;
+    this.topicsState.creating = false;
     this.topicsService.add(title).subscribe();
+  }
+
+  /*=== ARTICLES ===*/
+
+  toggleCreateArticle() {
+    this.articlesState.creating = !this.articlesState.creating;
+  }
+
+  createArticle(title: string) {
+    this.articlesState.creating = false;
+    this.articlesService.add(title).subscribe();
   }
 }

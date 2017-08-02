@@ -5,23 +5,29 @@
 
   <ng-container *ngFor="let topic of topics | async">
 
-    <a [routerLink]="topic.route"
-      class="c-sidebar--navigation-topic">{{topic.title}}</a>
+    <a class="c-sidebar--navigation-topic"
+      [routerLink]="topic.route"
+      routerLinkActive
+      #rla="routerLinkActive">{{topic.title}}</a>
 
     <ul class="c-sidebar--navigation-articles"
-      *ngIf="topic?.articles.length">
+      *ngIf="router.isActive(topic.route || '')">
 
       <ng-container *ngFor="let article of topic.articles">
-        <a [routerLink]="topic.route"
+        <a [routerLink]="article.route"
           class="c-sidebar--navigation-article">{{article.title}}</a>
       </ng-container>
 
       <a class="c-sidebar--navigation-add"
-        (click)="toggleAddTopic()">+ {{instruction}}</a>
+        (click)="toggleCreateArticle()"
+        *ngIf="!articlesState.creating">+ Add new article</a>
 
       <input class="c-sidebar--navigation-input"
-        [placeholder]="instruction"
-        *ngIf="showAddTopic" />
+        placeholder="Add new article"
+        [(ngModel)]="articlesState.model"
+        (keyup.enter)="createArticle(articlesState.model)"
+        (keyup.escape)="toggleCreateArticle()"
+        *ngIf="articlesState.creating" />
 
     </ul>
 
@@ -29,13 +35,13 @@
 
   <a class="c-sidebar--navigation-add"
     (click)="toggleCreateTopic()"
-    *ngIf="!topicState.creating">+ Add new topic</a>
+    *ngIf="!topicsState.creating">+ Add new topic</a>
 
   <input class="c-sidebar--navigation-input"
     placeholder="Add new topic"
-    [(ngModel)]="topicState.model"
-    (keyup.enter)="createTopic(topicState.model)"
+    [(ngModel)]="topicsState.model"
+    (keyup.enter)="createTopic(topicsState.model)"
     (keyup.escape)="toggleCreateTopic()"
-    *ngIf="topicState.creating" />
+    *ngIf="topicsState.creating" />
 
 </nav>
