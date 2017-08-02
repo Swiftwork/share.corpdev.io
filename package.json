@@ -22,7 +22,6 @@
     "@angular/platform-server": "4.3.2",
     "@angular/router": "4.3.2",
     "@angular/upgrade": "4.3.2",
-    "angular2-jwt": "0.2.3",
     "bcrypt-nodejs": "0.0.3",
     "core-js": "2.4.1",
     "cors": "2.8.4",
@@ -62,7 +61,6 @@
     "pixrem": "4.0.1",
     "pleeease-filters": "4.0.0",
     "postcss-calc": "6.0.0",
-    "postcss-class-patterns": "^2.0.1",
     "postcss-color-function": "4.0.0",
     "postcss-conditionals": "2.1.0",
     "postcss-custom-media": "6.0.0",
@@ -92,10 +90,7 @@
     "typescript": "2.4.2",
     "webpack": "3.4.1",
     "webpack-dev-middleware": "1.11.0",
-    "webpack-dev-server": "2.6.1",
     "webpack-hot-middleware": "2.18.2",
-    "webpack-livereload-plugin": "0.11.0",
-    "webpack-merge": "4.1.0",
-    "webpack-messages": "1.0.0"
+    "webpack-merge": "4.1.0"
   }
 }

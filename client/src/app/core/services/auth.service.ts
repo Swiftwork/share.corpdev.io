@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '_debugger';
-import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Rx';
 
 export interface ILoginParams {
@@ -23,7 +22,6 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private authHttp: AuthHttp,
   ) {
 
   }
@@ -40,5 +38,6 @@ export class AuthService {
 
   handleError(error: any) {
     console.error(error);
+    return Observable.of<{} | ILoginResponse>(null);
   }
 }

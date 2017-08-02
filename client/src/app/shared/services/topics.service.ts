@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '_debugger';
-import { AuthHttp } from 'angular2-jwt';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { ITopic } from '../components/topic/topic.component';
 
@@ -16,7 +15,7 @@ export class TopicsService {
   private socket: SocketIOClient.Socket;
 
   constructor(
-    private authHttp: AuthHttp,
+    private http: HttpClient,
   ) {
     this.initSocket();
     this.get().subscribe(topics => {
@@ -47,24 +46,18 @@ export class TopicsService {
     });
   }
 
-  public add(title: string): Observable<ITopic> {
-    return this.authHttp.post(`/api/topics/`, { title: title })
-      .map((response, index) => {
-        return response.json() || {};
-      })
+  public add(title: string): Observable<{} | ITopic> {
+    return this.http.post(`/api/topics/`, { title: title })
       .catch(this.handleError.bind(this));
   }
 
-  public get(id?: string): Observable<ITopic | ITopic[]> {
-    return this.authHttp.get(id ? `/api/topics/${id}` : `/api/topics/`)
-      .map((response, index) => {
-        return response.json() || {};
-      })
+  public get(id?: string): Observable<{} | ITopic | ITopic[]> {
+    return this.http.get(id ? `/api/topics/${id}` : `/api/topics/`)
       .catch(this.handleError.bind(this));
   }
 
   handleError(error: any) {
     console.error(error);
-    return Observable.of<ITopic | ITopic[]>(null);
+    return Observable.of<{} | ITopic | ITopic[]>(null);
   }
 }

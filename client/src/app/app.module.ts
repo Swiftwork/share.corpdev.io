@@ -1,9 +1,11 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApplicationRef, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
+import { AuthInterceptor } from './core/services/auth.interceptor';
 
 import { AppRoutingModule } from './app.routing';
 import { CoreModule } from './core/core.module';
@@ -36,6 +38,11 @@ type StoreType = {
   ],
   providers: [
     AppState,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
