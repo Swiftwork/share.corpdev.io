@@ -1,18 +1,14 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ApplicationRef, NgModule } from '@angular/core';
+import { ApplicationRef, LOCALE_ID, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { PreloadAllModules, RouterModule } from '@angular/router';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
-import { AuthInterceptor } from './core/services/auth.interceptor';
-
-import { AppRoutingModule } from './app.routing';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing';
 import { AppState, InternalStateType } from './app.state';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 type StoreType = {
   state: InternalStateType,
@@ -39,9 +35,9 @@ type StoreType = {
   providers: [
     AppState,
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
+      provide: LOCALE_ID,
+      deps: [AppState],
+      useFactory: (appState: AppState) => appState.get('locale') || 'sv-SE',
     },
   ],
   bootstrap: [AppComponent],

@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { ArticleService } from '../../services/article.service';
+import { ArticleService, IArticle } from '../../services/article.service';
 import { ITopic, TopicService } from '../../services/topic.service';
 
 export interface IArticleLink {
@@ -20,12 +20,13 @@ export interface IArticleLink {
 export class SidebarComponent implements OnInit {
 
   public title: string;
-  public topics: Observable<ITopic[]>;
+  public topics: ITopic[];
   public topicsState = {
     model: '',
     creating: false,
   };
   public articlesState = {
+    articles: [] as IArticle[],
     model: '',
     creating: false,
   };
@@ -36,7 +37,9 @@ export class SidebarComponent implements OnInit {
     public articlesService: ArticleService,
   ) {
     this.title = 'code';
-    this.topics = this.topicsService.topics;
+    this.topicsService.topics.subscribe((topics) => {
+      this.topics = Array.from(topics.values());
+    });
   }
 
   ngOnInit() { }
@@ -61,5 +64,9 @@ export class SidebarComponent implements OnInit {
   createArticle(title: string) {
     this.articlesState.creating = false;
     this.articlesService.add(title).subscribe();
+  }
+
+  getArticle(id: string) {
+    return this.articlesService.get(id);
   }
 }

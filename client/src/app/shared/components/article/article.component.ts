@@ -1,14 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export interface IArticle {
-  date: Date,
-  id: string,
-  image: string,
-  preamble: string,
-  route: string,
-  tags: string[],
-  title: string,
-}
+import { IArticle } from '../../services/article.service';
 
 @Component({
   selector: 'c-article',

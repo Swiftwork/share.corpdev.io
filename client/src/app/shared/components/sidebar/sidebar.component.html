@@ -3,7 +3,7 @@
 </h2>
 <nav class="c-sidebar--navigation">
 
-  <ng-container *ngFor="let topic of topics | async">
+  <ng-container *ngFor="let topic of topics">
 
     <a class="c-sidebar--navigation-topic"
       [routerLink]="topic.route"
@@ -13,10 +13,15 @@
     <ul class="c-sidebar--navigation-articles"
       *ngIf="router.isActive(topic.route || '')">
 
-      <ng-container *ngFor="let article of topic.articles">
+      <ng-container *ngFor="let id of topic.articles"
+        [ngTemplateOutlet]="articleRef"
+        [ngTemplateOutletContext]="{article: getArticle(id) | async}"></ng-container>
+
+      <template #articleRef
+        let-article="article">
         <a [routerLink]="article.route"
           class="c-sidebar--navigation-article">{{article.title}}</a>
-      </ng-container>
+      </template>
 
       <a class="c-sidebar--navigation-add"
         (click)="toggleCreateArticle()"

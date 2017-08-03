@@ -1,2 +1,5 @@
-Tests
-<!--<c-topic [title]="Test"></c-topic>-->
+<c-article [title]="article.title"
+  [route]="article.route"
+  [image]="'https://unsplash.it/720/480?image=' + (1079 + i)"
+  *ngFor="let article of articles | async; let i = index">
+</c-article>

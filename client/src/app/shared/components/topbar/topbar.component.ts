@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AppState } from '../../../app.state';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -17,8 +18,8 @@ export class TopbarComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    public appState: AppState,
   ) {
-
   }
 
   ngOnInit() {
@@ -32,6 +33,10 @@ export class TopbarComponent implements OnInit {
     this.searchForm = new FormGroup({
       query: new FormControl('', [Validators.required]),
     });
+  }
+
+  public toggleEditMode() {
+    this.appState.set('editing', !this.appState.get('editing'));
   }
 
   search() {

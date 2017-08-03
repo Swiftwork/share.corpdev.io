@@ -26,7 +26,7 @@
   }
 
   &--user {
-    flex: 0;
+    flex-basis: auto;
 
     img {
       height: 2vr;

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import { ArticleService, IArticle } from '../../services/article.service';
 
 import { BaseView } from '../../../core/base/base.view';
 
@@ -12,8 +15,14 @@ import { BaseView } from '../../../core/base/base.view';
 })
 export class ArticlesView extends BaseView {
 
-  constructor() {
+  public articles: Observable<IArticle[]>;
+
+  constructor(
+    public articleService: ArticleService,
+    public route: ActivatedRoute,
+  ) {
     super();
+    this.articles = this.route.data.pluck('articles');
   }
 
   ngOnInit() {

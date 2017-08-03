@@ -18,6 +18,20 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
+    module.exports.findMulti = (tableName, ids) => {
+      return rdb.table(tableName).getAll(rdb.args(ids)).run(connection)
+        .then((result) => {
+          return result;
+        });
+    };
+
+    module.exports.subscribeMulti = (tableName, ids) => {
+      return rdb.table(tableName).getAll(rdb.args(ids)).changes().run(connection)
+        .then((cursor) => {
+          return cursor;
+        });
+    };
+
     module.exports.findAll = (tableName) => {
       return rdb.table(tableName).run(connection)
         .then((cursor) => {

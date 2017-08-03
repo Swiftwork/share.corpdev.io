@@ -1,10 +1,12 @@
-<figure>
-  <figcaption>{{tags.join(', ')}}</figcaption>
-  <img [src]="image" />
-</figure>
+<a [routerLink]="route">
+  <figure class="c-article--image"
+    [ngStyle]="{'background': 'url('+image+')'}">
+    <figcaption class="c-article--tags">{{tags.join(', ')}}</figcaption>
+  </figure>
 
-<section>
-  <time>{{date}}</time>
-  <h3>{{title}}</h3>
-  <p>{{preamble}}</p>
-</section>
+  <section>
+    <time class="c-article--date">{{date | date: 'medium'}}</time>
+    <h3 class="c-article--title">{{title}}</h3>
+    <p class="c-article--preamble">{{preamble}}</p>
+  </section>
+</a>

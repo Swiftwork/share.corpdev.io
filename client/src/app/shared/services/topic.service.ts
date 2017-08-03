@@ -1,53 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '_debugger';
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
-
-import * as io from 'socket.io-client';
+import { BehaviorSubject, Observable, Subject } from 'rxjs/Rx';
+import { AppState } from '../../app.state';
+import { SocketService } from '../../core/services/socket.service';
+import { IArticle } from './article.service';
 
 export interface ITopic {
+  id: string,
   title: string,
   route: string,
-  articles: string[],
+  articles: IArticle[],
 }
 
 @Injectable()
 export class TopicService {
 
-  private _topics: BehaviorSubject<ITopic[]> = new BehaviorSubject<ITopic[]>([]);
-  public topics: Observable<ITopic[]> = this._topics.asObservable();
-
-  private socket: SocketIOClient.Socket;
+  private _topics: BehaviorSubject<Map<string, ITopic>> = new BehaviorSubject<Map<string, ITopic>>(
+    new Map<string, ITopic>(),
+  );
+  public topics: Observable<Map<string, ITopic>> = this._topics.asObservable();
 
   constructor(
     private http: HttpClient,
+    private socketService: SocketService,
+    private appState: AppState,
   ) {
     this.initSocket();
-    this.get().subscribe(topics => {
-      this._topics.next(topics as ITopic[]);
-    });
+    this.get().subscribe(this.storeTopics.bind(this));
   }
 
   private initSocket() {
-    this.socket = io(`http://${window.location.host}`);
-    this.socket.on('topics', (topicId: string) => {
-      this.get(topicId).subscribe((response) => {
-        if (Array.isArray(response)) {
-          this._topics.next(response);
-        } else {
-          const topics = this._topics.getValue().slice(0);
-          const index = topics.findIndex(topic => topic.id === topicId);
-
-          if (index > 0) {
-            topics.splice(index, 0, response as ITopic);
-            this._topics.next(topics);
-
-          } else {
-            topics.push(response as ITopic);
-            this._topics.next(topics);
-          }
-        }
-      });
+    this.socketService.socket.on('topics', (topicId: string) => {
+      this.get(topicId).subscribe(this.storeTopics.bind(this));
     });
   }
 
@@ -61,8 +46,28 @@ export class TopicService {
       .catch(this.handleError.bind(this));
   }
 
-  handleError(error: any) {
+  private handleError(error: any) {
     console.error(error);
     return Observable.of<{} | ITopic | ITopic[]>(null);
+  }
+
+  private storeTopics(data: ITopic | ITopic[]) {
+    const cached = this._topics.getValue();
+    if (Array.isArray(data)) {
+      const topics = data as ITopic[];
+      (topics as ITopic[]).forEach(topic => {
+        topic.route = this.formatRoute(topic);
+        cached.set(topic.id, topic);
+      });
+    } else {
+      const topic = data as ITopic;
+      topic.route = this.formatRoute(topic);
+      cached.set(topic.id, topic);
+    }
+    this._topics.next(cached);
+  }
+
+  private formatRoute(topic: ITopic) {
+    return `/${this.appState.get('instance')}/topic/${topic.id}`;
   }
 }

@@ -7,6 +7,8 @@ module.exports = (app, io) => {
 
   app.use('/api/topics', require('./topics.js')(io));
 
+  app.use('/api/articles', require('./articles.js')(io));
+
   app.get('api/*', (req, res) => {
     res.status(501).send({ error: 'No such api' });
   });

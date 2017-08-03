@@ -1,63 +1,87 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '_debugger';
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
-import { IArticle } from '../components/article/article.component';
+import { BehaviorSubject, Observable, Subject } from 'rxjs/Rx';
+import { AppState } from '../../app.state';
+import { SocketService } from '../../core/services/socket.service';
+import { IArticle } from './article.service';
 
-import * as io from 'socket.io-client';
+export interface IArticle {
+  date: Date,
+  id: string,
+  image: string,
+  preamble: string,
+  route: string,
+  tags: string[],
+  title: string,
+}
 
 @Injectable()
 export class ArticleService {
 
-  private _articles: BehaviorSubject<IArticle[]> = new BehaviorSubject<IArticle[]>([]);
-  public articles: Observable<IArticle[]> = this._articles.asObservable();
-
-  private socket: SocketIOClient.Socket;
+  private _articles: BehaviorSubject<Map<string, IArticle>> = new BehaviorSubject<Map<string, IArticle>>(
+    new Map<string, IArticle>(),
+  );
+  public articles: Observable<Map<string, IArticle>> = this._articles.asObservable();
 
   constructor(
     private http: HttpClient,
+    private socketService: SocketService,
+    private appState: AppState,
   ) {
     this.initSocket();
-    this.get().subscribe(articles => {
-      this._articles.next(articles as IArticle[]);
-    });
+
+    /* Bind */
+    this.storeArticles = this.storeArticles.bind(this);
+    this.handleError = this.handleError.bind(this);
+
+    this.get().subscribe(this.storeArticles);
   }
 
   private initSocket() {
-    this.socket = io(`http://${window.location.host}`);
-    this.socket.on('articles', (articleId: string) => {
-      this.get(articleId).subscribe((response) => {
-        if (Array.isArray(response)) {
-          this._articles.next(response);
-        } else {
-          const articles = this._articles.getValue().slice(0);
-          const index = articles.findIndex(article => article.id === articleId);
-
-          if (index > 0) {
-            articles.splice(index, 0, response as IArticle);
-            this._articles.next(articles);
-
-          } else {
-            articles.push(response as IArticle);
-            this._articles.next(articles);
-          }
-        }
-      });
+    this.socketService.socket.on('articles', (articleId: string) => {
+      this.get(articleId).subscribe(this.storeArticles);
     });
   }
 
   public add(title: string): Observable<{} | IArticle> {
     return this.http.post(`/api/articles/`, { title: title })
-      .catch(this.handleError.bind(this));
+      .catch(this.handleError);
   }
 
   public get(id?: string): Observable<{} | IArticle | IArticle[]> {
+    const cached = this._articles.getValue();
+    if (cached.has(id))
+      return Observable.of(cached.get(id));
     return this.http.get(id ? `/api/articles/${id}` : `/api/articles/`)
-      .catch(this.handleError.bind(this));
+      .map(this.storeArticles)
+      .catch(this.handleError);
   }
 
-  handleError(error: any) {
+  private handleError(error: any) {
     console.error(error);
     return Observable.of<{} | IArticle | IArticle[]>(null);
+  }
+
+  private storeArticles(data: IArticle | IArticle[]) {
+    const cached = this._articles.getValue();
+    if (Array.isArray(data)) {
+      const articles = data as IArticle[];
+      (articles as IArticle[]).forEach(article => {
+        article.route = this.formatRoute(article);
+        cached.set(article.id, article);
+      });
+    } else {
+      const article = data as IArticle;
+      article.route = this.formatRoute(article);
+      cached.set(article.id, article);
+    }
+    this._articles.next(cached);
+    return data;
+  }
+
+  private formatRoute(article: IArticle) {
+    return `/${this.appState.get('instance')}/article/${article.id}`;
   }
 }

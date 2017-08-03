@@ -1,5 +1,7 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
+import { ArticleResolver } from '../../shared/services/article.resolver';
+import { ArticleView } from '../../shared/views/article/article.view';
 import { ArticlesView } from '../../shared/views/articles/articles.view';
 
 /* Views */
@@ -8,6 +10,17 @@ import { ArticlesView } from '../../shared/views/articles/articles.view';
 
 /* Router */
 export const CODE_ROUTES: Routes = [
+  {
+    path: 'topic/:id',
+    component: ArticlesView,
+    resolve: {
+      articles: ArticleResolver,
+    },
+  },
+  {
+    path: 'article/:id',
+    component: ArticleView,
+  },
   {
     path: '',
     component: ArticlesView,

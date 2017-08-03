@@ -9,6 +9,8 @@
 <section class="c-topbar--user">
   <img src="https://unsplash.it/96/96?image=200"
     *ngIf="user" />
+  <a (click)="toggleEditMode()"
+    *ngIf="user">{{appState.get('editing') ? 'Stop editing' : 'Start editing'}}</a>
   <a routerLink="login"
     *ngIf="!user">Login</a>
 </section>
