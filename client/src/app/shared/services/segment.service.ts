@@ -10,11 +10,7 @@ import { ISegment } from './segment.service';
 export interface ISegment {
   date: Date,
   id: string,
-  image: string,
-  preamble: string,
-  route: string,
-  tags: string[],
-  title: string,
+  body: string,
 }
 
 @Injectable()
@@ -69,19 +65,13 @@ export class SegmentService {
     if (Array.isArray(data)) {
       const segments = data as ISegment[];
       (segments as ISegment[]).forEach(segment => {
-        segment.route = this.formatRoute(segment);
         cached.set(segment.id, segment);
       });
     } else {
       const segment = data as ISegment;
-      segment.route = this.formatRoute(segment);
       cached.set(segment.id, segment);
     }
     this._segments.next(cached);
     return data;
-  }
-
-  private formatRoute(segment: ISegment) {
-    return `/${this.appState.get('instance')}/segment/${segment.id}`;
   }
 }

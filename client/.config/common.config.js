@@ -24,6 +24,9 @@ module.exports = {
   },
 
   resolve: {
+    alias: {
+      //'quill$': path.resolve(process.cwd(), 'node_modules/quill/'),
+    },
     modules: [
       path.resolve(process.cwd(), 'client/src'),
       'node_modules'

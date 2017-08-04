@@ -17,11 +17,11 @@
         [ngTemplateOutlet]="articleRef"
         [ngTemplateOutletContext]="{article: getArticle(id) | async}"></ng-container>
 
-      <template #articleRef
+      <ng-template #articleRef
         let-article="article">
         <a [routerLink]="article.route"
           class="c-sidebar--navigation-article">{{article.title}}</a>
-      </template>
+      </ng-template>
 
       <a class="c-sidebar--navigation-add"
         (click)="toggleCreateArticle()"
