@@ -367,3 +367,8 @@
 2017-08-04T12:38:52.083773800 2.067147s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 16. Latest log index is 44.
 2017-08-04T12:38:52.088786700 2.071869s info: Table d1280bd7-8725-4966-a6ab-ecf937bee3a2: Starting a new Raft election for term 7.
 2017-08-04T12:38:52.088786701 2.072688s info: Table d1280bd7-8725-4966-a6ab-ecf937bee3a2: This server is Raft leader for term 7. Latest log index is 17.
+2017-08-04T17:03:35.347357200 15876.004326s notice: Server got Control-C; shutting down...
+2017-08-04T17:03:35.349361300 15876.006140s notice: Shutting down client connections...
+2017-08-04T17:03:35.349862800 15876.006613s notice: All client connections closed.
+2017-08-04T17:03:35.349862801 15876.006624s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-08-04T17:03:35.384459300 15876.041013s notice: Storage engine shut down.
