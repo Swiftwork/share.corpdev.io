@@ -1,3 +1,19 @@
 .v-article {
+  position: relative;
   display: block;
+  padding: 2vr 0;
+  min-height: 100%;
+
+  &::before {
+    position: absolute;
+    display: block;
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    z-index: -1;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
+  }
 }

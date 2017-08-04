@@ -4,10 +4,10 @@
 /* Base */
 
 html, body, .m-app {
-  width: 100vw;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
+  width: 100%;
+  min-height: 100vh;
 }
 
 html {
@@ -122,17 +122,20 @@ blockquote {
 pre {
   display: block;
   padding: 0.5vr;
+  color: $c_color_gamma;
   white-space: pre;
-  border: 1px solid $c_color_alpha;
-  background: $c_light_alpha;
+  border: 1px solid white;
+  background: $c_code;
+  border-radius: 4px;
 }
 
 code {
   margin: 0 0.2em;
   padding: 0.2em 0.5em;
+  color: $c_color_gamma;
   font-size: 0.875em;
   border: 1px solid $c_color_alpha;
-  background: $c_light_alpha;
+  background: $c_code;
 }
 
 pre > code {

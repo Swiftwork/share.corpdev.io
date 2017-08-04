@@ -26,7 +26,8 @@
   ],
   "typeRoots": [
     "node_modules/@types",
-    "node_modules"
+    "node_modules",
+    "client/src/declarations"
   ],
   "compileOnSave": false
 }

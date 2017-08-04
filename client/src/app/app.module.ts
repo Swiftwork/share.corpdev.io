@@ -1,5 +1,5 @@
 import { ApplicationRef, LOCALE_ID, NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
@@ -21,6 +21,7 @@ type StoreType = {
 
     /*=== ANGULAR MODULES ===*/
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpModule,
 

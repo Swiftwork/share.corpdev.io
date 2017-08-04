@@ -1,7 +1,7 @@
 /* Vendor */
 
 @import 'normalize.css';
-@import 'quill/dist/quill.core.css';
+@import 'ContentTools/build/content-tools.min.css';
 
 /* Helpers */
 
@@ -36,6 +36,7 @@
 
 @import './interactives/button-input.css';
 @import './interactives/checkbox-input.css';
+@import './interactives/content-tools.css';
 @import './interactives/radio-input.css';
 @import './interactives/select-input.css';
 @import './interactives/text-input.css';

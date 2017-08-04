@@ -27,28 +27,7 @@ import 'rxjs';
 import 'socket.io-client';
 
 //------------------------------------------------------------------------------------
-// QUILL
+// CONTENT TOOLS
 //------------------------------------------------------------------------------------
 
-import 'parchment';
-import 'quill/core/quill';
-
-import 'quill/formats/bold';
-import 'quill/formats/header';
-import 'quill/formats/italic';
-
-import 'quill/blots/block';
-import 'quill/blots/break';
-import 'quill/blots/container';
-import 'quill/blots/cursor';
-import 'quill/blots/embed';
-import 'quill/blots/inline';
-import 'quill/blots/scroll';
-import 'quill/blots/text';
-
-import 'quill/modules/clipboard';
-import 'quill/modules/history';
-import 'quill/modules/keyboard';
-
-import 'quill/modules/toolbar';
-import 'quill/themes/snow';
+import 'ContentTools';
