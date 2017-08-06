@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { ImageUploader } from './content-tools.utils';
 
-declare var ContentTools: any;
+import * as ContentTools from 'ContentTools';
 
 @Injectable()
 export class ContentToolsService {
 
-  public editor: any;
+  public editorApp: ContentTools.EditorApp;
 
   private defaultQuery: any;
 
@@ -15,22 +15,22 @@ export class ContentToolsService {
 
   constructor() {
     // get the editor
-    this.editor = ContentTools.EditorApp.get();
+    this.editorApp = ContentTools.EditorApp.get();
 
     this.onSave = this.onSave.bind(this);
   }
 
   // translation of editor.init()
   init(query: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
-    this.editor.init(query, id, fixture, ignition);
+    this.editorApp.init(query, id, fixture, ignition);
 
-    ContentTools.IMAGE_UPLOADER = (dialog: any) => new ImageUploader(dialog);
+    ContentTools['IMAGE_UPLOADER'] = (dialog: any) => new ImageUploader(dialog);
 
     // save the default query for later restoring
     this.defaultQuery = query;
 
     // call callback when saved
-    this.editor.addEventListener('saved', this.onSave);
+    this.editorApp.addEventListener('saved', this.onSave);
   }
 
   onSave(event: any) {
@@ -44,7 +44,7 @@ export class ContentToolsService {
     }
 
     // Set the editor as busy while we save our changes
-    this.editor.busy(true);
+    this.editorApp.busy(true);
 
     // Collect the contents of each region into a FormData instance
     payload = new FormData();
@@ -54,6 +54,9 @@ export class ContentToolsService {
       }
     }
 
+    console.log(event, payload);
+
+    /*
     xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', onStateChange);
     xhr.open('POST', '/save-my-page');
@@ -73,45 +76,46 @@ export class ContentToolsService {
         }
       }
     }
+    */
   }
 
   start(query?: string, cb?: () => any) {
 
     // if there is query, use it, otherwise use default
-    this.editor.syncRegions(query ? query : this.defaultQuery);
+    this.editorApp.syncRegions(query ? query : this.defaultQuery);
 
     // if user wants to attach a callback for this edit session
     this.callback = cb;
 
     // launch editor
-    this.editor.start();
+    this.editorApp.start();
 
     // if IgnitionUI present, propagate change of status there
-    if (this.editor.ignition()) this.editor.ignition().state('editing');
+    if (this.editorApp.ignition()) this.editorApp.ignition().state('editing');
   }
 
   save(passive?: boolean) {
-    return this.editor.save(passive);
+    return this.editorApp.save(passive);
   }
 
   stop(save?: boolean) {
 
-    if (this.editor.getState() !== 'editing') return;
+    if (this.editorApp.getState() !== 'editing') return;
 
     // stop editing, hide editor
-    this.editor.stop(save);
+    this.editorApp.stop(save);
 
     // remove callback
     this.callback = null;
 
     // set default query
-    this.editor.syncRegions(this.defaultQuery);
+    this.editorApp.syncRegions(this.defaultQuery);
 
     // if IgnitionUI present, propagate change of status there
-    if (this.editor.ignition()) this.editor.ignition().state('ready');
+    if (this.editorApp.ignition()) this.editorApp.ignition().state('ready');
   }
 
   refresh() {
-    this.editor.syncRegions();
+    this.editorApp.syncRegions();
   }
 }

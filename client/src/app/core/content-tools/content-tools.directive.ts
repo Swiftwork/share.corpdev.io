@@ -34,14 +34,14 @@ export class ContentToolsDirective implements ControlValueAccessor {
 
   constructor(private elementRef: ElementRef, private ctService: ContentToolsService) {
 
-    if (!this.getRegionID) console.log('Region name is not set by parameter ' + this.ctService.editor._namingProp);
+    if (!this.getRegionID) console.log('Region name is not set by parameter ' + this.ctService.editorApp['_namingProp']);
 
     /* watch if element was touched */
     this.elementRef.nativeElement.addEventListener('keyup', () => this.onTouched() || this.autoSave());
     this.elementRef.nativeElement.addEventListener('click', () => this.onTouched());
 
     /* watch if element was changed. content tools modifies elements while editing, therefore we make the change only after save event */
-    this.ctService.editor.addEventListener('saved', (event: any) => {
+    this.ctService.editorApp.addEventListener('saved', (event: any) => {
 
       // get region data from event
       let changedData = event.detail().regions[this.getRegionID()];
@@ -108,7 +108,7 @@ export class ContentToolsDirective implements ControlValueAccessor {
   }
 
   getRegionID() {
-    return this.elementRef.nativeElement.getAttribute(this.ctService.editor._namingProp);
+    return this.elementRef.nativeElement.getAttribute(this.ctService.editorApp['_namingProp']);
   }
 
   ngOnChange() {
