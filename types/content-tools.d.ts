@@ -1,5 +1,30 @@
 declare namespace ContentTools {
 
+  const Tools: any;
+
+  const CANCEL_MESSAGE: string;
+
+  const DEFAULT_TOOLS: any[][];
+
+  const DEFAULT_VIDEO_HEIGHT: number;
+  const DEFAULT_VIDEO_WIDTH: number;
+
+  const HIGHLIGHT_HOLD_DURATION: number;
+
+  const INSPECTOR_IGNORED_ELEMENTS: string[];
+
+  const IMAGE_UPLOADER: (dialog: any) => any;
+
+  const MIN_CROP: number;
+
+  const RESTRICTED_ATTRIBUTES: { [key: string]: string };
+
+  function getEmbedVideoURL(url: string): string;
+
+  function getRestrictedAtributes(tagName: string): string[];
+
+  function getScrollPosition(): number[];
+
   class ComponentUI {
 
     static createDiv(classNames: string[], attributes: { [key: string]: any }, content: any): HTMLElement;
@@ -62,6 +87,35 @@ declare namespace ContentTools {
     start(): void;
     stop(save: boolean): void;
     syncRegions(regionQuery?: any, restoring?: any): void;
+  }
+
+  class History {
+    constructor(regions: any[]);
+    canRedo(): boolean;
+    canUndo(): boolean;
+    index(): number;
+    length(): number;
+    snapshot(): any;
+    goTo(index: number): any;
+    redo(): any;
+    replaceRegions(regions: { [key: string]: any }): void;
+    restoreSelection(snapshot: any): void;
+    stopWatching(): void;
+    undo(): void;
+    watch(): void;
+  }
+
+  class StylePalette {
+    static _style: Style[];
+    static add(style: Style[]): void;
+    static styles(element: HTMLElement): Style[];
+  }
+
+  class Style {
+    constructor(name: string, cssClass: string, applicableTo: string[]);
+    applicableTo(): string[];
+    cssClass(): string;
+    name(): string;
   }
 
   class FlashUI extends AnchoredComponentUI {

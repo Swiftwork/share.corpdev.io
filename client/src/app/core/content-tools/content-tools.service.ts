@@ -24,7 +24,7 @@ export class ContentToolsService {
   init(query: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
     this.editorApp.init(query, id, fixture, ignition);
 
-    ContentTools['IMAGE_UPLOADER'] = (dialog: any) => new ImageUploader(dialog);
+    (ContentTools as any)['IMAGE_UPLOADER'] = (dialog: any) => new ImageUploader(dialog);
 
     // save the default query for later restoring
     this.defaultQuery = query;
