@@ -121,6 +121,12 @@ declare namespace ContentTools {
   class FlashUI extends AnchoredComponentUI {
     constructor(modifier: any);
   }
+
+  class Event extends CustomEvent {
+    constructor(name: string, detail: { [key: string]: any })
+    readonly name: string;
+    readonly timeStamp: number;
+  }
 }
 
 declare module 'ContentTools' {

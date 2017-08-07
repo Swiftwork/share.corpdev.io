@@ -1,5 +1,6 @@
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { ContentToolsService } from '../../../core/content-tools/content-tools.service';
+import { SectionService } from '../../services/section.service';
 
 import * as ContentTools from 'ContentTools';
 
@@ -15,7 +16,7 @@ import { BaseView } from '../../../core/base/base.view';
 })
 export class ArticleView extends BaseView {
 
-  public segments = [
+  public sections = [
     { id: '6ds5sq897df6' },
     { id: '61825d965ad2' },
     { id: '3klg45kh4322' },
@@ -27,6 +28,7 @@ export class ArticleView extends BaseView {
 
   constructor(
     private contentToolsService: ContentToolsService,
+    private sectionService: SectionService,
   ) {
     super();
     this.onSave = this.onSave.bind(this);
@@ -41,10 +43,19 @@ export class ArticleView extends BaseView {
       '*[editable]',
     );
     //this.contentToolsService.start();
+    this.editor.addEventListener('saved', this.onSave);
   }
 
-  private onSave(event: any) {
+  private onSave(event: ContentTools.Event) {
     const regions = event.detail().regions;
+    if (Object.keys(regions).length === 0) {
+      return;
+    }
+
+    this.contentToolsService.editorApp.busy(true);
+
+    this.sectionService.;
+
   }
 
   ngOnDestroy() {

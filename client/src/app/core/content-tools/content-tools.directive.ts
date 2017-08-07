@@ -41,7 +41,7 @@ export class ContentToolsDirective implements ControlValueAccessor {
     this.elementRef.nativeElement.addEventListener('click', () => this.onTouched());
 
     /* watch if element was changed. content tools modifies elements while editing, therefore we make the change only after save event */
-    this.ctService.editorApp.addEventListener('saved', (event: any) => {
+    this.ctService.editorApp.addEventListener('saved', (event: ContentTools.Event) => {
 
       // get region data from event
       let changedData = event.detail().regions[this.getRegionID()];
@@ -101,7 +101,7 @@ export class ContentToolsDirective implements ControlValueAccessor {
     if (!this.autoSaveDelay) return;
 
     // if there has been last change in less that timeout then cancel saving
-    if (this.autoSaveDelay) clearTimeout(this.autoSaveTimeout);
+    if (this.autoSaveTimeout) clearTimeout(this.autoSaveTimeout);
 
     // set timeout to save
     this.autoSaveTimeout = setTimeout(() => this.ctService.save(true), this.autoSaveDelay);

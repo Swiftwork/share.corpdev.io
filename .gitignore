@@ -1,3 +1,4 @@
 node_modules
 environment.js
 yarn.lock
+database/data/log_file
