@@ -13,6 +13,12 @@ export interface ISection {
   body: string,
 }
 
+export interface IOperations {
+  save?: ISection[],
+  edit?: any[],
+  destroy?: ISection[],
+}
+
 @Injectable()
 export class SectionService {
 
@@ -41,8 +47,13 @@ export class SectionService {
     });
   }
 
-  public add(title: string): Observable<{} | ISection> {
-    return this.http.post(`/api/sections/`, { title: title })
+  public add(section: ISection): Observable<{} | ISection> {
+    return this.http.post(`/api/sections/`, section)
+      .catch(this.handleError);
+  }
+
+  public operations(operations: IOperations): Observable<{} | ISection> {
+    return this.http.post(`/api/sections/operations/`, operations)
       .catch(this.handleError);
   }
 

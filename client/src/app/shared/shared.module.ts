@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { SectionResolver } from './services/section.resolver';
 
 import { CoreModule } from '../core/core.module';
 import { ArticleResolver } from './services/article.resolver';
@@ -10,8 +11,8 @@ import { SectionService } from './services/section.service';
 import { TopicService } from './services/topic.service';
 
 import { ArticleView } from './views/article/article.view';
-import { ArticlesView } from './views/articles/articles.view';
 import { AuthView } from './views/auth/auth.view';
+import { TopicView } from './views/topic/topic.view';
 
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,7 +23,7 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 export const DECLARATIONS: any[] = [
   /*=== VIEWS ===*/
   ArticleView,
-  ArticlesView,
+  TopicView,
   AuthView,
 
   /*=== COMPONENTS ===*/
@@ -53,6 +54,7 @@ export class SharedModule {
       providers: [
         ArticleResolver,
         ArticleService,
+        SectionResolver,
         SectionService,
         TopicService,
       ],

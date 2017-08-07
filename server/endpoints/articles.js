@@ -29,8 +29,8 @@ module.exports = (io) => {
   router.get('/:id', (request, response, next) => {
     const ids = request.params.id.split(',');
     let find;
-    if (Array.isArray(ids)) {
-      find = rdb.findAll('articles', ids)
+    if (ids.length > 1) {
+      find = rdb.findMulti('articles', ids)
     } else {
       find = rdb.find('articles', ids[0]);
     }

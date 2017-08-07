@@ -15,7 +15,7 @@ export class ContentToolsService {
 
   public editorApp: ContentTools.EditorApp;
 
-  private defaultQuery: any;
+  private lastQueryOrDom: string | HTMLElement[];
 
   constructor() {
     // get the editor
@@ -23,19 +23,19 @@ export class ContentToolsService {
   }
 
   // translation of editor.init()
-  init(query: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
-    this.editorApp.init(query, id, fixture, ignition);
+  init(queryOrDom: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
+    this.editorApp.init(queryOrDom, id, fixture, ignition);
 
     (ContentTools as any)['IMAGE_UPLOADER'] = (dialog: any) => new ImageUploader(dialog);
 
     // save the default query for later restoring
-    this.defaultQuery = query;
+    this.lastQueryOrDom = queryOrDom;
   }
 
-  start(query?: string, cb?: () => any) {
+  start(queryOrDom?: string | HTMLElement[]) {
 
     // if there is query, use it, otherwise use default
-    this.editorApp.syncRegions(query ? query : this.defaultQuery);
+    this.editorApp.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
 
     // launch editor
     this.editorApp.start();
@@ -45,7 +45,7 @@ export class ContentToolsService {
   }
 
   save(passive?: boolean) {
-    return this.editorApp.save(passive);
+    this.editorApp.save(passive);
   }
 
   stop(save?: boolean) {
@@ -56,13 +56,13 @@ export class ContentToolsService {
     this.editorApp.stop(save);
 
     // set default query
-    this.editorApp.syncRegions(this.defaultQuery);
+    this.editorApp.syncRegions(this.lastQueryOrDom);
 
     // if IgnitionUI present, propagate change of status there
     if (this.editorApp.ignition()) this.editorApp.ignition().state('ready');
   }
 
-  refresh() {
-    this.editorApp.syncRegions();
+  refresh(queryOrDom?: string | HTMLElement[]) {
+    this.editorApp.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
   }
 }

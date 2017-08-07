@@ -1,0 +1,6 @@
+.v-topic {
+  display: grid;
+  padding: 1vr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1vr;
+}

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IArticle } from '../../services/article.service';
+import { ISection } from '../../services/section.service';
 
 @Component({
   selector: 'c-article',
@@ -17,6 +18,7 @@ export class ArticleComponent implements OnInit, IArticle {
   @Input() preamble: string = 'Et sequi eius fugiat facilis. Facere deserunt tenetur dolores impedit laborum asperiores qui aliquam. Ad dolorem quaerat reiciendis eum. Aut eveniet saepe deserunt consequatur quas officia.';
   @Input() route: string = '/article/test';
   @Input() tags: string[] = ['news', 'event'];
+  @Input() sections: ISection[] = [];
   @Input() title: string = 'What happened in Thailand?';
 
   constructor() { }

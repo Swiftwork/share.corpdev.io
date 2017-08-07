@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { ArticleService, IArticle } from './article.service';
-import { ITopic, TopicService } from './topic.service';
+import { ISection, SectionService } from './section.service';
 
 @Injectable()
-export class ArticleResolver implements Resolve<{} | IArticle[] | IArticle[]> {
+export class SectionResolver implements Resolve<{} | ISection[] | ISection[]> {
   constructor(
-    public topicService: TopicService,
     public articleService: ArticleService,
+    public sectionService: SectionService,
   ) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
-  ): Observable<{} | IArticle[] | IArticle[]> {
-    return this.topicService.get(route.params.id).mergeMap((topic: ITopic) => {
-      return this.articleService.get(topic.articles.join(','));
+  ): Observable<{} | ISection[] | ISection[]> {
+    return this.articleService.get(route.params.id).mergeMap((article: IArticle) => {
+      return this.sectionService.get(article.sections.join(','));
     });
   }
 }

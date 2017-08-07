@@ -27,21 +27,17 @@ export class ContentToolsDirective implements ControlValueAccessor {
 
   /* Value handlers */
   protected _value: string = '';
-  onChange: (value: any) => any = (value: any) => value;
+  onChange: (value: string) => string = (value: string) => value;
   onTouched: () => void = () => null;
 
   private autoSaveTimeout: NodeJS.Timer;
 
-  constructor(private elementRef: ElementRef, private ctService: ContentToolsService) {
+  constructor(private elementRef: ElementRef, private contentToolsService: ContentToolsService) {
 
-    if (!this.getRegionID) console.log('Region name is not set by parameter ' + this.ctService.editorApp['_namingProp']);
-
-    /* watch if element was touched */
-    this.elementRef.nativeElement.addEventListener('keyup', () => this.onTouched() || this.autoSave());
-    this.elementRef.nativeElement.addEventListener('click', () => this.onTouched());
+    if (!this.getRegionID) console.log('Region name is not set by parameter ' + this.contentToolsService.editorApp['_namingProp']);
 
     /* watch if element was changed. content tools modifies elements while editing, therefore we make the change only after save event */
-    this.ctService.editorApp.addEventListener('saved', (event: ContentTools.Event) => {
+    this.contentToolsService.editorApp.addEventListener('saved', (event: ContentTools.Event) => {
 
       // get region data from event
       let changedData = event.detail().regions[this.getRegionID()];
@@ -67,17 +63,26 @@ export class ContentToolsDirective implements ControlValueAccessor {
     this.blur.emit(event);
   }
 
-  get value(): any {
+  get value(): string {
     return this._value;
   }
 
-  set value(value: any) {
+  set value(value: string) {
     this._value = value;
     this.onChange(value);
     this.onTouched();
   }
 
-  registerOnChange(fn: (value: any) => any) {
+  writeValue(value: string) {
+    if (!value) value = '';
+    if (value !== this.value) {
+      this.value = value;
+      this.elementRef.nativeElement.innerHTML = value;
+      this.contentToolsService.refresh();
+    }
+  }
+
+  registerOnChange(fn: (value: string) => string) {
     this.onChange = fn;
   }
 
@@ -89,13 +94,6 @@ export class ContentToolsDirective implements ControlValueAccessor {
 
   }
 
-  writeValue(value: any) {
-    if (value !== this.value) {
-      this.elementRef.nativeElement.innerHTML = value;
-      this.ctService.refresh();
-    }
-  }
-
   autoSave() {
     // if autoset is turned off, quit
     if (!this.autoSaveDelay) return;
@@ -104,18 +102,22 @@ export class ContentToolsDirective implements ControlValueAccessor {
     if (this.autoSaveTimeout) clearTimeout(this.autoSaveTimeout);
 
     // set timeout to save
-    this.autoSaveTimeout = setTimeout(() => this.ctService.save(true), this.autoSaveDelay);
+    this.autoSaveTimeout = setTimeout(() => {
+      this.contentToolsService.save(true);
+    }, this.autoSaveDelay);
   }
 
   getRegionID() {
-    return this.elementRef.nativeElement.getAttribute(this.ctService.editorApp['_namingProp']);
+    return this.elementRef.nativeElement.getAttribute(this.contentToolsService.editorApp['_namingProp']);
   }
 
+  /*
   ngOnChange() {
     this.ctService.refresh();
   }
+  */
 
   ngOnDestroy() {
-    this.ctService.stop(this.autoSaveDelay ? true : false);
+    this.contentToolsService.stop(this.autoSaveDelay ? true : false);
   }
 }

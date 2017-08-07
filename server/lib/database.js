@@ -19,8 +19,8 @@ module.exports.connection = rdb.connect(environment.DATABASE)
 
     module.exports.findMulti = (tableName, ids) => {
       return getMulti(tableName, ids).run(connection)
-        .then((result) => {
-          return result;
+        .then((cursor) => {
+          return cursor.toArray();
         });
     };
 
@@ -73,15 +73,19 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.edit = (tableName, id, document) => {
-      return rdb.table(tableName).get(id).update(document).run(connection)
+    module.exports.edit = (tableName, document) => {
+      console.log(document);
+      return rdb.table(tableName).get(document.id).update(document).run(connection)
         .then((result) => {
           return result;
         });
     };
 
-    module.exports.editMulti = (tableName, ids, documents) => {
-      return getMulti(tableName, ids).update(documents).run(connection)
+    module.exports.editMulti = (tableName, documents) => {
+      return rdb.expr(documents).forEach(document => {
+        module.exports.edit(tableName, document)
+      })
+        .run(connection)
         .then((result) => {
           return result;
         });
@@ -96,8 +100,8 @@ module.exports.connection = rdb.connect(environment.DATABASE)
 
     module.exports.destroyMulti = (tableName, ids) => {
       return getMulti(tableName, ids).delete().run(connection)
-        .then((result) => {
-          return result;
+        .then((cursor) => {
+          return cursor.toArray();
         });
     };
   });

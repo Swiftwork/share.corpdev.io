@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
         const tree = this.router.parseUrl(route.url);
         const group = tree.root.children[PRIMARY_OUTLET];
         if (group) {
-          const instance = group.sections[0].path;
+          const instance = group.segments[0].path;
           this.appState.set('instance', instance);
         } else {
           this.appState.set('instance', '');

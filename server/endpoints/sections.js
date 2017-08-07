@@ -29,8 +29,8 @@ module.exports = (io) => {
   router.get('/:id', (request, response, next) => {
     const ids = request.params.id.split(',');
     let find;
-    if (Array.isArray(ids)) {
-      find = rdb.findAll('sections', ids)
+    if (ids.length > 1) {
+      find = rdb.findMulti('sections', ids)
     } else {
       find = rdb.find('sections', ids[0]);
     }
@@ -79,7 +79,7 @@ module.exports = (io) => {
     if (sections) {
       if (Array.isArray(sections)) {
         /* TODO: any manipulations required */
-        rdb.editMulti('sections', sections.map(section => section.id), sections)
+        rdb.editMulti('sections', sections)
           .then((result) => {
             response.json(result);
           });

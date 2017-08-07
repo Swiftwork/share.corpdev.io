@@ -1,6 +1,9 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import { setTimeout } from 'timers';
 import { ContentToolsService } from '../../../core/content-tools/content-tools.service';
-import { SectionService } from '../../services/section.service';
+import { ISection, SectionService } from '../../services/section.service';
 
 import * as ContentTools from 'ContentTools';
 
@@ -16,22 +19,18 @@ import { BaseView } from '../../../core/base/base.view';
 })
 export class ArticleView extends BaseView {
 
-  public sections = [
-    { id: '6ds5sq897df6' },
-    { id: '61825d965ad2' },
-    { id: '3klg45kh4322' },
-    { id: 'lm234nöh6j2h' },
-    { id: 'lkjhn634öl5h' },
-  ];
+  public sections: Observable<ISection[]>;
 
   private editor = ContentTools.EditorApp.get();
 
   constructor(
+    public route: ActivatedRoute,
     private contentToolsService: ContentToolsService,
     private sectionService: SectionService,
   ) {
     super();
     this.onSave = this.onSave.bind(this);
+    this.sections = this.route.data.pluck('sections');
   }
 
   ngOnInit() {
@@ -40,9 +39,8 @@ export class ArticleView extends BaseView {
 
   ngAfterViewInit() {
     this.contentToolsService.init(
-      '*[editable]',
+      '[editable]',
     );
-    //this.contentToolsService.start();
     this.editor.addEventListener('saved', this.onSave);
   }
 
@@ -54,7 +52,19 @@ export class ArticleView extends BaseView {
 
     this.contentToolsService.editorApp.busy(true);
 
-    this.sectionService.;
+    console.log(regions);
+
+    this.sectionService.operations({
+      edit: Object.keys(regions).map(key => {
+        return {
+          id: key.split('section-').pop(),
+          body: regions[key],
+        };
+      }),
+    }).finally(() => this.contentToolsService.editorApp.busy(false))
+      .subscribe(response => {
+        console.log(response);
+      });
 
   }
 

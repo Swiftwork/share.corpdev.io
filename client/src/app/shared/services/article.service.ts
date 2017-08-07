@@ -1,11 +1,10 @@
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '_debugger';
-import { BehaviorSubject, Observable, Subject } from 'rxjs/Rx';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
+
 import { AppState } from '../../app.state';
 import { SocketService } from '../../core/services/socket.service';
-import { IArticle } from './article.service';
+import { ISection } from './section.service';
 
 export interface IArticle {
   date: Date,
@@ -15,6 +14,7 @@ export interface IArticle {
   route: string,
   tags: string[],
   title: string,
+  sections: ISection[],
 }
 
 @Injectable()

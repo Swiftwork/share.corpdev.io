@@ -2,7 +2,15 @@
 
 .ct-widget.ct-toolbox {
   top: 3vr !important;
-  left: 20% !important;
+  left: auto !important;
+  right: 0;
+  width: 75%;
+  padding: 0;
+}
+
+.ct-widget .ct-tool-group {
+  float: left;
+  padding: 0;
 }
 
 .ct-toolbox__grip {
