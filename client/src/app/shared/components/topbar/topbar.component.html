@@ -6,11 +6,20 @@
     placeholder="search for any resource you need..." />
 </form>
 
-<section class="c-topbar--user">
-  <img src="https://unsplash.it/96/96?image=200"
-    *ngIf="user" />
+<section class="c-topbar--user"
+  *ngIf="user">
+  <img class="c-topbar--user-image"
+    src="https://unsplash.it/96/96?image=200" />
+  <div>
+    <span class="c-topbar--user-name">{{user.name}}</span>
+    <span class="c-topbar--user-role">{{user.role}}</span>
+  </div>
+</section>
+
+<section *ngIf="!user">
+  <!--
   <a (click)="toggleEditMode()"
     *ngIf="user">{{appState.get('editing') ? 'Stop editing' : 'Start editing'}}</a>
-  <a routerLink="login"
-    *ngIf="!user">Login</a>
+  -->
+  <a routerLink="login">Login</a>
 </section>

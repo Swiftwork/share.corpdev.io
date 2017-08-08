@@ -26,11 +26,22 @@
   }
 
   &--user {
+    display: flex;
     flex-basis: auto;
 
-    img {
+    &-image {
+      margin-right: 0.5vr;
+      float: left;
       height: 2vr;
       border-radius: 50%;
+    }
+
+    &-name {
+      display: block;
+    }
+
+    &-role {
+      display: block;
     }
   }
 }
