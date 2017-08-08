@@ -82,9 +82,8 @@ module.exports.connection = rdb.connect(environment.DATABASE)
     };
 
     module.exports.editMulti = (tableName, documents) => {
-      return rdb.expr(documents).forEach(document => {
-        module.exports.edit(tableName, document)
-      })
+      return rdb.expr(documents).forEach(document =>
+        rdb.table(tableName).get(document('id')).update(document))
         .run(connection)
         .then((result) => {
           return result;

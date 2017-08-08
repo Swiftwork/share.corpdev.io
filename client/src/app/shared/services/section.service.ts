@@ -58,9 +58,11 @@ export class SectionService {
   }
 
   public get(id?: string): Observable<{} | ISection | ISection[]> {
+    /*
     const cached = this._sections.getValue();
     if (cached.has(id))
       return Observable.of(cached.get(id));
+    */
     return this.http.get(id ? `/api/sections/${id}` : `/api/sections/`)
       .map(this.storeSections)
       .catch(this.handleError);

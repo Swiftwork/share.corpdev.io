@@ -4,13 +4,16 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Start debug",
       "program": "${workspaceRoot}/server/index.js",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "DEBUG": "express:*"
       },
-      "cwd": "${workspaceRoot}",
-      "port": 5858
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "cwd": "${workspaceRoot}"
     }
   ]
 }

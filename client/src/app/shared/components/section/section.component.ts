@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ISection } from '../../services/section.service';
 
 @Component({
@@ -24,5 +25,9 @@ export class SectionComponent implements OnInit, ISection {
   }
 
   ngAfterViewInit() {
+  }
+
+  ngOnChange(changes: SimpleChanges) {
+    console.log(changes);
   }
 }

@@ -19,7 +19,7 @@ import { BaseView } from '../../../core/base/base.view';
 })
 export class ArticleView extends BaseView {
 
-  public sections: Observable<ISection[]>;
+  public sections: ISection[];
 
   private editor = ContentTools.EditorApp.get();
 
@@ -30,7 +30,9 @@ export class ArticleView extends BaseView {
   ) {
     super();
     this.onSave = this.onSave.bind(this);
-    this.sections = this.route.data.pluck('sections');
+    this.sectionService.sections.subscribe((sections) => {
+      this.sections = Array.from(sections.values());
+    });
   }
 
   ngOnInit() {
@@ -52,8 +54,6 @@ export class ArticleView extends BaseView {
 
     this.contentToolsService.editorApp.busy(true);
 
-    console.log(regions);
-
     this.sectionService.operations({
       edit: Object.keys(regions).map(key => {
         return {
@@ -63,7 +63,6 @@ export class ArticleView extends BaseView {
       }),
     }).finally(() => this.contentToolsService.editorApp.busy(false))
       .subscribe(response => {
-        console.log(response);
       });
 
   }
