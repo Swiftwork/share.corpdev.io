@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationStart, PRIMARY_OUTLET, Router } from '@angular/router';
+import { PRIMARY_OUTLET, Router, RoutesRecognized } from '@angular/router';
 import { AppState } from './app.state';
 
 @Component({
@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
     public appState: AppState,
   ) {
     this.router.events.subscribe((route) => {
-      if (route instanceof NavigationStart) {
-        const tree = this.router.parseUrl(route.url);
+      if (route instanceof RoutesRecognized) {
+        const tree = this.router.parseUrl(route.url === '/' ? route.urlAfterRedirects : route.url);
         const group = tree.root.children[PRIMARY_OUTLET];
         if (group) {
           const instance = group.segments[0].path;

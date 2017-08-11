@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { setTimeout } from 'timers';
 import { ContentToolsService } from '../../../core/content-tools/content-tools.service';
+import { ArticleService, IArticle } from '../../services/article.service';
 import { ISection, SectionService } from '../../services/section.service';
 
 import * as ContentTools from 'ContentTools';
@@ -19,6 +20,7 @@ import { BaseView } from '../../../core/base/base.view';
 })
 export class ArticleView extends BaseView {
 
+  public article: Observable<{} | IArticle | IArticle[]>;
   public sections: ISection[];
 
   private editor = ContentTools.EditorApp.get();
@@ -26,10 +28,12 @@ export class ArticleView extends BaseView {
   constructor(
     public route: ActivatedRoute,
     private contentToolsService: ContentToolsService,
+    private articleService: ArticleService,
     private sectionService: SectionService,
   ) {
     super();
     this.onSave = this.onSave.bind(this);
+    this.article = this.route.paramMap.switchMap(params => this.articleService.get(params.get('id')));
     this.sectionService.sections.subscribe((sections) => {
       this.sections = Array.from(sections.values());
     });

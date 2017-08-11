@@ -6,6 +6,13 @@
     placeholder="search for any resource you need..." />
 </form>
 
+<section class="c-topbar--edit"
+  *ngIf="user">
+  <a>+ Add Topic</a>
+  <a>+ Add Article</a>
+  <a>+ Add Section</a>
+</section>
+
 <section class="c-topbar--user"
   *ngIf="user">
   <img class="c-topbar--user-image"

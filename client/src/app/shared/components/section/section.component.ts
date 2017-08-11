@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ISection } from '../../services/section.service';
 
@@ -8,6 +8,8 @@ import { ISection } from '../../services/section.service';
   styleUrls: ['./section.component.css'],
   host: {
     '[class.c-section]': 'true',
+    '[attr.c-section]': 'true',
+    '(click)': 'onClick($event)',
   },
 })
 export class SectionComponent implements OnInit, ISection {
@@ -16,7 +18,8 @@ export class SectionComponent implements OnInit, ISection {
   @Input() id: string = 'sdgta893b';
   @Input() body: string = null;
 
-  constructor() {
+  constructor(host: ElementRef) {
+    host.nativeElement.classList.add('c-section');
   }
 
   ngOnInit() {
