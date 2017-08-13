@@ -6,34 +6,63 @@
   box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05);
 
   &--title {
-    padding: 0.5vr 2vr;
-    background-image: linear-gradient(to right bottom, $c_color_beta, $c_color_gamma);
+    height: 2vr;
+    transition: transform $t_animation linear;
+    perspective: 800px;
+    perspective-origin: 50% 1vr;
 
-    a {
-      text-decoration: none;
-      font-weight: 300;
-      color: white;
+    &:active {
+      transform: translateZ(-1vr) rotateX(90deg);
     }
 
-    img {
+    &-roller {
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    a {
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      padding: 0.5vr 2vr;
+      width: 100%;
+      height: 100%;
+      color: white;
+      font-weight: 300;
+      text-decoration: none;
+      background-image: linear-gradient(to right bottom, $c_color_beta, $c_color_gamma);
+
+      &:nth-child(1) {
+        transform: translateZ(1vr) rotateX(0deg);
+      }
+
+      &:nth-child(2) {
+        transform: translateZ(1vr) rotateX(90deg);
+        transform-origin: bottom center;
+      }
+    }
+
+    i, img {
       margin-right: 0.5vr;
       height: 1vr;
+      font-style: normal;
     }
   }
 
   &--navigation {
     &-topic, &-article, &-add, &-input {
       display: block;
-      color: color($c_color_alpha a(80%));
-      text-transform: uppercase;
-      text-decoration: none;
       padding: 0.5vr 2vr;
+      color: color($c_color_alpha a(80%));
       font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
     }
 
     &-article {
-      font-weight: 200;
       padding-left: 3vr;
+      font-weight: 200;
     }
 
     &-articles {

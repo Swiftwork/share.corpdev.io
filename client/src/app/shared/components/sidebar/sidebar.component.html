@@ -1,8 +1,13 @@
 <h2 class="c-sidebar--title">
-  <a [routerLink]="appState.get('instance')">
-  <img src="../../../../assets/images/logo.svg" />
-  {{title}}
-  </a>
+  <div class="c-sidebar--title-roller">
+    <a [routerLink]="appState.get('instance')">
+      <img src="../../../../assets/images/logo.svg" />
+      {{title}}
+    </a>
+    <a>
+      <i>&#9999;</i> editing
+    </a>
+  </div>
 </h2>
 <nav class="c-sidebar--navigation">
 
