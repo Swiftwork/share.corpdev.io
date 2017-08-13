@@ -7,8 +7,13 @@
 
   &--title {
     padding: 0.5vr 2vr;
-    color: color($c_color_alpha a(40%));
-    font-weight: 300;
+    background-image: linear-gradient(to right bottom, $c_color_beta, $c_color_gamma);
+
+    a {
+      text-decoration: none;
+      font-weight: 300;
+      color: white;
+    }
 
     img {
       margin-right: 0.5vr;

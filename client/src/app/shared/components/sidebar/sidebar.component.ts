@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
+import { AppState } from '../../../app.state';
 import { ArticleService, IArticle } from '../../services/article.service';
 import { ITopic, TopicService } from '../../services/topic.service';
 
@@ -35,6 +36,7 @@ export class SidebarComponent implements OnInit {
     public router: Router,
     public topicsService: TopicService,
     public articlesService: ArticleService,
+    public appState: AppState,
   ) {
     this.title = 'code';
     this.topicsService.topics.subscribe((topics) => {

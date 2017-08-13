@@ -21,10 +21,10 @@ export class AppComponent implements OnInit {
         const tree = this.router.parseUrl(route.url === '/' ? route.urlAfterRedirects : route.url);
         const group = tree.root.children[PRIMARY_OUTLET];
         if (group) {
-          const instance = group.segments[0].path;
-          this.appState.set('instance', instance);
-        } else {
-          this.appState.set('instance', '');
+          const instance = group.segments[0];
+          const view = group.segments[1];
+          this.appState.set('instance', instance ? instance.path : null);
+          this.appState.set('view', view ? view.path : null);
         }
       }
     });
