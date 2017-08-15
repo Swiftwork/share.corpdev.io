@@ -6,40 +6,42 @@
   box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05);
 
   &--title {
-    height: 2vr;
-    transition: transform $t_animation linear;
-    perspective: 800px;
-    perspective-origin: 50% 1vr;
-
-    &:active {
-      transform: translateZ(-1vr) rotateX(90deg);
-    }
+    width: 100%;
+    height: 3vr;
+    line-height: 3vr;
+    perspective: 8vr;
 
     &-roller {
       position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform $t_animation;
       transform-style: preserve-3d;
+
+      &:active {
+        transform: translate3d(0, -1.5vr, -1.5vr) rotateX(90deg);
+      }
     }
 
     a {
       position: absolute;
       display: block;
-      top: 0;
-      left: 0;
-      padding: 0.5vr 2vr;
+      padding: 0 1vr;
       width: 100%;
       height: 100%;
       color: white;
       font-weight: 300;
       text-decoration: none;
-      background-image: linear-gradient(to right bottom, $c_color_beta, $c_color_gamma);
+      backface-visibility: hidden;
 
       &:nth-child(1) {
-        transform: translateZ(1vr) rotateX(0deg);
+        background-image: linear-gradient(to right bottom, $c_color_beta, $c_color_gamma);
+        transform: translateZ(0) rotateX(0);
       }
 
       &:nth-child(2) {
-        transform: translateZ(1vr) rotateX(90deg);
-        transform-origin: bottom center;
+        background-image: linear-gradient(to right bottom, $c_color_delta, $c_color_epsilon);
+        transform: translate3d(0, 1.5vr, -1.5vr) rotateX(-90deg);
       }
     }
 
