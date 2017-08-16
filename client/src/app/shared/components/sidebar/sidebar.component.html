@@ -1,11 +1,16 @@
 <h2 class="c-sidebar--title">
-  <div class="c-sidebar--title-roller">
-    <a [routerLink]="appState.get('instance')">
-      <img src="../../../../assets/images/logo.svg" />
-      {{title}}
-    </a>
-    <a>
-      <i>&#9999;</i> editing
+  <div [ngClass]="{'c-sidebar--title-roller': true, 'editing': appState.get('editing')}">
+    <section>
+      <a [routerLink]="appState.get('instance')">
+        <img src="../../../../assets/images/logo.svg" />
+        {{title}}
+      </a>
+      <a class="c-sidebar--title-edit"
+        (click)="onStartEdit()">&#9999;</a>
+    </section>
+    <a class="c-sidebar--title-state"
+      (click)="onEndEdit()">
+      <i>&#9999;</i>editing
     </a>
   </div>
 </h2>

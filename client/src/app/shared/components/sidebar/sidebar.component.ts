@@ -46,6 +46,16 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() { }
 
+  /*=== EDITING ===*/
+
+  onStartEdit() {
+    this.appState.set('editing', true);
+  }
+
+  onEndEdit(save: boolean) {
+    this.appState.set('editing', false);
+  }
+
   /*=== TOPICS ===*/
 
   toggleCreateTopic() {
