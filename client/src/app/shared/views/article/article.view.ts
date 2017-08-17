@@ -23,8 +23,6 @@ export class ArticleView extends BaseView {
   public article: Observable<{} | IArticle | IArticle[]>;
   public sections: ISection[];
 
-  private editor = ContentTools.EditorApp.get();
-
   constructor(
     public route: ActivatedRoute,
     private contentToolsService: ContentToolsService,
@@ -47,7 +45,7 @@ export class ArticleView extends BaseView {
     this.contentToolsService.init(
       '[editable]',
     );
-    this.editor.addEventListener('saved', this.onSave);
+    this.contentToolsService.editor.addEventListener('saved', this.onSave);
   }
 
   private onSave(event: ContentTools.Event) {
@@ -56,7 +54,7 @@ export class ArticleView extends BaseView {
       return;
     }
 
-    this.contentToolsService.editorApp.busy(true);
+    this.contentToolsService.editor.busy(true);
 
     this.sectionService.operations({
       edit: Object.keys(regions).map(key => {
@@ -65,7 +63,7 @@ export class ArticleView extends BaseView {
           body: regions[key],
         };
       }),
-    }).finally(() => this.contentToolsService.editorApp.busy(false))
+    }).finally(() => this.contentToolsService.editor.busy(false))
       .subscribe(response => {
       });
 

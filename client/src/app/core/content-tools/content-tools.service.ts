@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
 
 import { ImageUploader } from './content-tools.utils';
@@ -13,18 +13,20 @@ export interface IEditorEvent {
 @Injectable()
 export class ContentToolsService {
 
-  public editorApp: ContentTools.EditorApp;
+  @Output() onInit = new EventEmitter<void>();
+
+  public editor: ContentTools.EditorApp;
 
   private lastQueryOrDom: string | HTMLElement[];
 
   constructor() {
     // get the editor
-    this.editorApp = ContentTools.EditorApp.get();
+    this.editor = ContentTools.EditorApp.get();
   }
 
-  // translation of editor.init()
   init(queryOrDom: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
-    this.editorApp.init(queryOrDom, id, fixture, ignition);
+    this.editor.init(queryOrDom, id, fixture, ignition);
+    this.onInit.emit();
 
     (ContentTools as any)['IMAGE_UPLOADER'] = (dialog: any) => new ImageUploader(dialog);
 
@@ -35,34 +37,34 @@ export class ContentToolsService {
   start(queryOrDom?: string | HTMLElement[]) {
 
     // if there is query, use it, otherwise use default
-    this.editorApp.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
+    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
 
     // launch editor
-    this.editorApp.start();
+    this.editor.start();
 
     // if IgnitionUI present, propagate change of status there
-    if (this.editorApp.ignition()) this.editorApp.ignition().state('editing');
+    if (this.editor.ignition()) this.editor.ignition().state('editing');
   }
 
   save(passive?: boolean) {
-    this.editorApp.save(passive);
+    this.editor.save(passive);
   }
 
   stop(save?: boolean) {
 
-    if (this.editorApp.getState() !== 'editing') return;
+    if (this.editor.getState() !== 'editing') return;
 
     // stop editing, hide editor
-    this.editorApp.stop(save);
+    this.editor.stop(save);
 
     // set default query
-    this.editorApp.syncRegions(this.lastQueryOrDom);
+    this.editor.syncRegions(this.lastQueryOrDom);
 
     // if IgnitionUI present, propagate change of status there
-    if (this.editorApp.ignition()) this.editorApp.ignition().state('ready');
+    if (this.editor.ignition()) this.editor.ignition().state('ready');
   }
 
   refresh(queryOrDom?: string | HTMLElement[]) {
-    this.editorApp.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
+    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
   }
 }

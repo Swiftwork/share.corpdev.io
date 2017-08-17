@@ -34,10 +34,10 @@ export class ContentToolsDirective implements ControlValueAccessor {
 
   constructor(private elementRef: ElementRef, private contentToolsService: ContentToolsService) {
 
-    if (!this.getRegionID) console.log('Region name is not set by parameter ' + this.contentToolsService.editorApp['_namingProp']);
+    if (!this.getRegionID) console.log('Region name is not set by parameter ' + this.contentToolsService.editor['_namingProp']);
 
     /* watch if element was changed. content tools modifies elements while editing, therefore we make the change only after save event */
-    this.contentToolsService.editorApp.addEventListener('saved', (event: ContentTools.Event) => {
+    this.contentToolsService.editor.addEventListener('saved', (event: ContentTools.Event) => {
 
       // get region data from event
       let changedData = event.detail().regions[this.getRegionID()];
@@ -108,7 +108,7 @@ export class ContentToolsDirective implements ControlValueAccessor {
   }
 
   getRegionID() {
-    return this.elementRef.nativeElement.getAttribute(this.contentToolsService.editorApp['_namingProp']);
+    return this.elementRef.nativeElement.getAttribute(this.contentToolsService.editor['_namingProp']);
   }
 
   /*

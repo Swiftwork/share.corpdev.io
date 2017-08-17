@@ -13,8 +13,9 @@ $c_warning: #ea5b0c;
 $c_invalid: #c43b0a;
 
 /* Z-INDEX */
-$z_floating: 1000;
-$z_popup: 2000;
+$z_topbar: 100;
+$z_sidebar: 200;
+$z_popup: 300;
 
 /* FONT STACK */
 $f_stack: 'Regular', 'Arial', sans-serif;

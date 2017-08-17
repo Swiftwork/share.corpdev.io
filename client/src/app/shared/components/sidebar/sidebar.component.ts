@@ -1,7 +1,8 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { AppState } from '../../../app.state';
+import { ContentToolsService } from '../../../core/content-tools/content-tools.service';
 import { ArticleService, IArticle } from '../../services/article.service';
 import { ITopic, TopicService } from '../../services/topic.service';
 
@@ -20,6 +21,8 @@ export interface IArticleLink {
 })
 export class SidebarComponent implements OnInit {
 
+  @ViewChild('editorRef') editorRef: ElementRef;
+
   public title: string;
   public topics: ITopic[];
   public topicsState = {
@@ -34,19 +37,26 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     public router: Router,
+    public renderer: Renderer2,
+    public appState: AppState,
     public topicsService: TopicService,
     public articlesService: ArticleService,
-    public appState: AppState,
+    public contentToolsService: ContentToolsService,
   ) {
     this.title = 'code';
     this.topicsService.topics.subscribe((topics) => {
       this.topics = Array.from(topics.values());
     });
+    this.contentToolsService.onInit.subscribe(this.onEditInit.bind(this));
   }
 
   ngOnInit() { }
 
   /*=== EDITING ===*/
+
+  onEditInit() {
+    this.renderer.appendChild(this.editorRef.nativeElement, this.renderer.selectRootElement('.ct-app'));
+  }
 
   onStartEdit() {
     this.appState.set('editing', true);
