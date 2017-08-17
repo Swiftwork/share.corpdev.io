@@ -27,8 +27,13 @@ declare namespace ContentTools {
 
   class ComponentUI {
 
-    static createDiv(classNames: string[], attributes: { [key: string]: any }, content: any): HTMLElement;
-    children(): HTMLElement[];
+    protected _bindings: { [key: string]: string };
+    protected _parent: ComponentUI;
+    protected _children: ComponentUI[];
+    protected _domElement: HTMLElement;
+
+    static createDiv(classNames?: string[], attributes?: { [key: string]: any }, content?: any): HTMLElement;
+    children(): ComponentUI[];
     domElement(): HTMLElement;
     isMounted(): boolean;
     parent(): ComponentUI;
@@ -87,6 +92,12 @@ declare namespace ContentTools {
     start(): void;
     stop(save: boolean): void;
     syncRegions(regionQuery?: any, restoring?: any): void;
+
+    protected _addDOMEventListeners(): void;
+    protected _allowEmptyRegions(callback: () => void): void;
+    protected _preventEmptyRegions(): void;
+    protected _removeDOMEventListeners(): void;
+    protected _initRegions(restoring?: boolean): void;
   }
 
   class History {

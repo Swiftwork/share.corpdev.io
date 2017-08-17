@@ -19,7 +19,7 @@ export interface IArticleLink {
     '[class.c-sidebar]': 'true',
   },
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
   @ViewChild('editorRef') editorRef: ElementRef;
 
@@ -37,7 +37,6 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public renderer: Renderer2,
     public appState: AppState,
     public topicsService: TopicService,
     public articlesService: ArticleService,
@@ -47,15 +46,15 @@ export class SidebarComponent implements OnInit {
     this.topicsService.topics.subscribe((topics) => {
       this.topics = Array.from(topics.values());
     });
-    this.contentToolsService.onInit.subscribe(this.onEditInit.bind(this));
   }
 
-  ngOnInit() { }
+  ngAfterViewInit() {
+    this.contentToolsService.editor.toolsMount(this.editorRef);
+  }
 
   /*=== EDITING ===*/
 
   onEditInit() {
-    this.renderer.appendChild(this.editorRef.nativeElement, this.renderer.selectRootElement('.ct-app'));
   }
 
   onStartEdit() {

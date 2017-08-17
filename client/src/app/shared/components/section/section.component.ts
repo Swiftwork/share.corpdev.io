@@ -9,7 +9,6 @@ import { ISection } from '../../services/section.service';
   host: {
     '[class.c-section]': 'true',
     '[attr.c-section]': 'true',
-    '(click)': 'onClick($event)',
   },
 })
 export class SectionComponent implements OnInit, ISection {

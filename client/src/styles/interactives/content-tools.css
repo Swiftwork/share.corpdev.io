@@ -1,21 +1,32 @@
-/* Alignment styles for images, videos and iframes in editable regions */
+.ct-widget {
+  width: 100% !important;
 
-.ct-widget.ct-toolbox {
-  top: 3vr !important;
-  left: auto !important;
-  right: 0;
-  width: 75%;
-  padding: 0;
-}
+  &.ct-ignition {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    height: 48px;
+    margin-bottom: 1vr;
+  }
 
-.ct-widget .ct-tool-group {
-  float: left;
-  padding: 0;
+  &.ct-toolbox {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    padding: 0.5vr;
+    background: none;
+    box-shadow: none;
+    border: 1px solid $c_color_alpha;
+    border-width: 1px 0;
+    margin-bottom: 1vr;
+  }
 }
 
 .ct-toolbox__grip {
   display: none;
 }
+
+/* Alignment styles for images, videos and iframes in editable regions */
 
 /* Center (default) */
 [data-editable] iframe, [data-editable] image, [data-editable] [data-ce-tag=img], [data-editable] img, [data-editable] video {
@@ -27,7 +38,7 @@
 }
 
 /* Left align */
-[data-editable] .align-left {
+[data-editable].align-left {
   clear: initial;
   float: left;
   margin-right: 0.5em;

@@ -70,6 +70,6 @@ export class ArticleView extends BaseView {
   }
 
   ngOnDestroy() {
-    this.editor.destroy();
+    this.contentToolsService.editor.destroy();
   }
 }

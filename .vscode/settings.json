@@ -9,6 +9,7 @@
   "postcssSorting": "./client/.config/postcss.sorting.js",
   "stylefmt.config": "./client/.config/stylelint.config.js",
   "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   "docthis.includeMemberOfOnInterfaceMembers": false,
   "docthis.includeMemberOfOnClassMembers": false,
   "html.format.wrapAttributes": "force",

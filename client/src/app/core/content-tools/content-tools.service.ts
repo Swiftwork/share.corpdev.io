@@ -1,13 +1,14 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { ElementRef, EventEmitter, Injectable, Output } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
 
+import { ContentToolsEditor } from './content-tools.editor';
 import { ImageUploader } from './content-tools.utils';
 
 import * as ContentTools from 'ContentTools';
 
 export interface IEditorEvent {
   event: ContentTools.Event,
-  editor: ContentTools.EditorApp;
+  editor: ContentToolsEditor;
 }
 
 @Injectable()
@@ -15,29 +16,28 @@ export class ContentToolsService {
 
   @Output() onInit = new EventEmitter<void>();
 
-  public editor: ContentTools.EditorApp;
+  public editor: ContentToolsEditor;
 
-  private lastQueryOrDom: string | HTMLElement[];
+  private lastQueryOrElements: string | HTMLElement[];
 
   constructor() {
-    // get the editor
-    this.editor = ContentTools.EditorApp.get();
+    this.editor = new ContentToolsEditor();
   }
 
-  init(queryOrDom: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
-    this.editor.init(queryOrDom, id, fixture, ignition);
+  public init(queryOrElements: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
+    this.editor.init(queryOrElements, id, fixture, ignition);
     this.onInit.emit();
 
     (ContentTools as any)['IMAGE_UPLOADER'] = (dialog: any) => new ImageUploader(dialog);
 
     // save the default query for later restoring
-    this.lastQueryOrDom = queryOrDom;
+    this.lastQueryOrElements = queryOrElements;
   }
 
-  start(queryOrDom?: string | HTMLElement[]) {
+  public start(queryOrDom?: string | HTMLElement[]) {
 
     // if there is query, use it, otherwise use default
-    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
+    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrElements);
 
     // launch editor
     this.editor.start();
@@ -46,11 +46,11 @@ export class ContentToolsService {
     if (this.editor.ignition()) this.editor.ignition().state('editing');
   }
 
-  save(passive?: boolean) {
+  public save(passive?: boolean) {
     this.editor.save(passive);
   }
 
-  stop(save?: boolean) {
+  public stop(save?: boolean) {
 
     if (this.editor.getState() !== 'editing') return;
 
@@ -58,13 +58,13 @@ export class ContentToolsService {
     this.editor.stop(save);
 
     // set default query
-    this.editor.syncRegions(this.lastQueryOrDom);
+    this.editor.syncRegions(this.lastQueryOrElements);
 
     // if IgnitionUI present, propagate change of status there
     if (this.editor.ignition()) this.editor.ignition().state('ready');
   }
 
-  refresh(queryOrDom?: string | HTMLElement[]) {
-    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrDom);
+  public refresh(queryOrDom?: string | HTMLElement[]) {
+    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrElements);
   }
 }
