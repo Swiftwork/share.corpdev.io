@@ -1,0 +1,23 @@
+.c-examples {
+  /* TEMP */
+  box-shadow: 0 5px 10px 20px rgba(0, 0, 0, 0.05);
+  margin: 200px auto;
+  display: block;
+  background: white;
+  padding: 1vr;
+  border-radius: 6px;
+  max-width: 640px;
+
+  &--tabs-list {
+    display: flex;
+    list-style: none;
+
+    &-item {
+      padding: 0.5vr 1vr;
+
+      &:not(:first-child) {
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
