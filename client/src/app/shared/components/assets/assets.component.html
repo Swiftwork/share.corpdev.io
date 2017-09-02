@@ -1,0 +1,27 @@
+<ul class="c-assets--tabs-list">
+  <li class="c-assets--tabs-list-item">images</li>
+  <li class="c-assets--tabs-list-item">videos</li>
+  <li class="c-assets--tabs-list-item">code</li>
+</ul>
+
+<section class="c-assets--tabs">
+  <section class="c-assets--tabs-item">
+
+    <form (ngSubmit)="onUpload($event)"
+      novalidate>
+
+      <input type="file"
+        name="files"
+        multiple
+        (change)="onFilesChange($event)" />
+
+      <button type="submit">Upload</button>
+
+    </form>
+
+    <img [src]="image.url"
+      *ngFor="let image of images" />
+  </section>
+  <section class="c-assets--tabs-item"></section>
+  <section class="c-assets--tabs-item"></section>
+</section>

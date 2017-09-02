@@ -24,8 +24,9 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.findAll = (tableName) => {
-      return rdb.table(tableName).run(connection)
+    module.exports.findAll = (tableName, filter) => {
+      const table = filter ? rdb.table(tableName).filter(filter) : rdb.table(tableName);
+      return table.run(connection)
         .then((cursor) => {
           return cursor.toArray();
         });
@@ -59,8 +60,9 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.subscribeAll = (tableName, options) => {
-      return rdb.table(tableName).changes().run(connection)
+    module.exports.subscribeAll = (tableName, options, filter) => {
+      const table = filter ? rdb.table(tableName).filter(filter) : rdb.table(tableName);
+      return table.changes().run(connection)
         .then((cursor) => {
           return cursor;
         });

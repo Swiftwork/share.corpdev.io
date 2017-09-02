@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SectionResolver } from './services/section.resolver';
 
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+
 import { CoreModule } from '../core/core.module';
 import { ArticleResolver } from './services/article.resolver';
 import { ArticleService } from './services/article.service';
@@ -15,7 +17,7 @@ import { AuthView } from './views/auth/auth.view';
 import { TopicView } from './views/topic/topic.view';
 
 import { ArticleComponent } from './components/article/article.component';
-import { ExamplesComponent } from './components/examples/examples.component';
+import { AssetsComponent } from './components/assets/assets.component';
 import { LoginComponent } from './components/login/login.component';
 import { SectionComponent } from './components/section/section.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -29,7 +31,7 @@ export const DECLARATIONS: any[] = [
 
   /*=== COMPONENTS ===*/
   ArticleComponent,
-  ExamplesComponent,
+  AssetsComponent,
   LoginComponent,
   SectionComponent,
   SidebarComponent,
@@ -42,6 +44,8 @@ export const DECLARATIONS: any[] = [
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+
+    LazyLoadImageModule,
 
     CoreModule,
   ],

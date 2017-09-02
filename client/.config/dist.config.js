@@ -58,9 +58,10 @@ module.exports = merge.smart(commonConfig, {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': `${environment.ENV}`,
-        'HOST': `${environment.HOST}`,
+        'NODE_ENV': `"${environment.ENV}"`,
+        'HOST': `"${environment.HOST}"`,
         'PORT': `${environment.PORT}`,
+        'CONTENT_DIR': `"${environment.DIRS.CONTENT}"`,
       }
     }),
   ]

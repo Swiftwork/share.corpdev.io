@@ -1,6 +1,6 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
-import { ExamplesComponent } from '../../shared/components/examples/examples.component';
+import { AssetsComponent } from '../../shared/components/assets/assets.component';
 import { ArticleResolver } from '../../shared/services/article.resolver';
 import { SectionResolver } from '../../shared/services/section.resolver';
 import { ArticleView } from '../../shared/views/article/article.view';
@@ -28,7 +28,7 @@ export const CODE_ROUTES: Routes = [
   },
   {
     path: 'test',
-    component: ExamplesComponent,
+    component: AssetsComponent,
   },
   {
     path: '',

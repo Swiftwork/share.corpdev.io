@@ -43,7 +43,8 @@ module.exports = merge.smart(commonConfig, {
       'process.env': {
         'NODE_ENV': `"${environment.ENV}"`,
         'HOST': `"${environment.HOST}"`,
-        'PORT': `"${environment.PORT}"`,
+        'PORT': `${environment.PORT}`,
+        'CONTENT_DIR': `"${environment.DIRS.CONTENT}"`,
       },
     }),
   ],
