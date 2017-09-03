@@ -10,7 +10,8 @@ export interface IAsset {
   name: string,
   extension: string,
   url: string,
-  version: number,
+  mimetype: string,
+  modified: Date,
 }
 
 @Injectable()
@@ -27,12 +28,17 @@ export class AssetService {
     private appState: AppState,
   ) {
     this.initSocket();
-    this.get().subscribe(this.storeAssets.bind(this));
+
+    /* Bind */
+    this.storeAssets = this.storeAssets.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
 
   private initSocket() {
     this.socketService.socket.on('assets', (assetId: string) => {
-      this.get(assetId).subscribe(this.storeAssets.bind(this));
+      const cached = this._assets.getValue();
+      cached.delete(assetId);
+      this.get(assetId).subscribe(this.storeAssets);
     });
   }
 
@@ -43,15 +49,34 @@ export class AssetService {
       formData.append('files[]', file, file.name);
     }
     return this.http.post('/api/assets', formData)
-      .map((response: IAsset[]) => {
-        return response;
-      })
-      .catch(this.handleError.bind(this));
+      .catch(this.handleError);
   }
 
   public get(id?: string): Observable<{} | IAsset | IAsset[]> {
+    const cached = this._assets.getValue();
+    if (cached.has(id))
+      return Observable.of(cached.get(id));
     return this.http.get(id ? `/api/assets/${id}` : `/api/assets/`)
-      .catch(this.handleError.bind(this));
+      .map(this.storeAssets)
+      .catch(this.handleError);
+  }
+
+  public getImages(): Observable<{} | IAsset[]> {
+    return this.http.get(`/api/assets/images`)
+      .map(this.storeAssets)
+      .catch(this.handleError);
+  }
+
+  public getVideos(): Observable<{} | IAsset[]> {
+    return this.http.get(`/api/assets/videos`)
+      .map(this.storeAssets)
+      .catch(this.handleError);
+  }
+
+  public getCode(): Observable<{} | IAsset[]> {
+    return this.http.get(`/api/assets/code`)
+      .map(this.storeAssets)
+      .catch(this.handleError);
   }
 
   private handleError(error: any) {
@@ -65,21 +90,22 @@ export class AssetService {
       const assets = data as IAsset[];
       (assets as IAsset[]).forEach(asset => {
         const cachedAsset = cached.get(asset.id);
-        asset.version = cachedAsset && cachedAsset.version ? cachedAsset.version + 1 : 1;
         asset.url = this.formatUrl(asset);
+        asset.modified = new Date(asset.modified);
         cached.set(asset.id, asset);
       });
     } else {
       const asset = data as IAsset;
       const cachedAsset = cached.get(asset.id);
-      asset.version = cachedAsset && cachedAsset.version ? cachedAsset.version + 1 : 1;
       asset.url = this.formatUrl(asset);
+      asset.modified = new Date(asset.modified);
       cached.set(asset.id, asset);
     }
     this._assets.next(cached);
+    return data;
   }
 
   private formatUrl(asset: IAsset) {
-    return `/${process.env.CONTENT_DIR}/${asset.id}.${asset.extension}?version=${asset.version}`;
+    return `/content/${asset.id}.${asset.extension}?v=${Date.now()}`;
   }
 }

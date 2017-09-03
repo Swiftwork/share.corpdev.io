@@ -1,9 +1,9 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
-import { AssetsComponent } from '../../shared/components/assets/assets.component';
 import { ArticleResolver } from '../../shared/services/article.resolver';
 import { SectionResolver } from '../../shared/services/section.resolver';
 import { ArticleView } from '../../shared/views/article/article.view';
+import { AssetsView } from '../../shared/views/assets/assets.view';
 import { TopicView } from '../../shared/views/topic/topic.view';
 
 /* Views */
@@ -28,7 +28,7 @@ export const CODE_ROUTES: Routes = [
   },
   {
     path: 'test',
-    component: AssetsComponent,
+    component: AssetsView,
   },
   {
     path: '',

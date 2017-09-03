@@ -49,5 +49,5 @@ module.exports = merge.smart(commonConfig, {
     }),
   ],
 
-  devtool: 'cheap-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
 });

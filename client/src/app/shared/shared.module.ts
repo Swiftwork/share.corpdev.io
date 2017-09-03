@@ -13,11 +13,11 @@ import { SectionService } from './services/section.service';
 import { TopicService } from './services/topic.service';
 
 import { ArticleView } from './views/article/article.view';
+import { AssetsView } from './views/assets/assets.view';
 import { AuthView } from './views/auth/auth.view';
 import { TopicView } from './views/topic/topic.view';
 
 import { ArticleComponent } from './components/article/article.component';
-import { AssetsComponent } from './components/assets/assets.component';
 import { LoginComponent } from './components/login/login.component';
 import { SectionComponent } from './components/section/section.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -26,12 +26,12 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 export const DECLARATIONS: any[] = [
   /*=== VIEWS ===*/
   ArticleView,
+  AssetsView,
   TopicView,
   AuthView,
 
   /*=== COMPONENTS ===*/
   ArticleComponent,
-  AssetsComponent,
   LoginComponent,
   SectionComponent,
   SidebarComponent,

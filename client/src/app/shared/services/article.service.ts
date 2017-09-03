@@ -35,12 +35,12 @@ export class ArticleService {
     /* Bind */
     this.storeArticles = this.storeArticles.bind(this);
     this.handleError = this.handleError.bind(this);
-
-    this.get().subscribe(this.storeArticles);
   }
 
   private initSocket() {
     this.socketService.socket.on('articles', (articleId: string) => {
+      const cached = this._articles.getValue();
+      cached.delete(articleId);
       this.get(articleId).subscribe(this.storeArticles);
     });
   }

@@ -37,12 +37,12 @@ export class SectionService {
     /* Bind */
     this.storeSections = this.storeSections.bind(this);
     this.handleError = this.handleError.bind(this);
-
-    this.get().subscribe(this.storeSections);
   }
 
   private initSocket() {
     this.socketService.socket.on('sections', (sectionId: string) => {
+      const cached = this._sections.getValue();
+      cached.delete(sectionId);
       this.get(sectionId).subscribe(this.storeSections);
     });
   }
@@ -58,11 +58,9 @@ export class SectionService {
   }
 
   public get(id?: string): Observable<{} | ISection | ISection[]> {
-    /*
     const cached = this._sections.getValue();
     if (cached.has(id))
       return Observable.of(cached.get(id));
-    */
     return this.http.get(id ? `/api/sections/${id}` : `/api/sections/`)
       .map(this.storeSections)
       .catch(this.handleError);

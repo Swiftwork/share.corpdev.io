@@ -23,9 +23,9 @@ app.use(cors());
 app.use(helmet());
 
 /* Static Assets */
-app.use(express.static(path.resolve(__dirname, '../database/content')));
-app.use(express.static(path.resolve(__dirname, 'public')));
-app.use('/static', express.static(path.resolve(__dirname, 'static')));
+app.use(express.static(environment.DIRS.PUBLIC));
+app.use('/content', express.static(environment.DIRS.CONTENT));
+app.use('/static', express.static(environment.DIRS.STATIC));
 
 //------------------------------------------------------------------------------------
 // HOT RELOAD FOR DEVELOPMENT

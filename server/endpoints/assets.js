@@ -80,6 +80,7 @@ module.exports = (io) => {
         name: filename.name,
         extension: filename.ext.substring(1),
         mimetype: file.mimetype,
+        modified: new Date(),
       };
     });
 
