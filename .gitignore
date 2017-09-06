@@ -1,4 +1,5 @@
 node_modules
 environment.js
 yarn.lock
+yarn-error.log
 database/data/log_file

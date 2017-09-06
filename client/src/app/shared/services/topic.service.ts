@@ -27,23 +27,34 @@ export class TopicService {
     private appState: AppState,
   ) {
     this.initSocket();
-    this.get().subscribe(this.storeTopics.bind(this));
+
+    /* Bind */
+    this.storeTopics = this.storeTopics.bind(this);
+    this.handleError = this.handleError.bind(this);
+
+    this.get().subscribe(this.storeTopics);
   }
 
   private initSocket() {
     this.socketService.socket.on('topics', (topicId: string) => {
-      this.get(topicId).subscribe(this.storeTopics.bind(this));
+      const cached = this._topics.getValue();
+      cached.delete(topicId);
+      this.get(topicId).subscribe(this.storeTopics);
     });
   }
 
   public add(title: string): Observable<{} | ITopic> {
     return this.http.post(`/api/topics/`, { title: title })
-      .catch(this.handleError.bind(this));
+      .catch(this.handleError);
   }
 
   public get(id?: string): Observable<{} | ITopic | ITopic[]> {
+    const cached = this._topics.getValue();
+    if (cached.has(id))
+      return Observable.of(cached.get(id));
     return this.http.get(id ? `/api/topics/${id}` : `/api/topics/`)
-      .catch(this.handleError.bind(this));
+      .map(this.storeTopics)
+      .catch(this.handleError);
   }
 
   private handleError(error: any) {
@@ -65,6 +76,7 @@ export class TopicService {
       cached.set(topic.id, topic);
     }
     this._topics.next(cached);
+    return data;
   }
 
   private formatRoute(topic: ITopic) {

@@ -30,7 +30,7 @@ export class ContentToolsDirective implements ControlValueAccessor {
   onChange: (value: string) => string = (value: string) => value;
   onTouched: () => void = () => null;
 
-  private autoSaveTimeout: NodeJS.Timer;
+  private autoSaveTimeout: number;
 
   constructor(private elementRef: ElementRef, private contentToolsService: ContentToolsService) {
 
@@ -102,7 +102,7 @@ export class ContentToolsDirective implements ControlValueAccessor {
     if (this.autoSaveTimeout) clearTimeout(this.autoSaveTimeout);
 
     // set timeout to save
-    this.autoSaveTimeout = setTimeout(() => {
+    this.autoSaveTimeout = window.setTimeout(() => {
       this.contentToolsService.save(true);
     }, this.autoSaveDelay);
   }

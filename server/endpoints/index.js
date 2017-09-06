@@ -11,6 +11,8 @@ module.exports = (app, io) => {
 
   app.use('/api/sections', require('./sections.js')(io));
 
+  app.use('/api/assets', require('./assets.js')(io));
+
   app.get('api/*', (req, res) => {
     res.status(501).send({ error: 'No such api' });
   });

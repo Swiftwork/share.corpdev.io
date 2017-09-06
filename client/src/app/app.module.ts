@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app.routing';
 import { AppState, InternalStateType } from './app.state';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 export function AppStateFactory(appState: AppState) {
   return appState.get('locale') || 'sv-SE';
@@ -28,6 +29,9 @@ type StoreType = {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+
+    /*=== OTHER MODULES ===*/
+    LazyLoadImageModule,
 
     /*=== APP MODULES ===*/
     AppRoutingModule,

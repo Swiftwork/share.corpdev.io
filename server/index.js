@@ -2,27 +2,30 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const logger = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
+
+const environment = require('../environment.js')(process.env.NODE_ENV);
 
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-const environment = require('../environment.js')(process.env.NODE_ENV);
 const endpoints = require('./endpoints/index.js');
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(fileUpload());
 app.use(cors());
 app.use(helmet());
 
 /* Static Assets */
-app.use(express.static(path.resolve(__dirname, '../database/content')));
-app.use(express.static(path.resolve(__dirname, 'public')));
-app.use('/static', express.static(path.resolve(__dirname, 'static')));
+app.use(express.static(environment.DIRS.PUBLIC));
+app.use('/content', express.static(environment.DIRS.CONTENT));
+app.use('/static', express.static(environment.DIRS.STATIC));
 
 //------------------------------------------------------------------------------------
 // HOT RELOAD FOR DEVELOPMENT

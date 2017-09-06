@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapsh
 import { ArticleResolver } from '../../shared/services/article.resolver';
 import { SectionResolver } from '../../shared/services/section.resolver';
 import { ArticleView } from '../../shared/views/article/article.view';
+import { AssetsView } from '../../shared/views/assets/assets.view';
 import { TopicView } from '../../shared/views/topic/topic.view';
 
 /* Views */
@@ -24,6 +25,10 @@ export const CODE_ROUTES: Routes = [
     resolve: {
       sections: SectionResolver,
     },
+  },
+  {
+    path: 'test',
+    component: AssetsView,
   },
   {
     path: '',
