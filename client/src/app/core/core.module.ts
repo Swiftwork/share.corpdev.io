@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AssetService } from './services/asset.service';
+import { ContentService } from './services/content.service';
 
 import { BaseView } from './base/base.view';
 import { ContentToolsDirective } from './content-tools/content-tools.directive';
@@ -35,7 +35,6 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         AuthService,
-        AssetService,
         ContentToolsService,
         UserService,
         SocketService,

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 import { BaseView } from '../../../core/base/base.view';
-import { AssetService, IAsset } from '../../../core/services/asset.service';
+import { AssetService, IAsset } from '../../services/asset.service';
 
 export interface IImage {
   url: string,
@@ -36,7 +36,7 @@ export class AssetsView extends BaseView implements OnInit {
       'files': new FormControl('', Validators.required),
     });
     this.assetService.getImages().subscribe();
-    this.assetService.assets.subscribe((assets) => {
+    this.assetService.store.subscribe((assets) => {
       this.images.length = this.videos.length = this.code.length = 0;
       assets.forEach((asset) => {
         switch (asset.mimetype.split('/')[0]) {

@@ -4,12 +4,12 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
 
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppState, InternalStateType } from './app.state';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 export function AppStateFactory(appState: AppState) {
   return appState.get('locale') || 'sv-SE';
