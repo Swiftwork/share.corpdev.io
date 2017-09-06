@@ -42,9 +42,7 @@ export class ArticleView extends BaseView {
   }
 
   ngAfterViewInit() {
-    this.contentToolsService.init(
-      '[editable]',
-    );
+    this.contentToolsService.start();
     this.contentToolsService.editor.addEventListener('saved', this.onSave);
   }
 
@@ -70,6 +68,6 @@ export class ArticleView extends BaseView {
   }
 
   ngOnDestroy() {
-    this.contentToolsService.editor.destroy();
+    this.contentToolsService.stop();
   }
 }

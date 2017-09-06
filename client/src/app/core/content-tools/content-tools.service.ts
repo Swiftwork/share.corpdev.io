@@ -16,34 +16,31 @@ export class ContentToolsService {
 
   @Output() onInit = new EventEmitter<void>();
 
-  public editor: ContentToolsEditor;
+  public editor: ContentToolsEditor = null;
 
   private lastQueryOrElements: string | HTMLElement[];
 
-  constructor() {
-    this.editor = new ContentToolsEditor();
-  }
-
-  public init(queryOrElements: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
-    this.editor.init(queryOrElements, id, fixture, ignition);
-    this.onInit.emit();
-
+  public init(parent: ElementRef, queryOrElements: string | HTMLElement[], id?: string, fixture?: (element: HTMLElement) => boolean, ignition?: boolean) {
     (ContentTools as any)['IMAGE_UPLOADER'] = (dialog: any) => new ImageUploader(dialog);
+
+    if (this.editor === null)
+      this.editor = new ContentToolsEditor(parent);
+
+    this.editor.init(queryOrElements, id, fixture, ignition);
+
+    this.onInit.emit();
 
     // save the default query for later restoring
     this.lastQueryOrElements = queryOrElements;
   }
 
-  public start(queryOrDom?: string | HTMLElement[]) {
+  public start(queryOrElements?: string | HTMLElement[]) {
 
     // if there is query, use it, otherwise use default
-    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrElements);
+    this.refresh();
 
     // launch editor
     this.editor.start();
-
-    // if IgnitionUI present, propagate change of status there
-    if (this.editor.ignition()) this.editor.ignition().state('editing');
   }
 
   public save(passive?: boolean) {
@@ -58,13 +55,13 @@ export class ContentToolsService {
     this.editor.stop(save);
 
     // set default query
-    this.editor.syncRegions(this.lastQueryOrElements);
+    this.refresh();
 
     // if IgnitionUI present, propagate change of status there
     if (this.editor.ignition()) this.editor.ignition().state('ready');
   }
 
-  public refresh(queryOrDom?: string | HTMLElement[]) {
-    this.editor.syncRegions(queryOrDom ? queryOrDom : this.lastQueryOrElements);
+  public refresh(queryOrElements?: string | HTMLElement[]) {
+    this.editor.syncRegions(queryOrElements ? queryOrElements : this.lastQueryOrElements);
   }
 }

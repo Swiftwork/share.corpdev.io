@@ -49,7 +49,7 @@ export class SidebarComponent {
   }
 
   ngAfterViewInit() {
-    this.contentToolsService.editor.toolsMount(this.editorRef);
+    this.contentToolsService.init(this.editorRef, '[editable]');
   }
 
   /*=== EDITING ===*/
@@ -61,7 +61,7 @@ export class SidebarComponent {
     this.appState.set('editing', true);
   }
 
-  onEndEdit(save: boolean) {
+  onEndEdit() {
     this.appState.set('editing', false);
   }
 

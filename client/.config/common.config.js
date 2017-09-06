@@ -1,6 +1,7 @@
 var path = require('path');
 var extend = require('webpack-merge');
 var webpack = require('webpack');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 // `CheckerPlugin` is optional. Use it if you want async error reporting.
@@ -90,6 +91,7 @@ module.exports = {
   },
 
   plugins: [
+    new DashboardPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['main', 'vendor', 'polyfill'],
     }),

@@ -44,16 +44,19 @@ module.exports = merge.smart(commonConfig, {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false,
+      parallel: {
+        cache: true,
+        workers: 4,
       },
-      compressor: {
+      uglifyOptions: {
+        ie8: false,
         warnings: false,
-        screw_ie8: true
-      },
-      mangle: {
-        keep_fnames: true, // https://github.com/angular/angular/issues/10618
-        screw_ie8: true,
+        output: {
+          comments: false,
+        },
+        mangle: {
+          keep_fnames: true, // https://github.com/angular/angular/issues/10618
+        },
       }
     }),
     new webpack.DefinePlugin({
@@ -63,5 +66,5 @@ module.exports = merge.smart(commonConfig, {
         'PORT': `${environment.PORT}`,
       }
     }),
-  ]
+  ],
 });

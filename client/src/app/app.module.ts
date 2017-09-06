@@ -10,6 +10,10 @@ import { AppState, InternalStateType } from './app.state';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
+export function AppStateFactory(appState: AppState) {
+  return appState.get('locale') || 'sv-SE';
+}
+
 type StoreType = {
   state: InternalStateType,
   restoreInputValues: () => void,
@@ -38,7 +42,7 @@ type StoreType = {
     {
       provide: LOCALE_ID,
       deps: [AppState],
-      useFactory: (appState: AppState) => appState.get('locale') || 'sv-SE',
+      useFactory: AppStateFactory,
     },
   ],
   bootstrap: [AppComponent],
