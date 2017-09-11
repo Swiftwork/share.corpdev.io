@@ -33,6 +33,18 @@ app.use('/static', express.static(environment.DIRS.STATIC));
 
 if (process.env.NODE_ENV === 'development') {
 
+  /* Require and setup server watcher */
+  const chokidar = require('chokidar');
+  const watcher = chokidar.watch(['./endpoints', './lib']);
+  watcher.on('ready', () => {
+    watcher.on('all', () => {
+      console.log('Clearing server module cache')
+      Object.keys(require.cache).forEach((id) => {
+        if (/[\/\\]app[\/\\]/.test(id)) delete require.cache[id]
+      });
+    });
+  });
+
   /* Require webpack for building */
   const webpack = require('webpack');
   const webpackConfig = require('../client/.config/debug.config.js');
@@ -42,6 +54,7 @@ if (process.env.NODE_ENV === 'development') {
   /* Setup Compiler */
   const compiler = webpack(webpackConfig);
 
+  /* Webpack Compilation */
   app.use(webpackDevMiddleware(compiler, {
     publicPath: '/',
     hot: true,
@@ -52,6 +65,7 @@ if (process.env.NODE_ENV === 'development') {
     historyApiFallback: true,
   }));
 
+  /* Webpack Hot Module reload */
   app.use(webpackHotMiddleware(compiler, {
     log: console.log,
     noInfo: true,
@@ -62,9 +76,9 @@ if (process.env.NODE_ENV === 'development') {
   /* Enpoints */
   endpoints(app, io);
 
-  app.use('*', function (req, res, next) {
+  app.use('*', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html');
-    compiler.outputFileSystem.readFile(filename, function (err, result) {
+    compiler.outputFileSystem.readFile(filename, (err, result) => {
       if (err) {
         return next(err);
       }
