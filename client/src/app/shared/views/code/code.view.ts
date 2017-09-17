@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
+import { CODE_EDITOR_MODES, ICodeEditorMode } from '../../components/code-editor/code-editor-modes';
+import { CodeEditorComponent } from '../../components/code-editor/code-editor.component';
+
 import * as ace from 'brace';
-import 'brace/mode/typescript';
-import 'brace/theme/tomorrow';
 
 import { BaseView } from '../../../core/base/base.view';
 
@@ -14,19 +16,22 @@ import { BaseView } from '../../../core/base/base.view';
   },
 })
 export class CodeView extends BaseView {
+  @ViewChild(CodeEditorComponent) editorRef: CodeEditorComponent;
 
-  @ViewChild('editorRef') editorRef: ElementRef;
-
-  public editor: ace.Editor;
+  public modes = CODE_EDITOR_MODES;
+  public editorMode: ICodeEditorMode;
 
   constructor() {
     super();
+    this.editorMode = CODE_EDITOR_MODES.find((mode) => mode.name === 'javascript' ? true : false);
   }
 
   ngOnInit() {
-    this.editor = ace.edit(this.editorRef.nativeElement);
-    this.editor.getSession().setMode('ace/mode/typescript');
-    this.editor.setTheme('ace/theme/tomorrow');
+  }
+
+  public onSelectMode(mode: ICodeEditorMode) {
+    console.log(mode);
+    this.editorRef.editor.getSession().setMode(mode.mode);
   }
 
 }
