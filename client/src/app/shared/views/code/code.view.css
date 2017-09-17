@@ -1,0 +1,9 @@
+.v-code {
+  display: block;
+  padding-top: 2vr;
+  height: 100%;
+
+  &--editor {
+    height: 100%;
+  }
+}

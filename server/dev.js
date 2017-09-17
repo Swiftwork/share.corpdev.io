@@ -50,7 +50,7 @@ module.exports = {
 
   devRoutes: (compiler, router) => {
     /* Webpack Path to index.html */
-    router.get('*', (req, res) => {
+    router.get('*', (req, res, next) => {
       const filename = path.join(compiler.outputPath, 'index.html');
       compiler.outputFileSystem.readFile(filename, (err, result) => {
         if (err) {

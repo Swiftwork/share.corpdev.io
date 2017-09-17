@@ -4,6 +4,7 @@ import { ArticleResolver } from '../../shared/services/article.resolver';
 import { SectionResolver } from '../../shared/services/section.resolver';
 import { ArticleView } from '../../shared/views/article/article.view';
 import { AssetsView } from '../../shared/views/assets/assets.view';
+import { CodeView } from '../../shared/views/code/code.view';
 import { TopicView } from '../../shared/views/topic/topic.view';
 
 /* Views */
@@ -27,8 +28,12 @@ export const CODE_ROUTES: Routes = [
     },
   },
   {
-    path: 'test',
+    path: 'assets',
     component: AssetsView,
+  },
+  {
+    path: 'code',
+    component: CodeView,
   },
   {
     path: '',

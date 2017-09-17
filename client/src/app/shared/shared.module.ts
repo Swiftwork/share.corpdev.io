@@ -9,12 +9,14 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { CoreModule } from '../core/core.module';
 import { ArticleResolver } from './services/article.resolver';
 import { ArticleService } from './services/article.service';
+import { AssetService } from './services/asset.service';
 import { SectionService } from './services/section.service';
 import { TopicService } from './services/topic.service';
 
 import { ArticleView } from './views/article/article.view';
 import { AssetsView } from './views/assets/assets.view';
 import { AuthView } from './views/auth/auth.view';
+import { CodeView } from './views/code/code.view';
 import { TopicView } from './views/topic/topic.view';
 
 import { ArticleComponent } from './components/article/article.component';
@@ -27,8 +29,9 @@ export const DECLARATIONS: any[] = [
   /*=== VIEWS ===*/
   ArticleView,
   AssetsView,
-  TopicView,
   AuthView,
+  CodeView,
+  TopicView,
 
   /*=== COMPONENTS ===*/
   ArticleComponent,
@@ -60,6 +63,7 @@ export class SharedModule {
       providers: [
         ArticleResolver,
         ArticleService,
+        AssetService,
         SectionResolver,
         SectionService,
         TopicService,
