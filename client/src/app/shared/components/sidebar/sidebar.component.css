@@ -71,12 +71,33 @@
 
   &--navigation {
     &-topic, &-article, &-add, &-input {
+      position: relative;
       display: block;
       padding: 0.5vr 2vr;
       color: color($c_color_alpha a(80%));
       font-weight: 600;
       text-decoration: none;
       text-transform: uppercase;
+    }
+
+    &-topic, &-article {
+      &.over {
+        border: 2px dashed rgba(0, 0, 0, 0.3);
+      }
+
+      &[draggable=true] {
+        &::before {
+          position: absolute;
+          content: '\2630';
+          left: 1vr;
+          color: rgba(0, 0, 0, 0.3);
+          cursor: grab;
+
+          &:active {
+            cursor: grabbing;
+          }
+        }
+      }
     }
 
     &-article {

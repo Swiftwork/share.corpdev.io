@@ -1,20 +1,27 @@
+const path = require('path');
+const express = require('express');
+
 /* Endpoint Controllers */
-module.exports = (app, io) => {
+module.exports = (io) => {
+  const router = express.Router();
 
-  app.use('/api/login', require('./login.js'));
+  /* API */
 
-  app.use('/api/users', require('./users.js')(io));
+  router.use('/api/login', require('./login.js'));
 
-  app.use('/api/topics', require('./topics.js')(io));
+  router.use('/api/users', require('./users.js')(io));
 
-  app.use('/api/articles', require('./articles.js')(io));
+  router.use('/api/topics', require('./topics.js')(io));
 
-  app.use('/api/sections', require('./sections.js')(io));
+  router.use('/api/articles', require('./articles.js')(io));
 
-  app.use('/api/assets', require('./assets.js')(io));
+  router.use('/api/sections', require('./sections.js')(io));
 
-  app.get('api/*', (req, res) => {
+  router.use('/api/assets', require('./assets.js')(io));
+
+  router.get('api/*', (req, res) => {
     res.status(501).send({ error: 'No such api' });
   });
 
+  return router;
 };

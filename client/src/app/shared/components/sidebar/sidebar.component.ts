@@ -25,10 +25,16 @@ export class SidebarComponent {
 
   public title: string;
   public topics: ITopic[];
+  public state = {
+    editing: false,
+  }
+
   public topicsState = {
     model: '',
+    dragging: null as ITopic,
     creating: false,
   };
+
   public articlesState = {
     articles: [] as IArticle[],
     model: '',
@@ -43,6 +49,9 @@ export class SidebarComponent {
     public contentToolsService: ContentToolsService,
   ) {
     this.title = 'code';
+  }
+
+  ngOnInit() {
     this.topicsService.topics.subscribe((topics) => {
       this.topics = Array.from(topics.values());
     });
@@ -58,11 +67,49 @@ export class SidebarComponent {
   }
 
   onStartEdit() {
-    this.appState.set('editing', true);
+    this.state.editing = true;
+    this.appState.set('editing', this.state.editing);
   }
 
   onEndEdit() {
-    this.appState.set('editing', false);
+    this.state.editing = true;
+    this.appState.set('editing', this.state.editing);
+  }
+
+  /*=== DRAGGABLE ===*/
+
+  onDragStart(event: DragEvent, topic: ITopic) {
+    const element = event.target as HTMLElement;
+    event.dataTransfer.dropEffect = 'move';
+    this.topicsState.dragging = topic;
+  }
+
+  onDragEnter(event: DragEvent) {
+    const element = event.target as HTMLElement;
+    element.classList.add('over');
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    return false;
+  }
+
+  onDragLeave(event: DragEvent) {
+    const element = event.target as HTMLElement;
+    element.classList.remove('over');
+  }
+
+  onDragDrop(event: DragEvent, topic: ITopic) {
+    event.stopPropagation();
+    const element = event.target as HTMLElement;
+    element.classList.remove('over');
+
+    const index = this.topics.indexOf(topic);
+    return false;
+  }
+
+  onDragEnd(event: DragEvent) {
+    this.topicsState.dragging = null;
   }
 
   /*=== TOPICS ===*/

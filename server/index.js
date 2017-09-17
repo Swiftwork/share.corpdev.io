@@ -13,7 +13,10 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-const endpoints = require('./endpoints/index.js');
+let router, dev, compiler;
+if (process.env.NODE_ENV === 'development') {
+  dev = require('./dev.js');
+}
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,75 +31,33 @@ app.use('/content', express.static(environment.DIRS.CONTENT));
 app.use('/static', express.static(environment.DIRS.STATIC));
 
 //------------------------------------------------------------------------------------
-// HOT RELOAD FOR DEVELOPMENT
+// AD TEST
 //------------------------------------------------------------------------------------
 
-if (process.env.NODE_ENV === 'development') {
-
-  /* Require and setup server watcher */
-  const chokidar = require('chokidar');
-  const watcher = chokidar.watch(['./endpoints', './lib']);
-  watcher.on('ready', () => {
-    watcher.on('all', () => {
-      console.log('Clearing server module cache')
-      Object.keys(require.cache).forEach((id) => {
-        if (/[\/\\]app[\/\\]/.test(id)) delete require.cache[id]
-      });
-    });
-  });
-
-  /* Require webpack for building */
-  const webpack = require('webpack');
-  const webpackConfig = require('../client/.config/debug.config.js');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackHotMiddleware = require('webpack-hot-middleware');
-
-  /* Setup Compiler */
-  const compiler = webpack(webpackConfig);
-
-  /* Webpack Compilation */
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: '/',
-    hot: true,
-    inline: true,
-    stats: {
-      colors: true,
-    },
-    historyApiFallback: true,
-  }));
-
-  /* Webpack Hot Module reload */
-  app.use(webpackHotMiddleware(compiler, {
-    log: console.log,
-    noInfo: true,
-    path: '/__webpack_hmr',
-    heartbeat: 10 * 1000,
-  }));
-
-  /* Enpoints */
-  endpoints(app, io);
-
-  app.use('*', (req, res, next) => {
-    const filename = path.join(compiler.outputPath, 'index.html');
-    compiler.outputFileSystem.readFile(filename, (err, result) => {
-      if (err) {
-        return next(err);
-      }
-      res.set('content-type', 'text/html');
-      res.send(result);
-      res.end();
-    });
-  });
-
-} else {
-
-  /* Enpoints */
-  endpoints(app, io);
-
-  app.get('*', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, 'public/index.html'));
-  });
+const ActiveDirectory = require('activedirectory');
+const config = {
+  url: 'ldap://corpdev.io',
+  baseDN: 'ou=DigitalBusiness,ou=Users,ou=CORPDEV,dc=corpdev,dc=io',
+  username: 'E603362@corpdev.io',
+  password: 'Test1234',
 }
+const ad = new ActiveDirectory(config);
+var username = 'erik.hughes@evry.com';
+var password = 'Mav2Y/83n8vZ';
+
+ad.authenticate(username, password, function (err, auth) {
+  if (err) {
+    console.log('ERROR: ' + JSON.stringify(err));
+    return;
+  }
+
+  if (auth) {
+    console.log('Authenticated!');
+  }
+  else {
+    console.log('Authentication failed!');
+  }
+});
 
 //------------------------------------------------------------------------------------
 // SOCKET IO
@@ -104,6 +65,30 @@ if (process.env.NODE_ENV === 'development') {
 
 io.on('connection', (client) => {
   console.log('Client connected...', client.id);
+});
+
+//------------------------------------------------------------------------------------
+// BUILD AND HOT RELOAD FOR DEVELOPMENT
+//------------------------------------------------------------------------------------
+
+if (process.env.NODE_ENV === 'development') {
+  compiler = dev.devMode(app);
+};
+
+//------------------------------------------------------------------------------------
+// ENDPOINTS
+//------------------------------------------------------------------------------------
+
+app.use((req, res, next) => {
+  router = require('./endpoints/index.js')(io);
+  if (process.env.NODE_ENV === 'development') {
+    dev.devRoutes(compiler, router);
+  } else {
+    router.get('*', (req, res) => {
+      return res.status(200).sendFile(path.join(__dirname, 'public/index.html'));
+    });
+  }
+  router(req, res, next);
 });
 
 //------------------------------------------------------------------------------------

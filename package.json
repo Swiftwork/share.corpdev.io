@@ -23,6 +23,7 @@
     "@angular/router": "4.4.0-RC.0",
     "@angular/upgrade": "4.4.0-RC.0",
     "ContentTools": "1.5.4",
+    "activedirectory": "^0.7.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.17.2",
     "core-js": "2.5.1",
