@@ -1,7 +1,6 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { NavigationEnd, PRIMARY_OUTLET, Router, RoutesRecognized } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { PRIMARY_OUTLET, Router, RoutesRecognized } from '@angular/router';
 import { AppState } from './app.state';
-import { ContentToolsService } from './core/content-tools/content-tools.service';
 
 @Component({
   selector: 'm-app',

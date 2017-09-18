@@ -1,11 +1,11 @@
-import { Directive, ElementRef, EventEmitter, forwardRef, Input, Output, ValueProvider } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ContentToolsService } from './content-tools.service';
 
 export const CUSTOM_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => ContentToolsDirective),
+  useExisting: forwardRef(() => ContentToolsDirective), // tslint:disable-line:no-use-before-declare
   multi: true,
 };
 

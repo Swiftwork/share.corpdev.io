@@ -1,8 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 
 import * as ace from 'brace';
-
-import { BaseView } from '../../../core/base/base.view';
 
 @Component({
   selector: 'c-code-editor',
@@ -26,6 +24,7 @@ export class CodeEditorComponent implements OnInit {
     this.editor.setOptions({
       theme: 'ace/theme/tomorrow',
       mode: 'ace/mode/typescript',
+      fontSize: 14,
     });
   }
 }

@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '_debugger';
-import { Observable } from 'rxjs/Rx';
 
 import * as io from 'socket.io-client';
 

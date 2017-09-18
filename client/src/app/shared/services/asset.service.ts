@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '_debugger';
-import { BehaviorSubject, Observable, Subject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { AppState } from '../../app.state';
 import { ContentService, IContent } from '../../core/services/content.service';
 import { SocketService } from '../../core/services/socket.service';

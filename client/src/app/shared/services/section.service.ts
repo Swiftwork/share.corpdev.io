@@ -1,9 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '_debugger';
-import { BehaviorSubject, Observable, Subject } from 'rxjs/Rx';
-import { AppState } from '../../app.state';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { SocketService } from '../../core/services/socket.service';
 import { ISection } from './section.service';
 
@@ -30,7 +28,6 @@ export class SectionService {
   constructor(
     private http: HttpClient,
     private socketService: SocketService,
-    private appState: AppState,
   ) {
     this.initSocket();
 

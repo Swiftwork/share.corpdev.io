@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '_debugger';
-import { BehaviorSubject, Observable, Subject } from 'rxjs/Rx';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { AppState } from '../../app.state';
 import { SocketService } from '../../core/services/socket.service';
 
@@ -42,13 +41,11 @@ export abstract class ContentService<T extends IContent> {
     if (Array.isArray(data)) {
       const contents = data as T[];
       (contents as T[]).forEach(content => {
-        const cachedContent = cached.get(content.id);
         this.format(content);
         cached.set(content.id, content);
       });
     } else {
       const content = data as T;
-      const cachedContent = cached.get(content.id);
       this.format(content);
       cached.set(content.id, content);
     }

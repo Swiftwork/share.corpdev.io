@@ -7,6 +7,7 @@ module.exports = {
     'interface-name': [true, 'always-prefix'],
     'member-ordering': false,
     'no-empty': false,
+    'no-unused-variable': true,
     'ordered-imports': true,
     'semicolon': [true, 'always', 'ignore-interfaces'],
     'space-before-function-paren': [true, 'never'],

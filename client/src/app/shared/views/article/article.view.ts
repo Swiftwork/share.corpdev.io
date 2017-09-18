@@ -1,14 +1,12 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as ContentTools from 'ContentTools';
 import { Observable } from 'rxjs/Rx';
-import { setTimeout } from 'timers';
+
+import { BaseView } from '../../../core/base/base.view';
 import { ContentToolsService } from '../../../core/content-tools/content-tools.service';
 import { ArticleService, IArticle } from '../../services/article.service';
 import { ISection, SectionService } from '../../services/section.service';
-
-import * as ContentTools from 'ContentTools';
-
-import { BaseView } from '../../../core/base/base.view';
 
 @Component({
   selector: 'v-article',

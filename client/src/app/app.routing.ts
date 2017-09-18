@@ -1,11 +1,11 @@
-import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
-import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
-
-import { AuthView } from './shared/views/auth/auth.view';
-/* Views */
+import { AnimationTriggerMetadata } from '@angular/animations';
+import { RouterModule, Routes } from '@angular/router';
 
 /* Routing modules */
 import { CodeModule } from './pages/code/code.module';
+
+/* Views */
+import { AuthView } from './shared/views/auth/auth.view';
 
 /* Routing factories */
 export function codeRoutingFactory() { return CodeModule; }

@@ -17,8 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 export function main(): Promise<void | NgModuleRef<AppModule>> {
   document.removeEventListener('DOMContentLoaded', main, false);
   return platformBrowserDynamic()
-    .bootstrapModule(AppModule, { defaultEncapsulation: ViewEncapsulation.None })
-    .catch((err) => console.error(err));
+    .bootstrapModule(AppModule, { defaultEncapsulation: ViewEncapsulation.None });
 }
 
 /**
@@ -26,12 +25,9 @@ export function main(): Promise<void | NgModuleRef<AppModule>> {
  * add event listener. Loading has already occured with
  * hot module replacement.
  */
-switch (document.readyState) {
-  case 'loading':
-    document.addEventListener('DOMContentLoaded', main, false);
-    break;
-  case 'interactive':
-  case 'complete':
-  default:
-    main();
-}
+if (document.readyState === 'loading')
+  document.addEventListener('DOMContentLoaded', main, false);
+else
+  main().catch((err) => {
+    console.error(err);
+  });

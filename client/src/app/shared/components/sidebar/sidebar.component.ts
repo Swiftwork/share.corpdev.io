@@ -1,6 +1,6 @@
-import { Component, ElementRef, HostBinding, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+
 import { AppState } from '../../../app.state';
 import { ContentToolsService } from '../../../core/content-tools/content-tools.service';
 import { ArticleService, IArticle } from '../../services/article.service';
@@ -27,7 +27,7 @@ export class SidebarComponent {
   public topics: ITopic[];
   public state = {
     editing: false,
-  }
+  };
 
   public topicsState = {
     model: '',
@@ -79,7 +79,7 @@ export class SidebarComponent {
   /*=== DRAGGABLE ===*/
 
   onDragStart(event: DragEvent, topic: ITopic) {
-    const element = event.target as HTMLElement;
+    //const element = event.target as HTMLElement;
     event.dataTransfer.dropEffect = 'move';
     this.topicsState.dragging = topic;
   }
@@ -104,7 +104,7 @@ export class SidebarComponent {
     const element = event.target as HTMLElement;
     element.classList.remove('over');
 
-    const index = this.topics.indexOf(topic);
+    //const index = this.topics.indexOf(topic);
     return false;
   }
 

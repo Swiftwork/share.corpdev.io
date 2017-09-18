@@ -1,11 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-
-import { CODE_EDITOR_MODES, ICodeEditorMode } from '../../components/code-editor/code-editor-modes';
-import { CodeEditorComponent } from '../../components/code-editor/code-editor.component';
-
-import * as ace from 'brace';
+import { Component, ViewChild } from '@angular/core';
 
 import { BaseView } from '../../../core/base/base.view';
+import { CODE_EDITOR_MODES, ICodeEditorMode } from '../../components/code-editor/code-editor-modes';
+import { CodeEditorComponent } from '../../components/code-editor/code-editor.component';
 
 @Component({
   selector: 'v-code',

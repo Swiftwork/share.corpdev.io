@@ -1,5 +1,4 @@
 import { ElementRef, EventEmitter, Injectable, Output } from '@angular/core';
-import { Subject } from 'rxjs/Rx';
 
 import { ContentToolsEditor } from './content-tools.editor';
 import { ImageUploader } from './content-tools.utils';

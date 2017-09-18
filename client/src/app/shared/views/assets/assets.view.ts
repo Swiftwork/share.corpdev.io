@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Rx';
+
 import { BaseView } from '../../../core/base/base.view';
 import { AssetService, IAsset } from '../../services/asset.service';
 

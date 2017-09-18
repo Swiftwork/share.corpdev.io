@@ -1,15 +1,13 @@
-import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
-import { ActivatedRouteSnapshot, Resolve, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
+import { AnimationTriggerMetadata } from '@angular/animations';
+import { RouterModule, Routes } from '@angular/router';
+
+/* Views */
 import { ArticleResolver } from '../../shared/services/article.resolver';
 import { SectionResolver } from '../../shared/services/section.resolver';
 import { ArticleView } from '../../shared/views/article/article.view';
 import { AssetsView } from '../../shared/views/assets/assets.view';
 import { CodeView } from '../../shared/views/code/code.view';
 import { TopicView } from '../../shared/views/topic/topic.view';
-
-/* Views */
-
-/* Routing modules */
 
 /* Router */
 export const CODE_ROUTES: Routes = [
