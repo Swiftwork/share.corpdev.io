@@ -1137,3 +1137,26 @@
 2017-09-17T17:43:56.719732000 4788.823984s notice: All client connections closed.
 2017-09-17T17:43:56.719742000 4788.823994s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
 2017-09-17T17:43:56.751896000 4788.856148s notice: Storage engine shut down.
+2017-09-17T19:03:27.159705400 0.007053s notice: Running rethinkdb 2.3.5-windows (MSC 190023506)...
+2017-09-17T19:03:27.159705401 0.007132s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2017-09-17T19:03:27.159705402 0.007449s notice: Loading data from directory D:\\Git\\share.corpdev.io\\database\\data
+2017-09-17T19:03:27.164720500 0.012170s info: Automatically using cache size of 4730 MB
+2017-09-17T19:03:27.165724100 0.013517s notice: Listening for intracluster connections on port 29015
+2017-09-17T19:03:27.203841400 0.052041s notice: Listening for client driver connections on port 28015
+2017-09-17T19:03:27.204843000 0.052188s notice: Listening for administrative HTTP connections on port 8080
+2017-09-17T19:03:27.204843001 0.052190s notice: Listening on cluster address: 127.0.0.1
+2017-09-17T19:03:27.204843002 0.052191s notice: Listening on driver address: 127.0.0.1
+2017-09-17T19:03:27.204843003 0.052219s notice: Listening on http address: 127.0.0.1
+2017-09-17T19:03:27.204843004 0.052220s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-09-17T19:03:27.204843005 0.052221s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2017-09-17T19:03:28.086889600 0.934062s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2017-09-17T19:03:28.491932300 1.338865s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 36.
+2017-09-17T19:03:28.492903200 1.339895s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 36. Latest log index is 104.
+2017-09-17T19:03:28.520017400 1.366895s info: Table 964064de-a55c-4ae7-b44e-81faa7f21ee0: Starting a new Raft election for term 5.
+2017-09-17T19:03:28.520485600 1.367798s info: Table 964064de-a55c-4ae7-b44e-81faa7f21ee0: This server is Raft leader for term 5. Latest log index is 12.
+2017-09-17T19:03:28.587718200 1.434608s info: Table d1280bd7-8725-4966-a6ab-ecf937bee3a2: Starting a new Raft election for term 27.
+2017-09-17T19:03:28.588191300 1.435481s info: Table d1280bd7-8725-4966-a6ab-ecf937bee3a2: This server is Raft leader for term 27. Latest log index is 77.
+2017-09-17T19:03:28.596749000 1.443615s info: Table 937108e2-9f5a-45e9-9697-125a4247f6a4: Starting a new Raft election for term 27.
+2017-09-17T19:03:28.597218500 1.444502s info: Table 937108e2-9f5a-45e9-9697-125a4247f6a4: This server is Raft leader for term 27. Latest log index is 77.
+2017-09-17T19:03:28.888131000 1.734916s info: Table 7d6bd3a6-df38-4a8a-817e-e76afa97b2c4: Starting a new Raft election for term 27.
+2017-09-17T19:03:28.889133100 1.735898s info: Table 7d6bd3a6-df38-4a8a-817e-e76afa97b2c4: This server is Raft leader for term 27. Latest log index is 77.

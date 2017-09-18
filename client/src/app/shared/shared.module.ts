@@ -20,6 +20,7 @@ import { CodeView } from './views/code/code.view';
 import { TopicView } from './views/topic/topic.view';
 
 import { ArticleComponent } from './components/article/article.component';
+import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { LoginComponent } from './components/login/login.component';
 import { SectionComponent } from './components/section/section.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -39,6 +40,7 @@ export const DECLARATIONS: any[] = [
   SectionComponent,
   SidebarComponent,
   TopbarComponent,
+  CodeEditorComponent,
 ];
 
 @NgModule({
