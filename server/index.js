@@ -79,9 +79,10 @@ if (process.env.NODE_ENV === 'development') {
 // ENDPOINTS
 //------------------------------------------------------------------------------------
 
+router = require('./endpoints/index.js')(io);
 app.use((req, res, next) => {
-  router = require('./endpoints/index.js')(io);
   if (process.env.NODE_ENV === 'development') {
+    router = require('./endpoints/index.js')(io);
     dev.devRoutes(compiler, router);
   } else {
     router.get('*', (req, res) => {
