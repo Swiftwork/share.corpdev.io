@@ -1,4 +1,4 @@
-@import '/styles/constmix.css';
+@import '@evry/ng-styles/dist/helpers/mixins.css';
 
 .c-section {
   @mixin clearfix;

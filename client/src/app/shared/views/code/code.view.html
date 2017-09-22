@@ -1,6 +1,13 @@
-<select [ngModel]="editorMode"
-  (ngModelChange)="onSelectMode($event)">
-  <option [ngValue]="mode" *ngFor="let mode of modes">{{mode.caption}}</option>
-</select>
+<menu class="v-code--menu">
 
-<c-code-editor #editorRef></c-code-editor>
+  <c-text-input [Label]="'test'">test</c-text-input>
+
+  <select [ngModel]="editorMode"
+    (ngModelChange)="onSelectMode($event)">
+    <option [ngValue]="mode" *ngFor="let mode of modes">{{mode.caption}}</option>
+  </select>
+
+</menu>
+
+<c-code-editor class="v-code--editor"
+  #editorRef></c-code-editor>

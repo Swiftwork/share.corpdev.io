@@ -1,46 +1,7 @@
 /* Vendor */
 
-@import 'normalize.css';
-@import 'ContentTools/build/content-tools.min.css';
+@import '@evry/ng-styles';
 
-/* Helpers */
-
-@import './helpers/constants.css';
-@import './helpers/mixins.css';
-@import './helpers/utilities.css';
-
-/* Fonts */
-
-@import './fonts/regular.css';
-
-/* Base */
-
-@import './base/standardize.css';
-@import './base/typography.css';
-@import './base/general.css';
-@import './base/body.css';
-
-/* Containers */
-
-@import './containers/async.css';
-@import './containers/container.css';
-@import './containers/grid.css';
-@import './containers/tabs.css';
-@import './containers/fieldset.css';
-
-/* Presentationals */
-
-@import './presentationals/content.css';
-
-/* Interactives */
-
-@import './interactives/button-input.css';
-@import './interactives/checkbox-input.css';
-@import './interactives/content-tools.css';
-@import './interactives/radio-input.css';
-@import './interactives/select-input.css';
-@import './interactives/text-input.css';
-@import './interactives/textarea-input.css';
-
-/* Directives */
-
+body {
+  background: greenyellow;
+}

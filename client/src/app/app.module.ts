@@ -3,8 +3,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
-
+import { NgComponentsModule } from '@evry/ng-components/dist';
+import { NgCoreModule } from '@evry/ng-core';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppState, InternalStateType } from './app.state';
@@ -35,6 +37,8 @@ type StoreType = {
 
     /*=== APP MODULES ===*/
     AppRoutingModule,
+    NgCoreModule.forRoot(),
+    NgComponentsModule.forRoot(),
     CoreModule.forRoot(),
     SharedModule.forRoot(),
   ],

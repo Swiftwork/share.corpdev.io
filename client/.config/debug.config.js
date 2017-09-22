@@ -48,7 +48,7 @@ module.exports = merge.smart(commonConfig, {
     new ForkTsCheckerWebpackPlugin({
       tsconfig: path.resolve(process.cwd(), 'tsconfig.json'),
       tslint: path.resolve(process.cwd(), 'client/.config/tslint.config.js'),
-      watch: path.resolve(process.cwd(), 'client/src'),
+      watch: path.resolve(process.cwd(), 'client/src/app'),
       checkSyntacticErrors: true,
     }),
     new webpack.LoaderOptionsPlugin({

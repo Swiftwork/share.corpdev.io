@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ISection } from '../../services/section.service';
 
@@ -16,10 +16,6 @@ export class SectionComponent implements OnInit, ISection {
   @Input() date: Date = new Date();
   @Input() id: string = 'sdgta893b';
   @Input() body: string = null;
-
-  constructor(host: ElementRef) {
-    host.nativeElement.classList.add('c-section');
-  }
 
   ngOnInit() {
     if (!/^<\w+[\s\S]+>$/.test(this.body))
