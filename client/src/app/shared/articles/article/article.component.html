@@ -1,0 +1,12 @@
+<a [routerLink]="route">
+  <figure class="c-article--image"
+    [ngStyle]="{'background': 'url('+image+')'}">
+    <figcaption class="c-article--tags">{{tags.join(', ')}}</figcaption>
+  </figure>
+
+  <section>
+    <time class="c-article--date">{{date | date: 'medium'}}</time>
+    <h3 class="c-article--title">{{title}}</h3>
+    <p class="c-article--preamble">{{preamble}}</p>
+  </section>
+</a>

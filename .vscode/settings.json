@@ -16,5 +16,12 @@
   "search.exclude": {
     "**/node_modules": true,
     "dist": true
-  }
+  },
+  "editor.formatOnSave": true,
+  "typescriptHero.resolver.importGroups": [
+    "Plains",
+    "Modules",
+    "/module|resolver|service/",
+    "Workspace"
+  ]
 }

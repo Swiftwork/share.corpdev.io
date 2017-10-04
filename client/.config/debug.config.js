@@ -2,7 +2,7 @@ var path = require('path');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+//var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 /* Import common configuration for debug and dist */
 var environment = require('../../environment.js')('development');
@@ -21,6 +21,8 @@ module.exports = merge.smart(commonConfig, {
         test: /\.ts$/,
         use: [
           '@angularclass/hmr-loader',
+          'awesome-typescript-loader',
+          /*
           'cache-loader',
           {
             loader: 'thread-loader',
@@ -36,6 +38,7 @@ module.exports = merge.smart(commonConfig, {
               happyPackMode: true
             }
           },
+          */
           'angular2-template-loader',
         ],
       },
@@ -45,12 +48,13 @@ module.exports = merge.smart(commonConfig, {
   plugins: [
     new ExtractTextPlugin({ disable: true }),
     new webpack.HotModuleReplacementPlugin(),
+    /*
     new ForkTsCheckerWebpackPlugin({
       tsconfig: path.resolve(process.cwd(), 'tsconfig.json'),
       tslint: path.resolve(process.cwd(), 'client/.config/tslint.config.js'),
-      watch: path.resolve(process.cwd(), 'client/src/app'),
       checkSyntacticErrors: true,
     }),
+    */
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {

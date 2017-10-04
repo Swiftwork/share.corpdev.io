@@ -1,0 +1,21 @@
+<header class="c-section--details">
+  <time class="c-section--details-date"
+    [attr.datetime]="date">{{date | date: 'medium'}}</time>
+</header>
+
+<div class="c-section--example">
+  <pre class="c-section--example-code"><code>writeValue(value: any) &#123;
+    if (value !== this.value) &#123;
+      this.elementRef.nativeElement.innerHTML = value;
+      this.ctService.refresh();
+    &#125;
+  &#125;
+  </code></pre>
+  <img class="c-section--example-image"
+    src="https://assets.materialup.com/uploads/03464115-2685-4430-b87e-ec9b880e64cc/attachment.png" />
+</div>
+
+<div class="c-section--text"
+  editable
+  [id]="'section-'+id"
+  [(ngModel)]="body"></div>

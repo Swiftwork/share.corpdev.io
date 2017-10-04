@@ -1,7 +1,12 @@
 /* Vendor */
 
 @import '@evry/ng-styles';
+@import 'ContentTools/build/content-tools.min.css';
 
-body {
-  background: greenyellow;
-}
+/* Fonts */
+
+@import './fonts/regular.css';
+
+/* Interactives */
+
+@import './interactives/content-tools.css';

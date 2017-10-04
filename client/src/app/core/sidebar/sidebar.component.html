@@ -1,0 +1,80 @@
+<h2 class="c-sidebar--title">
+  <div [ngClass]="{'c-sidebar--title-roller': true, 'editing': state.editing}">
+    <section>
+      <a [routerLink]="appState.get('instance')">
+        <img src="../../../assets/images/logo.svg" />
+        {{title}}
+      </a>
+      <a class="c-sidebar--title-edit"
+        (click)="onStartEdit()">&#9999;</a>
+    </section>
+    <a class="c-sidebar--title-state"
+      (click)="onEndEdit()">
+      <i>&#9999;</i>editing
+    </a>
+  </div>
+</h2>
+
+<section class="c-sidebar--editor"
+  #editorRef></section>
+
+<nav class="c-sidebar--navigation">
+
+  <ul class="c-sidebar--navigation-topics"
+    #topicsRef>
+
+    <li class="c-sidebar--navigation-topic"
+      [attr.draggable]="state.editing"
+      (dragstart)="onDragStart($event)"
+      (dragenter)="onDragEnter($event)"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDragDrop($event, topic)"
+      (dragend)="onDragEnd($event)"
+      *ngFor="let topic of topics">
+
+      <a [routerLink]="topic.route"
+        routerLinkActive
+        #rla="routerLinkActive">{{topic.title}}</a>
+
+      <ul class="c-sidebar--navigation-articles"
+        *ngIf="router.isActive(topic.route || '')">
+
+        <ng-container *ngFor="let id of topic.articles"
+          [ngTemplateOutlet]="articleRef"
+          [ngTemplateOutletContext]="{article: getArticle(id) | async}"></ng-container>
+
+        <ng-template #articleRef
+          let-article="article">
+          <a [routerLink]="article.route"
+            class="c-sidebar--navigation-article">{{article.title}}</a>
+        </ng-template>
+
+        <a class="c-sidebar--navigation-add"
+          (click)="toggleCreateArticle()"
+          *ngIf="!articlesState.creating">+ Add new article</a>
+
+        <input class="c-sidebar--navigation-input"
+          placeholder="Add new article"
+          [(ngModel)]="articlesState.model"
+          (keyup.enter)="createArticle(articlesState.model)"
+          (keyup.escape)="toggleCreateArticle()"
+          *ngIf="articlesState.creating" />
+
+      </ul>
+
+    </li>
+  </ul>
+
+  <a class="c-sidebar--navigation-add"
+    (click)="toggleCreateTopic()"
+    *ngIf="!topicsState.creating">+ Add new topic</a>
+
+  <input class="c-sidebar--navigation-input"
+    placeholder="Add new topic"
+    [(ngModel)]="topicsState.model"
+    (keyup.enter)="createTopic(topicsState.model)"
+    (keyup.escape)="toggleCreateTopic()"
+    *ngIf="topicsState.creating" />
+
+</nav>

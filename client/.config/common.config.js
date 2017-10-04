@@ -4,8 +4,17 @@ var webpack = require('webpack');
 var DashboardPlugin = require('webpack-dashboard/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var chokidar = require('chokidar');
+var postcssVariablesPath = path.resolve(process.cwd(), 'client/.config/postcss.variables.js');
 
-var postcssVariables = require(path.resolve(process.cwd(), 'client/.config/postcss.variables.js'));
+chokidar.watch(postcssVariablesPath).on('all', (event, path) => {
+  console.log(event, path);
+  delete require.cache[require.resolve(postcssVariablesPath)];
+});
+
+function loadVariables() {
+  return require(postcssVariablesPath);
+}
 
 module.exports = {
   context: path.resolve(process.cwd(), 'client/src'),
@@ -58,7 +67,7 @@ module.exports = {
               loader: 'postcss-loader', options: {
                 config: {
                   path: path.resolve('node_modules', '@evry/ng-styles/dist', 'postcss.config.js'),
-                  ctx: { variables: postcssVariables, },
+                  ctx: { variables: loadVariables, },
                 }
               }
             },
@@ -81,7 +90,7 @@ module.exports = {
             loader: 'postcss-loader', options: {
               config: {
                 path: path.resolve('node_modules', '@evry/ng-styles/dist', 'postcss.config.js'),
-                ctx: { variables: postcssVariables, },
+                ctx: { variables: loadVariables, },
               }
             },
           },

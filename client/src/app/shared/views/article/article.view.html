@@ -1,8 +1,0 @@
-<header class="v-article--header">
-  <h2 class="v-article--header-title">{{(article | async).title}}</h2>
-</header>
-
-<ng-container *ngFor="let section of sections">
-  <c-section [id]="section.id"
-    [body]="section.body"></c-section>
-</ng-container>

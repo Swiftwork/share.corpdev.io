@@ -1,24 +1,58 @@
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes, UrlMatchResult, UrlSegment, UrlSegmentGroup } from '@angular/router';
 
-/* Routing modules */
-import { CodeModule } from './pages/code/code.module';
+import { ArticleResolver } from './shared/articles/shared/article.resolver';
+import { SectionResolver } from './shared/sections/shared/section.resolver';
 
-/* Views */
-import { AuthView } from './shared/views/auth/auth.view';
+import { AuthComponent } from './core/auth/auth.component';
+import { ArticlesComponent } from './shared/articles/articles.component';
+import { AssetsComponent } from './shared/assets/assets.component';
+import { CodeComponent } from './shared/code/code.component';
+import { SectionsComponent } from './shared/sections/sections.component';
 
-/* Routing factories */
-export function codeRoutingFactory() { return CodeModule; }
+export const PAGES = ['code'];
+
+export function ROUTE_MATCHER(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
+  return segments.length > 0 && PAGES.includes(segments[0].path) ? ({ consumed: segments }) : null;
+}
 
 /* Router */
-export const APP_ROUTES: Routes = [
+export const ROUTES: Routes = [
   {
     path: 'login',
-    component: AuthView,
+    component: AuthComponent,
   },
   {
     path: 'code',
-    loadChildren: codeRoutingFactory,
+    //matcher: ROUTE_MATCHER,
+    children: [
+      {
+        path: 'topic/:id',
+        component: ArticlesComponent,
+        resolve: {
+          articles: ArticleResolver,
+        },
+      },
+      {
+        path: 'article/:id',
+        component: SectionsComponent,
+        resolve: {
+          sections: SectionResolver,
+        },
+      },
+      {
+        path: 'assets',
+        component: AssetsComponent,
+      },
+      {
+        path: 'code',
+        component: CodeComponent,
+      },
+      {
+        path: '',
+        component: ArticlesComponent,
+      },
+    ],
   },
   {
     path: '',
@@ -28,13 +62,13 @@ export const APP_ROUTES: Routes = [
 ];
 
 /* Animations */
-export const APP_ROUTE_ANIMATIONS: AnimationTriggerMetadata[] = [
+export const ROUTE_ANIMATIONS: AnimationTriggerMetadata[] = [
 
 ];
 
 /* Define our providers */
-export const APP_ROUTING_PROVIDERS: any[] = [
+export const ROUTING_PROVIDERS: any[] = [
 
 ];
 
-export const AppRoutingModule = RouterModule.forRoot(APP_ROUTES);
+export const RoutingModule = RouterModule.forRoot(ROUTES);

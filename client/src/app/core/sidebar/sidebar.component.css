@@ -1,0 +1,119 @@
+.c-sidebar {
+  display: block;
+  background-color: white;
+  box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05);
+
+  &--title {
+    width: 100%;
+    height: 3vr;
+    line-height: 3vr;
+    perspective: 20vr;
+
+    &-edit {
+      position: absolute;
+      padding: 0 0.5vr;
+      opacity: 0;
+      z-index: 1;
+      right: 0;
+    }
+
+    &:hover {
+      .c-sidebar--title-edit {
+        opacity: 1;
+      }
+    }
+
+    &-roller {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform $t_animation;
+      transform-style: preserve-3d;
+
+      &.editing {
+        transform: translate3d(0, -1.5vr, -1.5vr) rotateX(90deg);
+      }
+
+      a {
+        color: white;
+        font-weight: 300;
+        text-decoration: none;
+      }
+
+      > * {
+        position: absolute;
+        display: block;
+        padding: 0 1vr;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+
+        i, img {
+          margin-right: 0.5vr;
+          height: 1vr;
+          font-style: normal;
+        }
+
+        &:nth-child(1) {
+          background-image: linear-gradient(to right bottom, $c_color_beta, $c_color_gamma);
+          transform: translateZ(0) rotateX(0);
+        }
+
+        &:nth-child(2) {
+          background-image: linear-gradient(to right bottom, $c_color_delta, $c_color_epsilon);
+          transform: translate3d(0, 1.5vr, -1.5vr) rotateX(-90deg);
+        }
+      }
+    }
+  }
+
+  &--navigation {
+    &-topic, &-article, &-add, &-input {
+      position: relative;
+      display: block;
+      padding: 0.5vr 2vr;
+      color: color($c_color_alpha a(80%));
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    &-topic, &-article {
+      &.over {
+        border: 2px dashed rgba(0, 0, 0, 0.3);
+      }
+
+      &[draggable=true] {
+        &::before {
+          position: absolute;
+          content: '\2630';
+          left: 1vr;
+          color: rgba(0, 0, 0, 0.3);
+          cursor: grab;
+
+          &:active {
+            cursor: grabbing;
+          }
+        }
+      }
+    }
+
+    &-article {
+      padding-left: 3vr;
+      font-weight: 200;
+    }
+
+    &-articles {
+    }
+
+    &-add {
+      color: color($c_color_alpha a(60%));
+    }
+
+    &-input {
+      width: 100%;
+      outline: none;
+      border: none;
+    }
+  }
+}

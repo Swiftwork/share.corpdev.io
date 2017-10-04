@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
@@ -21,14 +21,9 @@
   },
   "exclude": [
     "node_modules",
-    "debug",
-    "dist",
-    "aot"
-  ],
-  "typeRoots": [
-    "node_modules/@types",
-    "node_modules",
-    "client/src/declarations"
+    "client/debug",
+    "client/dist",
+    "client/aot"
   ],
   "compileOnSave": false
 }
