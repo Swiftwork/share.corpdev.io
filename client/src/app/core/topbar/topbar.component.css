@@ -1,0 +1,61 @@
+.c-topbar {
+  display: flex;
+  padding: 0.5vr 4vr;
+  flex-direction: row;
+  background-color: white;
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+
+  &--search {
+    margin: 0;
+    padding: 0 0.5vr;
+    flex: 1;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+
+    &-input {
+      margin: 0;
+      width: 100%;
+      height: 2vr;
+      appearance: none;
+      outline: none;
+      border: none;
+      background: 0;
+
+      &:focus {
+        border-bottom: 1px solid $c_color_beta;
+      }
+    }
+  }
+
+  &--edit {
+    padding: 0 0.5vr;
+    line-height: 2vr;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+
+    a {
+      display: inline-block;
+      padding: 0 0.5vr;
+    }
+  }
+
+  &--user {
+    display: flex;
+    padding: 0 0.5vr;
+    flex-basis: auto;
+
+    &-image {
+      margin-right: 0.5vr;
+      height: 2vr;
+      float: left;
+      border-radius: 50%;
+    }
+
+    &-name {
+      display: block;
+    }
+
+    &-role {
+      display: block;
+    }
+  }
+}

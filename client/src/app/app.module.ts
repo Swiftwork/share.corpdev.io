@@ -3,13 +3,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { createInputTransfer, createNewHosts, removeNgStyles } from '@angularclass/hmr';
-
+import { NgComponentsModule } from '@evry/ng-components';
+import { NgCoreModule } from '@evry/ng-core';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app.routing';
-import { AppState, InternalStateType } from './app.state';
+
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+
+import { AppComponent } from './app.component';
+import { RoutingModule } from './app.routing';
+import { AppState, InternalStateType } from './app.state';
 
 export function AppStateFactory(appState: AppState) {
   return appState.get('locale') || 'sv-SE';
@@ -34,7 +37,9 @@ type StoreType = {
     LazyLoadImageModule,
 
     /*=== APP MODULES ===*/
-    AppRoutingModule,
+    NgCoreModule.forRoot(),
+    NgComponentsModule.forRoot(),
+    RoutingModule,
     CoreModule.forRoot(),
     SharedModule.forRoot(),
   ],

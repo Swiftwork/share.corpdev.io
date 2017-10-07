@@ -4,10 +4,17 @@ var webpack = require('webpack');
 var DashboardPlugin = require('webpack-dashboard/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-// `CheckerPlugin` is optional. Use it if you want async error reporting.
-// We need this plugin to detect a `--watch` mode. It may be removed later
-// after https://github.com/webpack/webpack/issues/3460 will be resolved.
-var CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+var chokidar = require('chokidar');
+var postcssVariablesPath = path.resolve(process.cwd(), 'client/.config/postcss.variables.js');
+
+chokidar.watch(postcssVariablesPath).on('all', (event, path) => {
+  console.log('\n', '\x1b[36m', '=== Variables Updated ===', '\x1b[0m', '\n');
+  delete require.cache[require.resolve(postcssVariablesPath)];
+});
+
+function loadVariables() {
+  return require(postcssVariablesPath);
+}
 
 module.exports = {
   context: path.resolve(process.cwd(), 'client/src'),
@@ -59,7 +66,8 @@ module.exports = {
             {
               loader: 'postcss-loader', options: {
                 config: {
-                  path: path.resolve(process.cwd(), 'client/.config/postcss.config.js'),
+                  path: path.resolve('node_modules', '@evry/ng-styles/dist', 'postcss.config.js'),
+                  ctx: { variables: loadVariables, },
                 }
               }
             },
@@ -81,9 +89,10 @@ module.exports = {
           {
             loader: 'postcss-loader', options: {
               config: {
-                path: path.resolve(process.cwd(), 'client/.config/postcss.config.js'),
+                path: path.resolve('node_modules', '@evry/ng-styles/dist', 'postcss.config.js'),
+                ctx: { variables: loadVariables, },
               }
-            }
+            },
           },
         ],
       },
@@ -104,7 +113,6 @@ module.exports = {
       /angular(\\|\/)core(\\|\/)@angular/,
       path.resolve(process.cwd(), 'client/src')
     ),
-    new CheckerPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
 };

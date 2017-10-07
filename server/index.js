@@ -63,9 +63,7 @@ ad.authenticate(username, password, function (err, auth) {
 // SOCKET IO
 //------------------------------------------------------------------------------------
 
-io.on('connection', (client) => {
-  console.log('Client connected...', client.id);
-});
+require('./socket.js')(io);
 
 //------------------------------------------------------------------------------------
 // BUILD AND HOT RELOAD FOR DEVELOPMENT
@@ -79,10 +77,10 @@ if (process.env.NODE_ENV === 'development') {
 // ENDPOINTS
 //------------------------------------------------------------------------------------
 
-router = require('./endpoints/index.js')(io);
+router = require('./endpoints/index.js')();
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
-    router = require('./endpoints/index.js')(io);
+    router = require('./endpoints/index.js')();
     dev.devRoutes(compiler, router);
   } else {
     router.get('*', (req, res) => {

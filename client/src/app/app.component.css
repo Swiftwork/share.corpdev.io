@@ -1,10 +1,9 @@
-@import '/styles/constmix.css';
-
 .m-app {
   display: grid;
   grid: 'sidebar topbar' 'sidebar main';
   grid-template-rows: 3vr auto;
-  grid-template-columns: minmax(10vr, 3fr) 9fr;
+  grid-template-columns: minmax(12vr, 2fr) 10fr;
+  background-image: linear-gradient(to bottom right, color($c_color_beta a(7%)), color($c_color_gamma a(7%)));
 
   .c-topbar {
     position: relative;

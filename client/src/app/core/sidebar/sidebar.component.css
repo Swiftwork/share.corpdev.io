@@ -1,0 +1,142 @@
+.c-sidebar {
+  display: block;
+  background-color: white;
+  /* box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05); */
+  border-right: 1px solid rgba(0, 0, 0, 0.075);
+
+  &--title {
+    width: 100%;
+    height: 3vr;
+    line-height: 3vr;
+    perspective: 20vr;
+
+    &-edit {
+      position: absolute;
+      padding: 0 0.5vr;
+      opacity: 0;
+      z-index: 1;
+      right: 0;
+    }
+
+    &:hover {
+      .c-sidebar--title-edit {
+        opacity: 1;
+      }
+    }
+
+    &-roller {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform $t_animation;
+      transform-style: preserve-3d;
+
+      &.editing {
+        transform: translate3d(0, -1.5vr, -1.5vr) rotateX(90deg);
+      }
+
+      a {
+        color: white;
+        font-weight: 300;
+        text-decoration: none;
+      }
+
+      > * {
+        position: absolute;
+        display: block;
+        padding: 0 1vr;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+
+        i, img {
+          margin-right: 0.5vr;
+          height: 1vr;
+          font-style: normal;
+        }
+
+        &:nth-child(1) {
+          background-image: linear-gradient(to right bottom, $c_color_beta, $c_color_gamma);
+          transform: translateZ(0) rotateX(0);
+        }
+
+        &:nth-child(2) {
+          background-image: linear-gradient(to right bottom, $c_color_delta, $c_color_epsilon);
+          transform: translate3d(0, 1.5vr, -1.5vr) rotateX(-90deg);
+        }
+      }
+    }
+  }
+
+  &--navigation {
+    a {
+      display: block;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.25vr 2vr;
+    }
+
+    &-topic, &-article, &-add, &-input {
+      display: block;
+      position: relative;
+    }
+
+    &-topic, &-article {
+      &.over {
+        border: 2px dashed rgba(0, 0, 0, 0.3);
+      }
+
+      &[draggable=true] {
+        &::before {
+          position: absolute;
+          content: '\2630';
+          top: 0.6rem;
+          left: 1vr;
+          color: rgba(0, 0, 0, 0.3);
+          cursor: grab;
+
+          &:active {
+            cursor: grabbing;
+          }
+        }
+      }
+    }
+
+    &-topic {
+      &::after {
+        position: absolute;
+        content: '\2A2F';
+        top: 0.6rem;
+        right: 1vr;
+        color: rgba(0, 0, 0, 0.3);
+      }
+
+      > a {
+        margin-top: 1vr;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.75em;
+        text-transform: uppercase;
+      }
+    }
+
+    &-articles {
+      margin-left: 0;
+    }
+
+    &-article {
+      font-size: 1.8rem;
+      padding: 0.5vr 0;
+    }
+
+    &-add {
+      color: color($c_color_alpha a(60%));
+    }
+
+    &-input {
+      margin-left: 1vr;
+      width: calc(100% - 2vr);
+      outline: none;
+      border: none;
+    }
+  }
+}

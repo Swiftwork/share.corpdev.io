@@ -1,0 +1,8 @@
+<header class="c-sections--header">
+  <h2 class="c-sections--header-title">{{(article | async).title}}</h2>
+</header>
+
+<ng-container *ngFor="let section of sections">
+  <c-section [id]="section.id"
+    [body]="section.body"></c-section>
+</ng-container>

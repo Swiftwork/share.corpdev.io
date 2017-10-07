@@ -1,0 +1,36 @@
+.c-article {
+  display: block;
+  background: white;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  border-radius: 3px;
+  transition: transform calc($t_animation / 4) linear;
+
+  > a {
+    text-decoration: none;
+    color: black !important;
+  }
+
+  &:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+
+  &--image {
+    height: 10vr;
+    background-position: center !important;
+    background-size: cover !important;
+  }
+
+  &--tags {
+    padding: 0.5vr;
+    color: white;
+  }
+
+  &--date, &--title, &--preamble {
+    padding: 0 1vr;
+  }
+
+  &--date {
+    color: rgba(0, 0, 0, 0.7);
+  }
+}

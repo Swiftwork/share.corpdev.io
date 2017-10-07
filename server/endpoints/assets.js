@@ -5,22 +5,9 @@ const auth = require('../lib/auth.js');
 const utils = require('../lib/utils.js');
 const environment = require('../../environment.js')(process.env.NODE_ENV);
 
-module.exports = (io) => {
+module.exports = () => {
 
   const router = express.Router();
-
-  /* SOCKET */
-
-  rdb.connection.then((connection) => {
-    rdb.subscribeAll('assets').then((cursor) => {
-      cursor.each((err, change) => {
-        if (err) throw err;
-        io.emit('assets', change.new_val ? change.new_val.id : null);
-      })
-    });
-  });
-
-  /* XHR */
 
   router.get('/', (request, response) => {
     rdb.findAll('assets')
