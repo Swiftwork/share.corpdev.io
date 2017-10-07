@@ -8,7 +8,7 @@ var chokidar = require('chokidar');
 var postcssVariablesPath = path.resolve(process.cwd(), 'client/.config/postcss.variables.js');
 
 chokidar.watch(postcssVariablesPath).on('all', (event, path) => {
-  console.log(event, path);
+  console.log('\n', '\x1b[36m', '=== Variables Updated ===', '\x1b[0m', '\n');
   delete require.cache[require.resolve(postcssVariablesPath)];
 });
 

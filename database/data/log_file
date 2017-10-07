@@ -1282,3 +1282,23 @@
 2017-10-03T17:00:49.205951000 1.840613s info: Table 937108e2-9f5a-45e9-9697-125a4247f6a4: This server is Raft leader for term 32. Latest log index is 92.
 2017-10-03T17:00:49.455869000 2.090531s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 41.
 2017-10-03T17:00:49.463496000 2.098158s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 41. Latest log index is 119.
+2017-10-05T10:33:13.464541000 37043.588475s notice: Removing file /Volumes/Projects/GIT/share.corpdev.io/database/data/7d6bd3a6-df38-4a8a-817e-e76afa97b2c4
+2017-10-05T10:33:13.464563000 37043.588491s info: Table 7d6bd3a6-df38-4a8a-817e-e76afa97b2c4: Deleted the table.
+2017-10-05T10:33:16.163460000 37046.287401s notice: Removing file /Volumes/Projects/GIT/share.corpdev.io/database/data/964064de-a55c-4ae7-b44e-81faa7f21ee0
+2017-10-05T10:33:16.163467000 37046.287408s info: Table 964064de-a55c-4ae7-b44e-81faa7f21ee0: Deleted the table.
+2017-10-05T10:33:20.019921000 37050.143881s notice: Removing file /Volumes/Projects/GIT/share.corpdev.io/database/data/937108e2-9f5a-45e9-9697-125a4247f6a4
+2017-10-05T10:33:20.019929000 37050.143889s info: Table 937108e2-9f5a-45e9-9697-125a4247f6a4: Deleted the table.
+2017-10-05T10:33:23.638412000 37053.762389s notice: Removing file /Volumes/Projects/GIT/share.corpdev.io/database/data/d1280bd7-8725-4966-a6ab-ecf937bee3a2
+2017-10-05T10:33:23.638420000 37053.762397s info: Table d1280bd7-8725-4966-a6ab-ecf937bee3a2: Deleted the table.
+2017-10-05T10:33:29.170405000 37059.294410s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Starting a new Raft election for term 1.
+2017-10-05T10:33:29.170607000 37059.294611s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Added replica on this server.
+2017-10-05T10:33:29.175984000 37059.299989s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: This server is Raft leader for term 1. Latest log index is 0.
+2017-10-05T10:33:33.752802000 37063.876829s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: Starting a new Raft election for term 1.
+2017-10-05T10:33:33.752990000 37063.877017s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: Added replica on this server.
+2017-10-05T10:33:33.758281000 37063.882307s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: This server is Raft leader for term 1. Latest log index is 0.
+2017-10-05T10:33:36.905421000 37067.029463s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: Starting a new Raft election for term 1.
+2017-10-05T10:33:36.905659000 37067.029701s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: Added replica on this server.
+2017-10-05T10:33:36.911457000 37067.035499s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: This server is Raft leader for term 1. Latest log index is 0.
+2017-10-05T10:33:46.357789000 37076.481877s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: Starting a new Raft election for term 1.
+2017-10-05T10:33:46.357999000 37076.482087s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: Added replica on this server.
+2017-10-05T10:33:46.363005000 37076.487093s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: This server is Raft leader for term 1. Latest log index is 0.

@@ -1,3 +1,5 @@
+<!-- TITLE -->
+
 <h2 class="c-sidebar--title">
   <div [ngClass]="{'c-sidebar--title-roller': true, 'editing': state.editing}">
     <section>
@@ -15,10 +17,16 @@
   </div>
 </h2>
 
+<!-- EDITOR CONTAINER -->
+
 <section class="c-sidebar--editor"
   #editorRef></section>
 
+<!-- NAVIGATION -->
+
 <nav class="c-sidebar--navigation">
+
+  <!-- TOPICS -->
 
   <ul class="c-sidebar--navigation-topics"
     #topicsRef>
@@ -37,18 +45,22 @@
         routerLinkActive
         #rla="routerLinkActive">{{topic.title}}</a>
 
+      <!-- ARTICLES -->
+
       <ul class="c-sidebar--navigation-articles"
         *ngIf="router.isActive(topic.route || '')">
 
-        <ng-container *ngFor="let id of topic.articles"
+        <li *ngFor="let id of topic.articles"
           [ngTemplateOutlet]="articleRef"
-          [ngTemplateOutletContext]="{article: getArticle(id) | async}"></ng-container>
+          [ngTemplateOutletContext]="{article: getArticle(id) | async}"></li>
 
         <ng-template #articleRef
           let-article="article">
           <a [routerLink]="article.route"
             class="c-sidebar--navigation-article">{{article.title}}</a>
         </ng-template>
+
+        <!-- ADD ARTICLE -->
 
         <a class="c-sidebar--navigation-add"
           (click)="toggleCreateArticle()"
@@ -66,15 +78,19 @@
     </li>
   </ul>
 
-  <a class="c-sidebar--navigation-add"
-    (click)="toggleCreateTopic()"
-    *ngIf="!topicsState.creating">+ Add new topic</a>
+  <!-- ADD TOPIC -->
 
-  <input class="c-sidebar--navigation-input"
-    placeholder="Add new topic"
-    [(ngModel)]="topicsState.model"
-    (keyup.enter)="createTopic(topicsState.model)"
-    (keyup.escape)="toggleCreateTopic()"
-    *ngIf="topicsState.creating" />
+  <ng-container *ngIf="state.editing">
+    <a class="c-sidebar--navigation-add"
+      (click)="toggleCreateTopic()"
+      *ngIf="!topicsState.creating">+ Add new topic</a>
+
+    <c-text-input class="c-sidebar--navigation-input"
+      [Placeholder]="'Add new topic'"
+      [(ngModel)]="topicsState.model"
+      (keyup.enter)="createTopic(topicsState.model)"
+      (keyup.escape)="toggleCreateTopic()"
+      *ngIf="topicsState.creating"></c-text-input>
+  </ng-container>
 
 </nav>

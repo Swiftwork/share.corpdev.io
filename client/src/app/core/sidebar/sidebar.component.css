@@ -1,7 +1,8 @@
 .c-sidebar {
   display: block;
   background-color: white;
-  box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 20px 0 40px rgba(0, 0, 0, 0.05); */
+  border-right: 1px solid rgba(0, 0, 0, 0.075);
 
   &--title {
     width: 100%;
@@ -68,14 +69,16 @@
   }
 
   &--navigation {
-    &-topic, &-article, &-add, &-input {
-      position: relative;
+    a {
       display: block;
-      padding: 0.5vr 2vr;
-      color: color($c_color_alpha a(80%));
-      font-weight: 600;
       text-decoration: none;
-      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.25vr 2vr;
+    }
+
+    &-topic, &-article, &-add, &-input {
+      display: block;
+      position: relative;
     }
 
     &-topic, &-article {
@@ -87,6 +90,7 @@
         &::before {
           position: absolute;
           content: '\2630';
+          top: 0.6rem;
           left: 1vr;
           color: rgba(0, 0, 0, 0.3);
           cursor: grab;
@@ -98,12 +102,30 @@
       }
     }
 
-    &-article {
-      padding-left: 3vr;
-      font-weight: 200;
+    &-topic {
+      &::after {
+        position: absolute;
+        content: '\2A2F';
+        top: 0.6rem;
+        right: 1vr;
+        color: rgba(0, 0, 0, 0.3);
+      }
+
+      > a {
+        margin-top: 1vr;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.75em;
+        text-transform: uppercase;
+      }
     }
 
     &-articles {
+      margin-left: 0;
+    }
+
+    &-article {
+      font-size: 1.8rem;
+      padding: 0.5vr 0;
     }
 
     &-add {
@@ -111,7 +133,8 @@
     }
 
     &-input {
-      width: 100%;
+      margin-left: 1vr;
+      width: calc(100% - 2vr);
       outline: none;
       border: none;
     }

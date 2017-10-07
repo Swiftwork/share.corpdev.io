@@ -3,6 +3,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgCoreModule } from '@evry/ng-core/dist';
 
 import { ContentToolsService } from '../shared/content-tools/content-tools.service';
 import { AuthService } from './auth/shared/auth.service';
@@ -32,6 +33,7 @@ export const DECLARATIONS: any[] = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgCoreModule,
   ],
   declarations: DECLARATIONS,
   exports: DECLARATIONS,

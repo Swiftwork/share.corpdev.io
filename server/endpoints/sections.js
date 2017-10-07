@@ -2,22 +2,9 @@ const express = require('express');
 const rdb = require('../lib/database.js');
 const auth = require('../lib/auth.js');
 
-module.exports = (io) => {
+module.exports = () => {
 
   const router = express.Router();
-
-  /* SOCKET */
-
-  rdb.connection.then((connection) => {
-    rdb.subscribeAll('sections').then((cursor) => {
-      cursor.each((err, change) => {
-        if (err) throw err;
-        io.emit('sections', change.new_val ? change.new_val.id : null);
-      })
-    });
-  });
-
-  /* XHR */
 
   router.get('/', (request, response) => {
     rdb.findAll('sections')

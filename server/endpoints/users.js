@@ -2,7 +2,7 @@ const express = require('express');
 const rdb = require('../lib/database.js');
 const auth = require('../lib/auth.js');
 
-module.exports = (io) => {
+module.exports = () => {
   const router = express.Router();
 
   router.get('/', auth.authorize, (request, response) => {
