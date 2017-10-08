@@ -1,10 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AppState } from '../../app.state';
 import { ArticleService, IArticle } from '../../shared/articles/shared/article.service';
 import { ContentToolsService } from '../../shared/content-tools/content-tools.service';
 import { ITopic, TopicService } from '../../shared/topics/topic.service';
+
+import { AppState } from '../../app.state';
 
 export interface IArticleLink {
   title: string,
@@ -121,6 +122,10 @@ export class SidebarComponent {
   createTopic(title: string) {
     this.topicsState.creating = false;
     this.topicsService.add(title).subscribe();
+  }
+
+  deleteTopic(id: string) {
+    this.topicsService.delete(id).subscribe();
   }
 
   /*=== ARTICLES ===*/

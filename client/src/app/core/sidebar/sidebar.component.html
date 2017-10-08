@@ -4,8 +4,7 @@
   <div [ngClass]="{'c-sidebar--title-roller': true, 'editing': state.editing}">
     <section>
       <a [routerLink]="appState.get('instance')">
-        <img src="../../../assets/images/logo.svg" />
-        {{title}}
+        <img src="../../../assets/images/logo.svg" /> {{title}}
       </a>
       <a class="c-sidebar--title-edit"
         (click)="onStartEdit()">&#9999;</a>
@@ -45,19 +44,24 @@
         routerLinkActive
         #rla="routerLinkActive">{{topic.title}}</a>
 
+      <a class="c-sidebar--navigation-topic-delete"
+        role="button"
+        (click)="deleteTopic(topic.id)"
+        *ngIf="state.editing">&#10799;</a>
+
       <!-- ARTICLES -->
 
       <ul class="c-sidebar--navigation-articles"
         *ngIf="router.isActive(topic.route || '')">
 
-        <li *ngFor="let id of topic.articles"
+        <li class="c-sidebar--navigation-article"
+          *ngFor="let id of topic.articles"
           [ngTemplateOutlet]="articleRef"
           [ngTemplateOutletContext]="{article: getArticle(id) | async}"></li>
 
         <ng-template #articleRef
           let-article="article">
-          <a [routerLink]="article.route"
-            class="c-sidebar--navigation-article">{{article.title}}</a>
+          <a [routerLink]="article.route">{{article.title}}</a>
         </ng-template>
 
         <!-- ADD ARTICLE -->

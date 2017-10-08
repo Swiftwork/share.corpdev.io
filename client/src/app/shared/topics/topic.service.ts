@@ -58,6 +58,11 @@ export class TopicService {
       .catch(this.handleError);
   }
 
+  public delete(id: string): Observable<{} | ITopic> {
+    return this.http.delete(`/api/topics/${id}`)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any) {
     console.error(error);
     return Observable.of<{} | ITopic | ITopic[]>(null);
