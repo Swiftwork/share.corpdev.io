@@ -3,7 +3,7 @@
 <h2 class="c-sidebar--title">
   <div [ngClass]="{'c-sidebar--title-roller': true, 'editing': state.editing}">
     <section>
-      <a [routerLink]="appState.get('instance')">
+      <a routerLink="/">
         <img src="../../../assets/images/logo.svg" /> {{title}}
       </a>
       <a class="c-sidebar--title-edit"
@@ -61,24 +61,12 @@
 
         <ng-template #articleRef
           let-article="article">
+
           <a [routerLink]="article.route">{{article.title}}</a>
+
         </ng-template>
 
-        <!-- ADD ARTICLE -->
-
-        <a class="c-sidebar--navigation-add"
-          (click)="toggleCreateArticle()"
-          *ngIf="!articlesState.creating">+ Add new article</a>
-
-        <input class="c-sidebar--navigation-input"
-          placeholder="Add new article"
-          [(ngModel)]="articlesState.model"
-          (keyup.enter)="createArticle(articlesState.model)"
-          (keyup.escape)="toggleCreateArticle()"
-          *ngIf="articlesState.creating" />
-
       </ul>
-
     </li>
   </ul>
 

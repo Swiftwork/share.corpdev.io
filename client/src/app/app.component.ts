@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { PRIMARY_OUTLET, Router, RoutesRecognized } from '@angular/router';
+
 import { AppState } from './app.state';
 
 @Component({

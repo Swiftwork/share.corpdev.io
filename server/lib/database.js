@@ -10,21 +10,21 @@ module.exports.connection = rdb.connect(environment.DATABASE)
 
     /* METHODS */
 
-    module.exports.find = (tableName, id) => {
+    module.exports.get = (tableName, id) => {
       return rdb.table(tableName).get(id).run(connection)
         .then((result) => {
           return result;
         });
     };
 
-    module.exports.findMulti = (tableName, ids) => {
+    module.exports.getMulti = (tableName, ids) => {
       return getMulti(tableName, ids).run(connection)
         .then((cursor) => {
           return cursor.toArray();
         });
     };
 
-    module.exports.findAll = (tableName, filter) => {
+    module.exports.getAll = (tableName, filter) => {
       const table = filter ? rdb.table(tableName).filter(filter) : rdb.table(tableName);
       return table.run(connection)
         .then((cursor) => {
@@ -68,14 +68,14 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.save = (tableName, documents) => {
+    module.exports.insert = (tableName, documents) => {
       return rdb.table(tableName).insert(documents).run(connection)
         .then((result) => {
           return result;
         });
     };
 
-    module.exports.edit = (tableName, document) => {
+    module.exports.update = (tableName, document) => {
       console.log(document);
       return rdb.table(tableName).get(document.id).update(document).run(connection)
         .then((result) => {
@@ -83,7 +83,7 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.editMulti = (tableName, documents) => {
+    module.exports.updateMulti = (tableName, documents) => {
       return rdb.expr(documents).forEach(document =>
         rdb.table(tableName).get(document('id')).update(document))
         .run(connection)
@@ -92,14 +92,14 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.destroy = (tableName, id) => {
+    module.exports.delete = (tableName, id) => {
       return rdb.table(tableName).get(id).delete().run(connection)
         .then((result) => {
           return result;
         });
     };
 
-    module.exports.destroyMulti = (tableName, ids) => {
+    module.exports.deleteMulti = (tableName, ids) => {
       return getMulti(tableName, ids).delete().run(connection)
         .then((cursor) => {
           return cursor.toArray();

@@ -71,7 +71,7 @@ export class AppModule {
     /**
      * Set state
      */
-    this.appState._state = store.state;
+    this.appState.state = store.state;
     /**
      * Set input values
      */
@@ -90,7 +90,7 @@ export class AppModule {
     /**
      * Save state
      */
-    const state = this.appState._state;
+    const state = this.appState.state;
     store.state = state;
     /**
      * Recreate root elements

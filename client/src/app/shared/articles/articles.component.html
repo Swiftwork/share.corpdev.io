@@ -3,3 +3,16 @@
   [image]="'https://unsplash.it/720/480?image=' + (1079 + i)"
   *ngFor="let article of articles | async; let i = index">
 </c-article>
+
+<ng-container *ngIf="state.editing">
+  <a class="c-sidebar--navigation-add"
+    (click)="toggleCreateArticle()"
+    *ngIf="!state.creating">+ Add new article</a>
+
+  <c-text-input class="c-sidebar--navigation-input"
+    [Placeholder]="'Add new article'"
+    [(ngModel)]="state.model"
+    (keyup.enter)="createArticle(state.model)"
+    (keyup.escape)="toggleCreateArticle()"
+    *ngIf="state.creating"></c-text-input>
+</ng-container>

@@ -10,28 +10,28 @@ module.exports = () => {
   const router = express.Router();
 
   router.get('/', (request, response) => {
-    rdb.findAll('assets')
+    rdb.getAll('assets')
       .then((assets) => {
         response.json(assets);
       });
   });
 
   router.get('/images', (request, response) => {
-    rdb.findAll('assets', doc => doc('mimetype').match('^image'))
+    rdb.getAll('assets', doc => doc('mimetype').match('^image'))
       .then((assets) => {
         response.json(assets);
       });
   });
 
   router.get('/videos', (request, response) => {
-    rdb.findAll('assets', doc => doc('mimetype').match('^videos'))
+    rdb.getAll('assets', doc => doc('mimetype').match('^videos'))
       .then((assets) => {
         response.json(assets);
       });
   });
 
   router.get('/code', (request, response) => {
-    rdb.findAll('assets', doc => doc('mimetype').match('^text'))
+    rdb.getAll('assets', doc => doc('mimetype').match('^text'))
       .then((assets) => {
         response.json(assets);
       });
@@ -41,9 +41,9 @@ module.exports = () => {
     const ids = request.params.id.split(',');
     let find;
     if (ids.length > 1) {
-      find = rdb.findMulti('assets', ids)
+      find = rdb.getMulti('assets', ids)
     } else {
-      find = rdb.find('assets', ids[0]);
+      find = rdb.get('assets', ids[0]);
     }
     find.then((asset) => {
       if (!asset) {
@@ -71,7 +71,7 @@ module.exports = () => {
       };
     });
 
-    rdb.save('assets', metadata)
+    rdb.insert('assets', metadata)
       .then((result) => {
         result.generated_keys.forEach((id, index) => {
           const file = files[index];
@@ -86,14 +86,14 @@ module.exports = () => {
   });
 
   router.put('/:id', auth.authorize, (request, response) => {
-    rdb.find('assets', request.params.id)
+    rdb.get('assets', request.params.id)
       .then((asset) => {
         let updateAsset = {
           title: request.body.title || asset.title,
           assets: request.body.assets || asset.assets
         };
 
-        rdb.edit('asset', asset.id, updateAsset)
+        rdb.update('asset', asset.id, updateAsset)
           .then((results) => {
             response.json(results);
           });
@@ -101,7 +101,7 @@ module.exports = () => {
   });
 
   router.delete('/:id', auth.authorize, (request, response) => {
-    rdb.destroy('assets', request.params.id)
+    rdb.delete('assets', request.params.id)
       .then((results) => {
         response.json(results);
       });

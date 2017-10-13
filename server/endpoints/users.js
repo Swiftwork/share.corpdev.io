@@ -6,14 +6,14 @@ module.exports = () => {
   const router = express.Router();
 
   router.get('/', auth.authorize, (request, response) => {
-    rdb.findAll('users')
+    rdb.getAll('users')
       .then((users) => {
         response.json(users);
       });
   });
 
   router.get('/:id', auth.authorize, (request, response, next) => {
-    rdb.find('users', request.params.id)
+    rdb.get('users', request.params.id)
       .then((user) => {
         if (!user) {
           let notFoundError = new Error('User not found');
@@ -34,7 +34,7 @@ module.exports = () => {
           password: hash
         };
 
-        rdb.save('users', newUser)
+        rdb.insert('users', newUser)
           .then((result) => {
             response.json(result);
           });
@@ -42,14 +42,14 @@ module.exports = () => {
   });
 
   router.put('/:id', auth.authorize, (request, response) => {
-    rdb.find('users', request.params.id)
+    rdb.get('users', request.params.id)
       .then((user) => {
         let updateUser = {
           name: request.body.user || user.name,
           email: request.body.email || user.email
         };
 
-        rdb.edit('user', user.id, updateUser)
+        rdb.update('user', user.id, updateUser)
           .then((results) => {
             response.json(results);
           });
@@ -57,7 +57,7 @@ module.exports = () => {
   });
 
   router.delete('/:id', auth.authorize, (request, response) => {
-    rdb.destroy('users', request.params.id)
+    rdb.delete('users', request.params.id)
       .then((results) => {
         response.json(results);
       });

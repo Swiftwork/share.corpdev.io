@@ -7,14 +7,14 @@ module.exports = () => {
   const router = express.Router();
 
   router.get('/', (request, response) => {
-    rdb.findAll('topics')
+    rdb.getAll('topics')
       .then((topics) => {
         response.json(topics);
       });
   });
 
   router.get('/:id', (request, response, next) => {
-    rdb.find('topics', request.params.id)
+    rdb.get('topics', request.params.id)
       .then((topic) => {
         if (!topic) {
           let notFoundError = new Error('Topic not found');
@@ -32,21 +32,21 @@ module.exports = () => {
       articles: request.body.articles || [],
     };
 
-    rdb.save('topics', newTopic)
+    rdb.insert('topics', newTopic)
       .then((result) => {
         response.json(result);
       });
   });
 
   router.put('/:id', auth.authorize, (request, response) => {
-    rdb.find('topics', request.params.id)
+    rdb.get('topics', request.params.id)
       .then((topic) => {
         let updateTopic = {
           title: request.body.title || topic.title,
           articles: request.body.articles || topic.articles
         };
 
-        rdb.edit('topic', topic.id, updateTopic)
+        rdb.update('topic', topic.id, updateTopic)
           .then((results) => {
             response.json(results);
           });
@@ -54,7 +54,7 @@ module.exports = () => {
   });
 
   router.delete('/:id', auth.authorize, (request, response) => {
-    rdb.destroy('topics', request.params.id)
+    rdb.delete('topics', request.params.id)
       .then((results) => {
         response.json(results);
       });

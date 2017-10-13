@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 
 import { ISection } from '../../sections/shared/section.service';
 
@@ -25,22 +24,7 @@ export class ArticleService extends ContentService<IArticle> {
     protected socketService: SocketService,
     protected appState: AppState,
   ) {
-    super(http, socketService, appState);
-    this.initSocket('articles');
-  }
-
-  public add(title: string): Observable<{} | IArticle> {
-    return this.http.post(`/api/articles/`, { title: title })
-      .catch(this.handleError);
-  }
-
-  public get(id?: string): Observable<{} | IArticle | IArticle[]> {
-    const cached = this._store.getValue();
-    if (cached.has(id))
-      return Observable.of(cached.get(id));
-    return this.http.get(id ? `/api/articles/${id}` : `/api/articles/`)
-      .map(this.storeData)
-      .catch(this.handleError);
+    super('articles', http, socketService, appState);
   }
 
   protected format(article: IArticle): IArticle {

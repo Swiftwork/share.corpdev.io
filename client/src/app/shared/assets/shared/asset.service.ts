@@ -21,7 +21,7 @@ export class AssetService extends ContentService<IAsset> {
     protected socketService: SocketService,
     protected appState: AppState,
   ) {
-    super(http, socketService, appState);
+    super('assets', http, socketService, appState);
     this.initSocket('assets');
   }
 
@@ -32,15 +32,6 @@ export class AssetService extends ContentService<IAsset> {
       formData.append('files[]', file, file.name);
     }
     return this.http.post('/api/assets', formData)
-      .catch(this.handleError);
-  }
-
-  public get(id?: string): Observable<{} | IAsset | IAsset[]> {
-    const cached = this._store.getValue();
-    if (cached.has(id))
-      return Observable.of(cached.get(id));
-    return this.http.get(id ? `/api/assets/${id}` : `/api/assets/`)
-      .map(this.storeData)
       .catch(this.handleError);
   }
 

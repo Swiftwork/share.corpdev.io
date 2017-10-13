@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ArticleService, IArticle } from '../../shared/articles/shared/article.service';
+import { ArticleService } from '../../shared/articles/shared/article.service';
 import { ContentToolsService } from '../../shared/content-tools/content-tools.service';
 import { ITopic, TopicService } from '../../shared/topics/topic.service';
 
@@ -36,24 +36,18 @@ export class SidebarComponent {
     creating: false,
   };
 
-  public articlesState = {
-    articles: [] as IArticle[],
-    model: '',
-    creating: false,
-  };
-
   constructor(
     public router: Router,
     public appState: AppState,
     public topicsService: TopicService,
-    public articlesService: ArticleService,
+    public articleService: ArticleService,
     public contentToolsService: ContentToolsService,
   ) {
     this.title = 'code';
   }
 
   ngOnInit() {
-    this.topicsService.topics.subscribe((topics) => {
+    this.topicsService.store.subscribe((topics) => {
       this.topics = Array.from(topics.values());
     });
   }
@@ -73,7 +67,7 @@ export class SidebarComponent {
   }
 
   onEndEdit() {
-    this.state.editing = true;
+    this.state.editing = false;
     this.appState.set('editing', this.state.editing);
   }
 
@@ -130,16 +124,7 @@ export class SidebarComponent {
 
   /*=== ARTICLES ===*/
 
-  toggleCreateArticle() {
-    this.articlesState.creating = !this.articlesState.creating;
-  }
-
-  createArticle(title: string) {
-    this.articlesState.creating = false;
-    this.articlesService.add(title).subscribe();
-  }
-
   getArticle(id: string) {
-    return this.articlesService.get(id);
+    return this.articleService.get(id);
   }
 }

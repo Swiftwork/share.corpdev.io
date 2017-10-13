@@ -7,7 +7,7 @@ module.exports = () => {
   const router = express.Router();
 
   router.get('/', (request, response) => {
-    rdb.findAll('articles')
+    rdb.getAll('articles')
       .then((articles) => {
         response.json(articles);
       });
@@ -17,9 +17,9 @@ module.exports = () => {
     const ids = request.params.id.split(',');
     let find;
     if (ids.length > 1) {
-      find = rdb.findMulti('articles', ids)
+      find = rdb.getMulti('articles', ids)
     } else {
-      find = rdb.find('articles', ids[0]);
+      find = rdb.get('articles', ids[0]);
     }
     find.then((article) => {
       if (!article) {
@@ -38,21 +38,21 @@ module.exports = () => {
       articles: request.body.articles || [],
     };
 
-    rdb.save('articles', newArticle)
+    rdb.insert('articles', newArticle)
       .then((result) => {
         response.json(result);
       });
   });
 
   router.put('/:id', auth.authorize, (request, response) => {
-    rdb.find('articles', request.params.id)
+    rdb.get('articles', request.params.id)
       .then((article) => {
         let updateArticle = {
           title: request.body.title || article.title,
           articles: request.body.articles || article.articles
         };
 
-        rdb.edit('article', article.id, updateArticle)
+        rdb.update('article', article.id, updateArticle)
           .then((results) => {
             response.json(results);
           });
@@ -60,7 +60,7 @@ module.exports = () => {
   });
 
   router.delete('/:id', auth.authorize, (request, response) => {
-    rdb.destroy('articles', request.params.id)
+    rdb.delete('articles', request.params.id)
       .then((results) => {
         response.json(results);
       });

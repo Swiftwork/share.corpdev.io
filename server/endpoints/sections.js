@@ -7,7 +7,7 @@ module.exports = () => {
   const router = express.Router();
 
   router.get('/', (request, response) => {
-    rdb.findAll('sections')
+    rdb.getAll('sections')
       .then((sections) => {
         response.json(sections);
       });
@@ -17,9 +17,9 @@ module.exports = () => {
     const ids = request.params.id.split(',');
     let find;
     if (ids.length > 1) {
-      find = rdb.findMulti('sections', ids)
+      find = rdb.getMulti('sections', ids)
     } else {
-      find = rdb.find('sections', ids[0]);
+      find = rdb.get('sections', ids[0]);
     }
     find.then((section) => {
       if (!section) {
@@ -38,7 +38,7 @@ module.exports = () => {
       body: request.body.body,
     };
 
-    rdb.save('sections', newSection)
+    rdb.insert('sections', newSection)
       .then((result) => {
         response.json(result);
       });
@@ -55,7 +55,7 @@ module.exports = () => {
       } else {
         /* TODO: any manipulations required */
       }
-      rdb.save('sections', sections)
+      rdb.insert('sections', sections)
         .then((result) => {
           response.json(result);
         });
@@ -66,13 +66,13 @@ module.exports = () => {
     if (sections) {
       if (Array.isArray(sections)) {
         /* TODO: any manipulations required */
-        rdb.editMulti('sections', sections)
+        rdb.updateMulti('sections', sections)
           .then((result) => {
             response.json(result);
           });
       } else {
         /* TODO: any manipulations required */
-        rdb.edit('sections', section.id, sections)
+        rdb.update('sections', section.id, sections)
           .then((result) => {
             response.json(result);
           });
@@ -84,13 +84,13 @@ module.exports = () => {
     if (sections) {
       if (Array.isArray(sections)) {
         /* TODO: any manipulations required */
-        rdb.destroyMulti('sections', sections.map(section => section.id))
+        rdb.deleteMulti('sections', sections.map(section => section.id))
           .then((result) => {
             response.json(result);
           });
       } else {
         /* TODO: any manipulations required */
-        rdb.destroy('sections', section.id)
+        rdb.delete('sections', section.id)
           .then((result) => {
             response.json(result);
           });
@@ -99,14 +99,14 @@ module.exports = () => {
   });
 
   router.put('/:id', auth.authorize, (request, response) => {
-    rdb.find('sections', request.params.id)
+    rdb.get('sections', request.params.id)
       .then((section) => {
         let updateSection = {
           title: request.body.title || section.title,
           sections: request.body.sections || section.sections
         };
 
-        rdb.edit('section', section.id, updateSection)
+        rdb.update('section', section.id, updateSection)
           .then((results) => {
             response.json(results);
           });
@@ -114,7 +114,7 @@ module.exports = () => {
   });
 
   router.delete('/:id', auth.authorize, (request, response) => {
-    rdb.destroy('sections', request.params.id)
+    rdb.delete('sections', request.params.id)
       .then((results) => {
         response.json(results);
       });
