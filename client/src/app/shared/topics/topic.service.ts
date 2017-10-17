@@ -22,6 +22,7 @@ export class TopicService extends ContentService<ITopic> {
     protected appState: AppState,
   ) {
     super('topics', http, socketService, appState);
+    this.get().subscribe(this.storeData);
   }
 
   protected format(topic: ITopic): ITopic {

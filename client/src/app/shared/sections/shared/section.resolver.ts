@@ -16,7 +16,15 @@ export class SectionResolver implements Resolve<{} | ISection[] | ISection[]> {
     route: ActivatedRouteSnapshot,
   ): Observable<{} | ISection[] | ISection[]> {
     return this.articleService.get(route.params.id).mergeMap((article: IArticle) => {
-      return this.sectionService.get(article.sections.join(','));
+      if (article.sections && article.sections.length) {
+        return this.articleService.get(article.sections.join(',')).map((sections) => {
+          if (Array.isArray(sections)) return sections;
+          if (typeof sections === 'object') return [sections];
+          return sections;
+        });
+      } else {
+        return [];
+      }
     });
   }
 }

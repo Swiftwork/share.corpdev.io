@@ -39,7 +39,7 @@ export class SidebarComponent {
   constructor(
     public router: Router,
     public appState: AppState,
-    public topicsService: TopicService,
+    public topicService: TopicService,
     public articleService: ArticleService,
     public contentToolsService: ContentToolsService,
   ) {
@@ -47,7 +47,7 @@ export class SidebarComponent {
   }
 
   ngOnInit() {
-    this.topicsService.store.subscribe((topics) => {
+    this.topicService.store.subscribe((topics) => {
       this.topics = Array.from(topics.values());
     });
   }
@@ -115,11 +115,11 @@ export class SidebarComponent {
 
   createTopic(title: string) {
     this.topicsState.creating = false;
-    this.topicsService.add(title).subscribe();
+    this.topicService.add(title).subscribe();
   }
 
   deleteTopic(id: string) {
-    this.topicsService.delete(id).subscribe();
+    this.topicService.delete(id).subscribe();
   }
 
   /*=== ARTICLES ===*/
