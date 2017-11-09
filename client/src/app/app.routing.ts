@@ -12,12 +12,12 @@ import { SectionsComponent } from './shared/sections/sections.component';
 
 export const PAGES = ['code'];
 
-export function ROUTE_MATCHER(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
+export function APP_ROUTE_MATCHER(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
   return segments.length > 0 && PAGES.includes(segments[0].path) ? ({ consumed: segments }) : null;
 }
 
 /* Router */
-export const ROUTES: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: 'login',
     component: AuthComponent,
@@ -62,13 +62,13 @@ export const ROUTES: Routes = [
 ];
 
 /* Animations */
-export const ROUTE_ANIMATIONS: AnimationTriggerMetadata[] = [
+export const APP_ROUTE_ANIMATIONS: AnimationTriggerMetadata[] = [
 
 ];
 
 /* Define our providers */
-export const ROUTING_PROVIDERS: any[] = [
+export const APP_ROUTING_PROVIDERS: any[] = [
 
 ];
 
-export const RoutingModule = RouterModule.forRoot(ROUTES);
+export const AppRoutingModule = RouterModule.forRoot(APP_ROUTES);

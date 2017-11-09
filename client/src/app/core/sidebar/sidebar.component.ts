@@ -1,16 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 
-import { ArticleService } from '../../shared/articles/shared/article.service';
-import { ContentToolsService } from '../../shared/content-tools/content-tools.service';
-import { ITopic, TopicService } from '../../shared/topics/topic.service';
+import { ArticleService, ContentToolsService, ITopic, TopicService } from '../../shared';
 
 import { AppState } from '../../app.state';
-
-export interface IArticleLink {
-  title: string,
-  route: string,
-}
 
 @Component({
   selector: 'c-sidebar',
@@ -25,8 +19,9 @@ export class SidebarComponent {
   @ViewChild('editorRef') editorRef: ElementRef;
 
   public title: string;
-  public topics: ITopic[];
+  public topics: Observable<{} | ITopic | ITopic[]>;
   public state = {
+    instance: '',
     editing: false,
   };
 
@@ -47,9 +42,14 @@ export class SidebarComponent {
   }
 
   ngOnInit() {
+    /*
     this.topicService.store.subscribe((topics) => {
       this.topics = Array.from(topics.values());
     });
+    */
+
+    this.state.instance = 'code';
+    this.topics = this.topicService.getAllNested();
   }
 
   ngAfterViewInit() {

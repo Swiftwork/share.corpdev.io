@@ -10,7 +10,6 @@ export interface IArticle extends IContent {
   date: Date,
   image: string,
   preamble: string,
-  route: string,
   tags: string[],
   title: string,
   sections: ISection[],
@@ -29,7 +28,6 @@ export class ArticleService extends ContentService<IArticle> {
   }
 
   protected format(article: IArticle): IArticle {
-    article.route = `/${this.appState.get('instance')}/article/${article.id}`;
     return article;
   }
 }

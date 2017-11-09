@@ -11,7 +11,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
-import { RoutingModule } from './app.routing';
+import { AppRoutingModule } from './app.routing';
 import { AppState, InternalStateType } from './app.state';
 
 export function AppStateFactory(appState: AppState) {
@@ -39,7 +39,7 @@ type StoreType = {
     /*=== APP MODULES ===*/
     NgCoreModule.forRoot(),
     NgComponentsModule.forRoot(),
-    RoutingModule,
+    AppRoutingModule,
     CoreModule.forRoot(),
     SharedModule.forRoot(),
   ],

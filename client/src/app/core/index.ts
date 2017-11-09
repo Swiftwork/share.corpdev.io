@@ -14,6 +14,3 @@ export * from './sidebar/sidebar.component';
 
 /* Topbar */
 export * from './topbar/topbar.component';
-
-/* Base */
-export * from './core.module';

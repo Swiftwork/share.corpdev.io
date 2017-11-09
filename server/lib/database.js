@@ -32,6 +32,20 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
+    module.exports.getAllNested = (tableName, filter, secondTableName) => {
+      const table = filter ? rdb.table(tableName).filter(filter) : rdb.table(tableName);
+      return table.map((doc1) => {
+        const merge = {};
+        merge[secondTableName] = doc1(secondTableName).map((doc2) => {
+          return rdb.table(secondTableName).get(doc2);
+        });
+        return doc1.merge(merge);
+      }).run(connection)
+        .then((cursor) => {
+          return cursor.toArray();
+        });
+    };
+
     module.exports.findBy = (tableName, fieldName, value) => {
       return rdb.table(tableName).filter(rdb.row(fieldName).eq(value)).run(connection)
         .then((cursor) => {

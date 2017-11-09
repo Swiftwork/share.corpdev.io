@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { IArticle } from '../articles/shared/article.service';
+import { Observable } from 'rxjs/Rx';
 
 import { AppState } from '../../app.state';
 import { ContentService, SocketService } from '../../core';
+import { IArticle } from '../articles/shared/article.service';
 
 export interface ITopic {
   id: string,
   title: string,
-  route: string,
-  articles: IArticle[],
+  articles: string[] | IArticle[],
 }
 
 @Injectable()
@@ -25,8 +24,15 @@ export class TopicService extends ContentService<ITopic> {
     this.get().subscribe(this.storeData);
   }
 
+  public getAllNested(): Observable<{} | ITopic | ITopic[]> {
+    return this.http.get(`/api/topics/nested/`)
+      .map((topics: ITopic[]) => {
+        return topics.map(topic => this.format(topic));
+      })
+      .catch(this.handleError);
+  }
+
   protected format(topic: ITopic): ITopic {
-    topic.route = `/${this.appState.get('instance')}/topic/${topic.id}`;
     return topic;
   }
 }

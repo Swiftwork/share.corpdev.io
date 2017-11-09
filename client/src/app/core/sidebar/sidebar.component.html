@@ -38,11 +38,12 @@
       (dragleave)="onDragLeave($event)"
       (drop)="onDragDrop($event, topic)"
       (dragend)="onDragEnd($event)"
-      *ngFor="let topic of topics">
+      *ngFor="let topic of topics | async">
 
-      <a [routerLink]="topic.route"
+      <a [routerLink]="[state.instance, 'topic', topic.id]"
         routerLinkActive
-        #rla="routerLinkActive">{{topic.title}}</a>
+        #rla="routerLinkActive"
+        [attr.aria-current]="rla.isActive">{{topic.title}}</a>
 
       <a class="c-sidebar--navigation-topic-delete"
         role="button"
@@ -53,21 +54,10 @@
 
       <ul class="c-sidebar--navigation-articles">
 
-        <ng-container *ngFor="let id of topic.articles"
-          [ngTemplateOutlet]="articleRef"
-          [ngTemplateOutletContext]="{article: getArticle(id) | async}">
-        </ng-container>
-
-        <ng-template #articleRef
-          let-article="article">
-
-          {article | json }
-
-          <li class="c-sidebar--navigation-article">
-            <a [routerLink]="article.route">{{article.title}}</a>
-          </li>
-
-        </ng-template>
+        <li class="c-sidebar--navigation-article"
+          *ngFor="let article of topic.articles">
+          <a [routerLink]="[state.instance, 'article', article.id]">{{article.title}}</a>
+        </li>
 
       </ul>
     </li>

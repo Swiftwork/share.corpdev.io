@@ -13,6 +13,13 @@ module.exports = () => {
       });
   });
 
+  router.get('/nested', (request, response) => {
+    rdb.getAllNested('topics', null, 'articles')
+      .then((topics) => {
+        response.json(topics);
+      });
+  });
+
   router.get('/:id', (request, response, next) => {
     rdb.get('topics', request.params.id)
       .then((topic) => {

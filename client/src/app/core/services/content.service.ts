@@ -49,8 +49,14 @@ export abstract class ContentService<T extends IContent> {
 
   public get(id?: string): Observable<{} | T | T[]> {
     const cached = this._store.getValue();
-    if (cached.has(id))
-      return Observable.of(cached.get(id));
+    const ids = (id ? id : '').split(',');
+    const allCached = ids.reduce((sum, value) => (!cached.has(id) ? false : sum), true);
+    if (allCached) {
+      if (ids.length === 1)
+        return Observable.of(cached.get(id));
+      else
+        return Observable.of(ids.map((id) => cached.get(id)));
+    }
     return this.http.get(id ? `/api/${this.content}/${id}` : `/api/${this.content}/`)
       .map(this.storeData)
       .catch(this.handleError);

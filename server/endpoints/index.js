@@ -19,7 +19,7 @@ module.exports = () => {
 
   router.use('/api/assets', require('./assets.js')());
 
-  router.get('api/*', (req, res) => {
+  router.get('/api/*', (req, res) => {
     res.status(501).send({ error: 'No such api' });
   });
 

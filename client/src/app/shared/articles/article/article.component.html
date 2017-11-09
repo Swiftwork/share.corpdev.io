@@ -1,4 +1,4 @@
-<a [routerLink]="route">
+<a [routerLink]="['code', 'article', id]">
   <figure class="c-article--image"
     [ngStyle]="{'background': 'url('+image+')'}">
     <figcaption class="c-article--tags">{{tags.join(', ')}}</figcaption>

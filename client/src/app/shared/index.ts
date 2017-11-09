@@ -26,6 +26,3 @@ export * from './sections/sections.component';
 
 /* Topics */
 export * from './topics/topic.service';
-
-/* Base */
-export * from './shared.module';
