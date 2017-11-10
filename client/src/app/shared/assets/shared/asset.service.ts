@@ -6,11 +6,18 @@ import { AppState } from '../../../app.state';
 import { ContentService, IContent, SocketService } from '../../../core';
 
 export interface IAsset extends IContent {
-  name: string,
-  extension: string,
-  url: string,
-  mimetype: string,
-  modified: Date,
+  name?: string,
+  extension?: string,
+  mimetype?: string,
+  modified?: Date,
+}
+
+export interface ITextualAsset extends IAsset {
+  content?: string,
+}
+
+export interface IBinaryAsset extends IAsset {
+  url?: string,
 }
 
 @Injectable()
@@ -54,7 +61,7 @@ export class AssetService extends ContentService<IAsset> {
   }
 
   protected format(asset: IAsset) {
-    asset.url = `/content/${asset.id}.${asset.extension}?v=${Date.now()}`;
+    //asset.url = `/content/${asset.id}.${asset.extension}?v=${Date.now()}`;
     return asset;
   }
 }

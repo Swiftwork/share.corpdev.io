@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, OnInit } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ControlValueAccessor } from '@angular/forms/src/directives';
 import * as ace from 'brace';
 
@@ -9,16 +10,27 @@ import * as ace from 'brace';
   host: {
     '[class.c-code-editor]': 'true',
   },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CodeEditorComponent),
+      multi: true,
+    },
+  ],
 })
 export class CodeEditorComponent implements OnInit, ControlValueAccessor {
 
-  @Input() code: string;
-
   public editor: ace.Editor;
+
+  /* Value handlers */
+  protected _code: string = '';
+  changed: (value: string) => string = (value: string) => value;
+  touched: () => void = () => null;
 
   constructor(
     public hostRef: ElementRef,
   ) {
+    this.onChange = this.onChange.bind(this);
   }
 
   ngOnInit() {
@@ -28,21 +40,42 @@ export class CodeEditorComponent implements OnInit, ControlValueAccessor {
       mode: 'ace/mode/typescript',
       fontSize: 14,
     });
+    this.editor.$blockScrolling = Infinity;
+    this.editor.on('change', this.onChange);
+    this.editor.on('paste', this.onChange);
   }
 
-  public writeValue(obj: any): void {
-    throw new Error('Not implemented yet.');
+  ngOnDestroy() {
+    this.editor.off('change', this.onChange);
+    this.editor.off('paste', this.onChange);
   }
 
-  public registerOnChange(fn: any): void {
-    throw new Error('Not implemented yet.');
+  onChange() {
+    const code = this.editor.getValue();
+    this._code = code;
+    this.changed(code);
   }
 
-  public registerOnTouched(fn: any): void {
-    throw new Error('Not implemented yet.');
+  get code(): string {
+    return this._code;
   }
 
-  public setDisabledState(isDisabled: boolean): void {
-    throw new Error('Not implemented yet.');
+  set code(code: string) {
+    this._code = code;
+    this.editor.setValue(code, 1);
+    this.changed(code);
+  }
+
+  registerOnChange(fn: (value: string) => string) {
+    this.changed = fn;
+  }
+
+  registerOnTouched(fn: () => void) {
+    this.touched = fn;
+  }
+
+  writeValue(value: string) {
+    if (value === null || value === undefined) value = '';
+    if (this._code !== value) this.code = value;
   }
 }

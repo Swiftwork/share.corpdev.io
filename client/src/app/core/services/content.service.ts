@@ -8,7 +8,7 @@ import { AppState } from '../../app.state';
 import { IDatabaseEvent } from '../../shared/interfaces';
 
 export interface IContent {
-  id: string,
+  id?: string,
 }
 
 @Injectable()

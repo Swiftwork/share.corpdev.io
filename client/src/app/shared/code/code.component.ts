@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 
-import { AssetService } from '../../shared';
+import { AssetService, ITextualAsset } from '../../shared';
 import { CODE_EDITOR_MODES, ICodeEditorMode } from './code-editor/code-editor-modes';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 
@@ -49,13 +49,12 @@ export class CodeComponent {
 
     } else {
       const subscription = this.assetService.add({
-        id: undefined,
         name: this.title,
-        extension: this.editorMode.extensions,
-        url: '',
-        mimetype: `text/${this.editorMode.mode}`,
+        extension: this.editorMode.extensions.split('|')[0],
+        content: this.code,
+        mimetype: `text/${this.editorMode.mode.split('/')[2]}`,
         modified: new Date(),
-      }).subscribe(() => {
+      } as ITextualAsset).subscribe(() => {
         this.busy = false;
         subscription.unsubscribe();
       });

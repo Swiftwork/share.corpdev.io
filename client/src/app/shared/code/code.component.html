@@ -6,10 +6,10 @@
 
     <c-text-input [name]="'title'"
       [Label]="'Code example title'"
-      [ngModel]="title"></c-text-input>
+      [(ngModel)]="title"></c-text-input>
 
     <select name="editorMode"
-      [ngModel]="editorMode"
+      [(ngModel)]="editorMode"
       (ngModelChange)="onSelectMode($event)">
       <option [ngValue]="mode"
         *ngFor="let mode of modes">{{mode.caption}}</option>
@@ -19,8 +19,9 @@
 
   </menu>
 
-  <c-code-editor class="c-code--editor"
-    [code]="code"
-    #editorRef></c-code-editor>
+  <c-code-editor #editorRef
+    class="c-code--editor"
+    name="code"
+    [(ngModel)]="code"></c-code-editor>
 
 </form>

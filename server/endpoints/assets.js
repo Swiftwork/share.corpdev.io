@@ -57,29 +57,44 @@ module.exports = () => {
   });
 
   router.post('/', auth.authorize, (request, response) => {
-    if (utils.isEmpty(request.files))
-      return res.status(400).send('No files were uploaded.');
-    let files = Array.isArray(request.files['files[]']) ? request.files['files[]'] : [request.files['files[]']];
+    let metadata;
 
-    const metadata = files.map(file => {
-      const filename = path.parse(file.name);
-      return {
-        name: filename.name,
-        extension: filename.ext.substring(1),
-        mimetype: file.mimetype,
+    if (request.files) {
+      if (utils.isEmpty(request.files))
+        return res.status(400).send('No files were uploaded.');
+
+      let files = Array.isArray(request.files['files[]']) ? request.files['files[]'] : [request.files['files[]']];
+
+      metadata = files.map(file => {
+        const filename = path.parse(file.name);
+        return {
+          name: filename.name,
+          extension: filename.ext.substring(1),
+          mimetype: file.mimetype,
+          modified: new Date(),
+        };
+      });
+    } else {
+      metadata = {
+        name: request.body.name,
+        extension: request.body.extension,
+        content: request.body.content,
+        mimetype: request.body.mimetype,
         modified: new Date(),
       };
-    });
+    }
 
     rdb.insert('assets', metadata)
       .then((result) => {
         result.generated_keys.forEach((id, index) => {
-          const file = files[index];
-          const contentPath = path.resolve(environment.DIRS.CONTENT, id + path.extname(file.name));
-          file.mv(contentPath, err => {
-            if (err)
-              throw err;
-          });
+          if (request.files && !utils.isEmpty(request.files)) {
+            const file = files[index];
+            const contentPath = path.resolve(environment.DIRS.CONTENT, id + path.extname(file.name));
+            file.mv(contentPath, err => {
+              if (err)
+                throw err;
+            });
+          }
         });
         response.json(result);
       });
