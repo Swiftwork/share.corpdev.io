@@ -115,7 +115,11 @@ export class SidebarComponent {
 
   createTopic(title: string) {
     this.topicsState.creating = false;
-    this.topicService.add(title).subscribe();
+    this.topicService.add({
+      id: undefined,
+      title: title,
+      articles: [],
+    }).subscribe();
   }
 
   deleteTopic(id: string) {

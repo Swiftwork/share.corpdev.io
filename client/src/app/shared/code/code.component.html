@@ -1,13 +1,26 @@
-<menu class="c-code--menu">
+<form class="c-code--form"
+  novalidate
+  (submit)="onSave()">
 
-  <c-text-input [Label]="'test'">test</c-text-input>
+  <menu class="c-code--menu">
 
-  <select [ngModel]="editorMode"
-    (ngModelChange)="onSelectMode($event)">
-    <option [ngValue]="mode" *ngFor="let mode of modes">{{mode.caption}}</option>
-  </select>
+    <c-text-input [name]="'title'"
+      [Label]="'Code example title'"
+      [ngModel]="title"></c-text-input>
 
-</menu>
+    <select name="editorMode"
+      [ngModel]="editorMode"
+      (ngModelChange)="onSelectMode($event)">
+      <option [ngValue]="mode"
+        *ngFor="let mode of modes">{{mode.caption}}</option>
+    </select>
 
-<c-code-editor class="c-code--editor"
-  #editorRef></c-code-editor>
+    <c-button-input [ButtonType]="'submit'">Save</c-button-input>
+
+  </menu>
+
+  <c-code-editor class="c-code--editor"
+    [code]="code"
+    #editorRef></c-code-editor>
+
+</form>

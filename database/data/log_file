@@ -1530,3 +1530,26 @@
 2017-11-09T10:16:43.265295000 1.796691s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: This server is Raft leader for term 10. Latest log index is 27.
 2017-11-09T10:16:43.276099000 1.807496s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 50.
 2017-11-09T10:16:43.286321000 1.817718s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 50. Latest log index is 146.
+2017-11-09T10:19:28.749657000 0.026385s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-11-09T10:19:28.754898000 0.031624s notice: Running on Darwin 17.0.0 x86_64
+2017-11-09T10:19:28.754938000 0.031663s notice: Loading data from directory /Volumes/Projects/GIT/share.corpdev.io/database/data
+2017-11-09T10:19:28.772532000 0.049257s info: Automatically using cache size of 340 MB
+2017-11-09T10:19:28.773011000 0.049736s notice: Listening for intracluster connections on port 29015
+2017-11-09T10:19:28.825521000 0.102247s notice: Listening for client driver connections on port 28015
+2017-11-09T10:19:28.825594000 0.102320s notice: Listening for administrative HTTP connections on port 8080
+2017-11-09T10:19:28.825596000 0.102321s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-11-09T10:19:28.825596001 0.102322s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-11-09T10:19:28.825736000 0.102461s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-11-09T10:19:28.825737000 0.102462s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-11-09T10:19:28.825738000 0.102464s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2017-11-09T10:19:29.659305000 0.936040s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2017-11-09T10:19:30.107183000 1.383922s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: Starting a new Raft election for term 11.
+2017-11-09T10:19:30.107218000 1.383957s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Starting a new Raft election for term 11.
+2017-11-09T10:19:30.113836000 1.390575s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: This server is Raft leader for term 11. Latest log index is 30.
+2017-11-09T10:19:30.113884000 1.390623s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: This server is Raft leader for term 11. Latest log index is 30.
+2017-11-09T10:19:30.256653000 1.533394s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 51.
+2017-11-09T10:19:30.269015000 1.545756s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 51. Latest log index is 149.
+2017-11-09T10:19:30.406088000 1.682830s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: Starting a new Raft election for term 11.
+2017-11-09T10:19:30.414234000 1.690976s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: This server is Raft leader for term 11. Latest log index is 30.
+2017-11-09T10:19:30.582170000 1.858914s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: Starting a new Raft election for term 11.
+2017-11-09T10:19:30.589895000 1.866639s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: This server is Raft leader for term 11. Latest log index is 30.

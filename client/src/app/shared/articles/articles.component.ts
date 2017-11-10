@@ -47,6 +47,14 @@ export class ArticlesComponent {
 
   createArticle(title: string) {
     this.state.creating = false;
-    this.articleService.add(title).subscribe();
+    this.articleService.add({
+      id: undefined,
+      title: title,
+      sections: [],
+      date: new Date(),
+      image: '',
+      preamble: '',
+      tags: [],
+    }).subscribe();
   }
 }

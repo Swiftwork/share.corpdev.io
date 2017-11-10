@@ -1,5 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
+import { AssetService } from '../../shared';
 import { CODE_EDITOR_MODES, ICodeEditorMode } from './code-editor/code-editor-modes';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 
@@ -9,24 +10,56 @@ import { CodeEditorComponent } from './code-editor/code-editor.component';
   styleUrls: ['./code.component.css'],
   host: {
     '[class.c-code]': 'true',
+    '[attr.aria-busy]': 'busy',
   },
 })
 export class CodeComponent {
   @ViewChild(CodeEditorComponent) editorRef: CodeEditorComponent;
 
+  @Input() id: string;
+  @Input() title: string;
+  @Input() code: string;
+
   public modes = CODE_EDITOR_MODES;
   public editorMode: ICodeEditorMode;
 
-  constructor() {
+  public busy = false;
+
+  constructor(
+    private assetService: AssetService,
+  ) {
     this.editorMode = CODE_EDITOR_MODES.find((mode) => mode.name === 'javascript' ? true : false);
   }
 
   ngOnInit() {
+    if (this.id) {
+      this.busy = true;
+      this.assetService.get(this.id);
+    }
   }
 
   public onSelectMode(mode: ICodeEditorMode) {
     console.log(mode);
     this.editorRef.editor.getSession().setMode(mode.mode);
+  }
+
+  public onSave() {
+    this.busy = true;
+    if (this.id) {
+
+    } else {
+      const subscription = this.assetService.add({
+        id: undefined,
+        name: this.title,
+        extension: this.editorMode.extensions,
+        url: '',
+        mimetype: `text/${this.editorMode.mode}`,
+        modified: new Date(),
+      }).subscribe(() => {
+        this.busy = false;
+        subscription.unsubscribe();
+      });
+    }
   }
 
 }

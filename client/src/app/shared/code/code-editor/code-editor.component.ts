@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms/src/directives';
 import * as ace from 'brace';
 
 @Component({
@@ -9,7 +10,9 @@ import * as ace from 'brace';
     '[class.c-code-editor]': 'true',
   },
 })
-export class CodeEditorComponent implements OnInit {
+export class CodeEditorComponent implements OnInit, ControlValueAccessor {
+
+  @Input() code: string;
 
   public editor: ace.Editor;
 
@@ -25,5 +28,21 @@ export class CodeEditorComponent implements OnInit {
       mode: 'ace/mode/typescript',
       fontSize: 14,
     });
+  }
+
+  public writeValue(obj: any): void {
+    throw new Error('Not implemented yet.');
+  }
+
+  public registerOnChange(fn: any): void {
+    throw new Error('Not implemented yet.');
+  }
+
+  public registerOnTouched(fn: any): void {
+    throw new Error('Not implemented yet.');
+  }
+
+  public setDisabledState(isDisabled: boolean): void {
+    throw new Error('Not implemented yet.');
   }
 }
