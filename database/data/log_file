@@ -1605,3 +1605,33 @@
 2018-02-14T15:52:47.800983000 2.008946s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: This server is Raft leader for term 13. Latest log index is 36.
 2018-02-14T15:52:47.996981000 2.204944s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: Starting a new Raft election for term 13.
 2018-02-14T15:52:48.005694000 2.213657s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: This server is Raft leader for term 13. Latest log index is 36.
+2018-02-15T13:54:50.820321000 0.038234s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2018-02-15T13:54:50.828516000 0.046426s notice: Running on Darwin 17.4.0 x86_64
+2018-02-15T13:54:50.828591000 0.046500s notice: Loading data from directory /Volumes/Projects/GIT/share.corpdev.io/database/data
+2018-02-15T13:54:50.852309000 0.070217s info: Automatically using cache size of 100 MB
+2018-02-15T13:54:50.852319000 0.070227s warn: Cache size does not leave much memory for server and query overhead (available memory: 588 MB).
+2018-02-15T13:54:50.852325000 0.070233s warn: Cache size is very low and may impact performance.
+2018-02-15T13:54:50.853315000 0.071224s notice: Listening for intracluster connections on port 29015
+2018-02-15T13:54:50.932724000 0.150632s notice: Listening for client driver connections on port 28015
+2018-02-15T13:54:50.932875000 0.150783s notice: Listening for administrative HTTP connections on port 8080
+2018-02-15T13:54:50.932879000 0.150786s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-02-15T13:54:50.932890000 0.150797s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-02-15T13:54:50.932910000 0.150817s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-02-15T13:54:50.932913000 0.150821s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-02-15T13:54:50.932916000 0.150824s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2018-02-15T13:54:51.880304000 1.098208s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2018-02-15T13:54:52.077579000 1.295482s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 54.
+2018-02-15T13:54:52.086516000 1.304419s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 54. Latest log index is 158.
+2018-02-15T13:54:52.544110000 1.762011s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Starting a new Raft election for term 14.
+2018-02-15T13:54:52.552441000 1.770342s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: This server is Raft leader for term 14. Latest log index is 39.
+2018-02-15T13:54:52.751324000 1.969224s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: Starting a new Raft election for term 14.
+2018-02-15T13:54:52.766187000 1.984087s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: This server is Raft leader for term 14. Latest log index is 39.
+2018-02-15T13:54:52.781400000 1.999299s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: Starting a new Raft election for term 14.
+2018-02-15T13:54:52.787664000 2.005563s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: Starting a new Raft election for term 14.
+2018-02-15T13:54:52.799786000 2.017686s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: This server is Raft leader for term 14. Latest log index is 39.
+2018-02-15T13:54:52.799903000 2.017802s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: This server is Raft leader for term 14. Latest log index is 39.
+2018-02-15T17:15:50.329084000 11635.744876s notice: Server got SIGINT from pid 42572, uid 501; shutting down...
+2018-02-15T17:15:50.330283000 11635.745640s notice: Shutting down client connections...
+2018-02-15T17:15:50.332871000 11635.748228s notice: All client connections closed.
+2018-02-15T17:15:50.332883000 11635.748240s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2018-02-15T17:15:50.406079000 11635.821435s notice: Storage engine shut down.
