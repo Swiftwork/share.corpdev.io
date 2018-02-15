@@ -4,11 +4,11 @@ import { PRIMARY_OUTLET, Router, RoutesRecognized } from '@angular/router';
 import { AppState } from './app.state';
 
 @Component({
-  selector: 'div#root',
+  selector: 'c-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   host: {
-    '[class.m-app]': 'true',
+    '[class.c-app]': 'true',
   },
 })
 export class AppComponent {

@@ -44,10 +44,10 @@ type StoreType = {
 
     /*=== OTHER MODULES ===*/
     LazyLoadImageModule,
-
-    /*=== APP MODULES ===*/
     NgCoreModule.forRoot(),
     NgComponentsModule.forRoot(),
+
+    /*=== APP MODULES ===*/
     AppRoutingModule,
     CoreModule.forRoot(),
     SharedModule.forRoot(),

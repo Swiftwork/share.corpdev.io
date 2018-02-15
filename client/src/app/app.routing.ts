@@ -8,6 +8,7 @@ import { AuthComponent } from './core/auth/auth.component';
 import { ArticlesComponent } from './shared/articles/articles.component';
 import { AssetsComponent } from './shared/assets/assets.component';
 import { CodeComponent } from './shared/code/code.component';
+import { DashboardComponent } from './shared/dashboard/dashboard.component';
 import { SectionsComponent } from './shared/sections/sections.component';
 
 export const PAGES = ['code'];
@@ -15,6 +16,35 @@ export const PAGES = ['code'];
 export function APP_ROUTE_MATCHER(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
   return segments.length > 0 && PAGES.includes(segments[0].path) ? ({ consumed: segments }) : null;
 }
+
+export const GENERIC_ROUTES: Routes = [
+  {
+    path: 'topic/:id',
+    component: ArticlesComponent,
+    resolve: {
+      articles: ArticleResolver,
+    },
+  },
+  {
+    path: 'article/:id',
+    component: SectionsComponent,
+    resolve: {
+      sections: SectionResolver,
+    },
+  },
+  {
+    path: 'assets',
+    component: AssetsComponent,
+  },
+  {
+    path: 'code',
+    component: CodeComponent,
+  },
+  {
+    path: '',
+    component: DashboardComponent,
+  },
+];
 
 /* Router */
 export const APP_ROUTES: Routes = [
@@ -24,35 +54,7 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'code',
-    //matcher: ROUTE_MATCHER,
-    children: [
-      {
-        path: 'topic/:id',
-        component: ArticlesComponent,
-        resolve: {
-          articles: ArticleResolver,
-        },
-      },
-      {
-        path: 'article/:id',
-        component: SectionsComponent,
-        resolve: {
-          sections: SectionResolver,
-        },
-      },
-      {
-        path: 'assets',
-        component: AssetsComponent,
-      },
-      {
-        path: 'code',
-        component: CodeComponent,
-      },
-      {
-        path: '',
-        component: ArticlesComponent,
-      },
-    ],
+    children: GENERIC_ROUTES,
   },
   {
     path: '',

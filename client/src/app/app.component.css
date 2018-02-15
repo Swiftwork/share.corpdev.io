@@ -1,4 +1,4 @@
-.m-app {
+.c-app {
   display: grid;
   height: 100vh;
   grid: 'sidebar topbar' 'sidebar main';
