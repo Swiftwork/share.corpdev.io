@@ -18,6 +18,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { AssetsComponent } from './assets/assets.component';
 import { CodeEditorComponent } from './code/code-editor/code-editor.component';
 import { CodeComponent } from './code/code.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { SectionComponent } from './sections/section/section.component';
 import { SectionsComponent } from './sections/sections.component';
 
@@ -27,6 +28,7 @@ export const DECLARATIONS: any[] = [
   AssetsComponent,
   CodeComponent,
   CodeEditorComponent,
+  DashboardComponent,
   SectionComponent,
   SectionsComponent,
 ];
