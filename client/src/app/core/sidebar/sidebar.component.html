@@ -32,6 +32,7 @@
 
     <li class="c-sidebar--navigation-topic"
       [attr.draggable]="state.editing"
+      aria-grabbed="false"
       (dragstart)="onDragStart($event)"
       (dragenter)="onDragEnter($event)"
       (dragover)="onDragOver($event)"

@@ -83,11 +83,37 @@
     }
 
     &-topic, &-article {
-      &.over {
-        border: 2px dashed rgba(0, 0, 0, 0.3);
+      &.over-above, &.over-below {
+        background-color: rgba(0, 0, 0, 0.05);
+
+        * {
+          pointer-events: none;
+        }
+
+        &::after {
+          display: block;
+          text-align: center;
+        }
+      }
+
+      &.over-above::after {
+        content: '(ﾉಥДಥ)ﾉ︵┻━┻･/';
+      }
+
+      &.over-below::after {
+        content: '┬──┬ ノ( ゜-゜ノ)';
+      }
+
+      &[aria-grabbed=true] {
+        opacity: 0.6;
+        transform: scale(0.9);
+        background: none;
       }
 
       &[draggable=true] {
+        transition-property: opacity, transform;
+        transition-duration: var(--t_animation);
+
         &::before {
           position: absolute;
           content: '\2630';
@@ -104,6 +130,8 @@
     }
 
     &-topic {
+      margin-top: 1vr;
+
       &-delete {
         position: absolute;
         top: 0.6rem;
@@ -116,7 +144,6 @@
       }
 
       > a {
-        margin-top: 1vr;
         color: rgba(0, 0, 0, 0.4);
         font-size: 0.75em;
         text-transform: uppercase;

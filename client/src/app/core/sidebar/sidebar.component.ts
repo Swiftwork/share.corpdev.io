@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
@@ -34,6 +34,7 @@ export class SidebarComponent {
 
   constructor(
     public router: Router,
+    public renderer: Renderer2,
     public appState: AppState,
     public topicService: TopicService,
     public articleService: ArticleService,
@@ -75,37 +76,52 @@ export class SidebarComponent {
   /*=== DRAGGABLE ===*/
 
   onDragStart(event: DragEvent, topic: ITopic) {
-    //const element = event.target as HTMLElement;
+    const target = event.target as HTMLElement;
     event.dataTransfer.dropEffect = 'move';
     this.topicsState.dragging = topic;
+    this.renderer.setAttribute(target, 'aria-grabbed', 'true');
   }
 
   onDragEnter(event: DragEvent) {
-    const element = event.target as HTMLElement;
-    element.classList.add('over');
   }
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
+    const target = event.target as HTMLElement;
+    const draggable = target.closest('[draggable]');
+    if (!draggable) return false;
+    if (draggable.clientHeight / 2 > event.layerY) {
+      this.renderer.addClass(draggable, 'over-above');
+      this.renderer.removeClass(draggable, 'over-below');
+    } else {
+      this.renderer.addClass(draggable, 'over-below');
+      this.renderer.removeClass(draggable, 'over-above');
+    }
     return false;
   }
 
   onDragLeave(event: DragEvent) {
-    const element = event.target as HTMLElement;
-    element.classList.remove('over');
+    const target = event.target as HTMLElement;
+    if (target.hasAttribute('draggable')) {
+      this.renderer.removeClass(target, 'over-above');
+      this.renderer.removeClass(target, 'over-below');
+    }
   }
 
   onDragDrop(event: DragEvent, topic: ITopic) {
     event.stopPropagation();
-    const element = event.target as HTMLElement;
-    element.classList.remove('over');
+    const target = event.target as HTMLElement;
+    this.renderer.removeClass(target, 'over-above');
+    this.renderer.removeClass(target, 'over-below');
 
     //const index = this.topics.indexOf(topic);
     return false;
   }
 
   onDragEnd(event: DragEvent) {
+    const original = event.target as HTMLElement;
     this.topicsState.dragging = null;
+    this.renderer.setAttribute(original, 'aria-grabbed', 'false');
   }
 
   /*=== TOPICS ===*/
