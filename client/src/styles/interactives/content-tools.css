@@ -16,7 +16,7 @@
     padding: 0.5vr;
     background: none;
     box-shadow: none;
-    border: 1px solid $c_color_alpha;
+    border: 1px solid var(--c_color_alpha);
     border-width: 1px 0;
     margin-bottom: 1vr;
   }

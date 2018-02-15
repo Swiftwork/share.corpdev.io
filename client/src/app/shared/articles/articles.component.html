@@ -10,7 +10,7 @@
     *ngIf="!state.creating">+ Add new article</a>
 
   <c-text-input class="c-sidebar--navigation-input"
-    [Placeholder]="'Add new article'"
+    placeholder="Add new article"
     [(ngModel)]="state.model"
     (keyup.enter)="createArticle(state.model)"
     (keyup.escape)="toggleCreateArticle()"

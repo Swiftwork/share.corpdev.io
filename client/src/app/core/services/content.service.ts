@@ -70,15 +70,13 @@ export abstract class ContentService<T extends IContent> {
   protected storeData(data: T | T[]) {
     const cached = this._store.getValue();
     if (Array.isArray(data)) {
-      const contents = data as T[];
-      (contents as T[]).forEach(content => {
+      data.forEach(content => {
         this.format(content);
         cached.set(content.id, content);
       });
     } else {
-      const content = data as T;
-      this.format(content);
-      cached.set(content.id, content);
+      this.format(data);
+      cached.set(data.id, data);
     }
     this._store.next(cached);
     return data;

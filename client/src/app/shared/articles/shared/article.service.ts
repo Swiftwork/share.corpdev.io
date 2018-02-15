@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import { ISection } from '../../sections/shared/section.service';
 
 import { AppState } from '../../../app.state';
-import { ContentService, IContent, SocketService } from '../../../core';
+import { ContentService, IContent } from '../../../core/services/content.service';
+import { SocketService } from '../../../core/services/socket.service';
 
 export interface IArticle extends IContent {
   date: Date,

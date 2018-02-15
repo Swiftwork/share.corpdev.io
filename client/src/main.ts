@@ -1,11 +1,12 @@
 import { enableProdMode, NgModuleRef, ViewEncapsulation } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ENVIRONMENT } from './environments/environment';
 
 import { AppModule } from './app/app.module';
 
 import './styles/index.css';
 
-if (process.env.NODE_ENV === 'production') {
+if (!ENVIRONMENT.DEBUG) {
   enableProdMode();
 }
 

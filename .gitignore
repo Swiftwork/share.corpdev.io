@@ -1,7 +1,19 @@
-.cache-loader
-node_modules
+# VSCODE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# SYSTEM
+.DS_STORE
+
+# PROJECT
 environment.js
-package-lock.json
-yarn.lock
-*.log
 database/data/log_file
+*.log
+.cache-loader
+client/build
+client/docs
+client/test_results
+node_modules

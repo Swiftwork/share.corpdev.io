@@ -4,7 +4,7 @@ import { PRIMARY_OUTLET, Router, RoutesRecognized } from '@angular/router';
 import { AppState } from './app.state';
 
 @Component({
-  selector: 'm-app',
+  selector: 'div#root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   host: {

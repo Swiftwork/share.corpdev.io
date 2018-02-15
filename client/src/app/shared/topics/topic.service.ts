@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { AppState } from '../../app.state';
-import { ContentService, SocketService } from '../../core';
+import { ContentService } from '../../core/services/content.service';
+import { SocketService } from '../../core/services/socket.service';
 import { IArticle } from '../articles/shared/article.service';
 
 export interface ITopic {

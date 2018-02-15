@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { AppState } from '../../../app.state';
-import { ContentService, IContent, SocketService } from '../../../core';
+import { ContentService, IContent } from '../../../core/services/content.service';
+import { SocketService } from '../../../core/services/socket.service';
 
 export interface IAsset extends IContent {
   name?: string,

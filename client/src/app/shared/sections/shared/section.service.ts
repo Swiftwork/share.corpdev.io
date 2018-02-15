@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
-import { SocketService } from '../../../core';
+import { SocketService } from '../../../core/services/socket.service';
 
 export interface ISection {
   date: Date,
@@ -70,13 +70,11 @@ export class SectionService {
   private storeSections(data: ISection | ISection[]) {
     const cached = this._sections.getValue();
     if (Array.isArray(data)) {
-      const sections = data as ISection[];
-      (sections as ISection[]).forEach(section => {
+      data.forEach(section => {
         cached.set(section.id, section);
       });
     } else {
-      const section = data as ISection;
-      cached.set(section.id, section);
+      cached.set(data.id, data);
     }
     this._sections.next(cached);
     return data;

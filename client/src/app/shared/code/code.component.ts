@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 
-import { AssetService, ITextualAsset } from '../../shared';
+import { AssetService, ITextualAsset } from '../assets/shared/asset.service';
 import { CODE_EDITOR_MODES, ICodeEditorMode } from './code-editor/code-editor-modes';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 

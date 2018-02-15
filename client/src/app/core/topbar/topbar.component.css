@@ -22,7 +22,7 @@
       background: 0;
 
       &:focus {
-        border-bottom: 1px solid $c_color_beta;
+        border-bottom: 1px solid var(--c_color_beta);
       }
     }
   }

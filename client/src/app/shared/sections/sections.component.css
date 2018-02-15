@@ -22,7 +22,7 @@
     padding: 3vr 1vr;
     background-attachment: fixed;
     background-size: 100% 14vr;
-    background-image: linear-gradient(to right bottom, $c_color_delta, $c_color_epsilon);
+    background-image: linear-gradient(to right bottom, var(--c_color_delta), var(--c_color_epsilon));
 
     &-title {
       margin: 0;

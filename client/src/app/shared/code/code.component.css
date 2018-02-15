@@ -29,7 +29,7 @@
       content: '';
       height: 2px;
       width: 100%;
-      background-image: linear-gradient(to right, $c_color_beta, $c_color_gamma);
+      background-image: linear-gradient(to right, var(--c_color_beta), var(--c_color_gamma));
     }
   }
 

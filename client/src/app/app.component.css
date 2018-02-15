@@ -1,20 +1,21 @@
 .m-app {
   display: grid;
+  height: 100vh;
   grid: 'sidebar topbar' 'sidebar main';
   grid-template-rows: 3vr auto;
   grid-template-columns: minmax(12vr, 2fr) 10fr;
-  background-image: linear-gradient(to bottom right, color($c_color_beta a(7%)), color($c_color_gamma a(7%)));
+  background-image: linear-gradient(to bottom right, color(var(--c_color_beta) a(7%)), color(var(--c_color_gamma) a(7%)));
 
   .c-topbar {
     position: relative;
     grid-area: topbar;
-    z-index: $z_topbar;
+    z-index: var(--z_topbar);
   }
 
   .c-sidebar {
     position: relative;
     grid-area: sidebar;
-    z-index: $z_sidebar;
+    z-index: var(--z_sidebar);
   }
 
   main {

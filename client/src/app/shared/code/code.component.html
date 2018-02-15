@@ -4,9 +4,8 @@
 
   <menu class="c-code--menu">
 
-    <c-text-input [name]="'title'"
-      [Label]="'Code example title'"
-      [(ngModel)]="title"></c-text-input>
+    <c-text-input name="title"
+      [(ngModel)]="title">Code example title</c-text-input>
 
     <select name="editorMode"
       [(ngModel)]="editorMode"
@@ -15,7 +14,7 @@
         *ngFor="let mode of modes">{{mode.caption}}</option>
     </select>
 
-    <c-button-input [ButtonType]="'submit'">Save</c-button-input>
+    <c-button-input button-type="submit">Save</c-button-input>
 
   </menu>
 

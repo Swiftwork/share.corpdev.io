@@ -4,7 +4,7 @@
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   border-radius: 3px;
-  transition: transform calc($t_animation / 4) linear;
+  transition: transform calc(var(--t_animation) / 4) linear;
 
   > a {
     text-decoration: none;

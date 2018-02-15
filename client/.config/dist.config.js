@@ -1,32 +1,61 @@
-var path = require('path');
-var merge = require('webpack-merge');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var AotPlugin = require('@ngtools/webpack').AotPlugin;
+const path = require('path');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+
+/* CONSTANTS */
+const SOURCE_DIR = path.resolve(process.cwd(), 'client', 'src');
+const CONFIG_DIR = path.resolve(process.cwd(), 'client', '.config');
+
+/* PLUGINS */
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { LoaderOptionsPlugin, EnvironmentPlugin, HashedModuleIdsPlugin, NormalModuleReplacementPlugin } = require('webpack');
+const { PurifyPlugin } = require('@angular-devkit/build-optimizer');
+const { SuppressExtractedTextChunksWebpackPlugin } = require('@angular/cli/plugins/webpack');
+const { ModuleConcatenationPlugin } = require('webpack').optimize;
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 /* Import common configuration for debug and dist */
-var environment = require('../../environment.js')('production');
-var commonConfig = require('./common.config.js');
+const environment = require('../../environment.js')('production');
+const commonConfig = require('./common.config.js');
 
 module.exports = merge.smart(commonConfig, {
+
+  output: {
+    filename: '[name].[chunkhash:20].bundle.js',
+    chunkFilename: '[id].[chunkhash:20].chunk.js',
+  },
 
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: ['@ngtools/webpack'],
+        test: /\.js$/,
+        use: [
+          {
+            loader: '@angular-devkit/build-optimizer/webpack-loader',
+            options: {
+              sourceMap: false
+            }
+          }
+        ]
       },
-    ],
+      {
+        test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+        use: [
+          {
+            loader: '@angular-devkit/build-optimizer/webpack-loader',
+            options: {
+              sourceMap: false
+            }
+          },
+          '@ngtools/webpack'
+        ]
+      }
+    ]
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css?[hash]'),
-    new AotPlugin({
-      tsConfigPath: path.resolve(process.cwd(), 'tsconfig-aot.json'),
-      entryModule: path.resolve(process.cwd(), 'client/src/app/app.module#AppModule'),
-    }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.LoaderOptionsPlugin({
+    new LoaderOptionsPlugin({
       minimize: true,
       debug: false,
       options: {
@@ -41,30 +70,53 @@ module.exports = merge.smart(commonConfig, {
           ],
           customAttrAssign: [/\)?\]?=/],
         },
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      parallel: {
-        cache: true,
-        workers: 4,
       },
-      uglifyOptions: {
-        ie8: false,
-        warnings: false,
-        output: {
-          comments: false,
-        },
-        mangle: {
-          keep_fnames: true, // https://github.com/angular/angular/issues/10618
-        },
-      }
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': `"${environment.ENV}"`,
-        'HOST': `"${environment.HOST}"`,
-        'PORT': `${environment.PORT}`,
-        'CONTENT_DIR': `"${environment.DIRS.CONTENT}"`,
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash:20].bundle.css',
+    }),
+    new SuppressExtractedTextChunksWebpackPlugin(),
+    new ModuleConcatenationPlugin(),
+    new AngularCompilerPlugin({
+      mainPath: 'main.ts',
+      platform: 0,
+      hostReplacementPaths: {
+        'environments/environment.ts': 'environments/environment.prod.ts'
+      },
+      sourceMap: false,
+      tsConfigPath: 'src/tsconfig.json',
+      compilerOptions: {}
+    }),
+    new EnvironmentPlugin({
+      NODE_ENV: 'production',
+      HOST: environment.HOST,
+      PORT: environment.PORT,
+      CONTENT_DIR: environment.DIRS.CONTENT,
+    }),
+    new PurifyPlugin(),
+    new UglifyJsPlugin({
+      test: /\.js$/i,
+      extractComments: false,
+      sourceMap: false,
+      cache: false,
+      parallel: false,
+      uglifyOptions: {
+        output: {
+          ascii_only: true,
+          comments: false
+        },
+        ecma: 5,
+        warnings: false,
+        ie8: false,
+        mangle: {
+          // EVRY component resolver requires function names
+          keep_fnames: true,
+        },
+        compress: {
+          pure_getters: true,
+          passes: 3,
+          keep_fnames: true,
+        }
       }
     }),
   ],

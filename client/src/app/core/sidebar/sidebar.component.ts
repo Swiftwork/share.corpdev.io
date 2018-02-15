@@ -2,9 +2,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
-import { ArticleService, ContentToolsService, ITopic, TopicService } from '../../shared';
-
 import { AppState } from '../../app.state';
+import { ArticleService } from '../../shared/articles/shared/article.service';
+import { ContentToolsService } from '../../shared/content-tools/content-tools.service';
+import { ITopic, TopicService } from '../../shared/topics/topic.service';
 
 @Component({
   selector: 'c-sidebar',

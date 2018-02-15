@@ -1,27 +1,20 @@
-// Place your settings in this file to overwrite default and user settings.
 {
-  "files.insertFinalNewline": true,
-  "tslint.enable": true,
-  "tslint.configFile": "./client/.config/tslint.config.js",
-  "tslint.autoFixOnSave": true,
-  "stylelint.enable": true,
-  "scss.validate": false,
-  "postcssSorting": "./client/.config/postcss.sorting.js",
-  "stylefmt.config": "./client/.config/stylelint.config.js",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
-  "docthis.includeMemberOfOnInterfaceMembers": false,
+  "css.validate": false,
   "docthis.includeMemberOfOnClassMembers": false,
+  "docthis.includeMemberOfOnInterfaceMembers": false,
+  "files.insertFinalNewline": true,
   "html.format.wrapAttributes": "force",
+  "scss.validate": false,
   "search.exclude": {
     "**/node_modules": true,
-    "dist": true
+    "**/build": true,
+    "**/docs": true
   },
-  "editor.formatOnSave": true,
-  "typescriptHero.resolver.importGroups": [
-    "Plains",
-    "Modules",
-    "/module|resolver|service/",
-    "Workspace"
-  ]
+  "stylefmt.config": "./client/.config/stylelint.config.js",
+  "stylelint.enable": true,
+  "tslint.autoFixOnSave": true,
+  "tslint.configFile": "./client/.config/tslint.config.js",
+  "tslint.enable": true,
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
 }

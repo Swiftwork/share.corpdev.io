@@ -1,3 +1,4 @@
+import { registerLocaleData } from '@angular/common';
 import { ApplicationRef, LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -14,8 +15,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppState, InternalStateType } from './app.state';
 
+/* Locales */
+import localeEN from '@angular/common/locales/en';
+import localeSV from '@angular/common/locales/sv';
+
+// the second parameter 'fr' is optional
+registerLocaleData(localeEN, 'en');
+registerLocaleData(localeSV, 'sv');
+
 export function AppStateFactory(appState: AppState) {
-  return appState.get('locale') || 'sv-SE';
+  return appState.get('locale') || 'sv';
 }
 
 type StoreType = {

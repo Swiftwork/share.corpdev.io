@@ -71,7 +71,7 @@
       *ngIf="!topicsState.creating">+ Add new topic</a>
 
     <c-text-input class="c-sidebar--navigation-input"
-      [Placeholder]="'Add new topic'"
+      placeholder="Add new topic"
       [(ngModel)]="topicsState.model"
       (keyup.enter)="createTopic(topicsState.model)"
       (keyup.escape)="toggleCreateTopic()"

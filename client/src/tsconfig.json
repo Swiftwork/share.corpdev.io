@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "../out-tsc/app",
+    "pretty": true,
+    "removeComments": false,
+    "rootDir": ".",
+    "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es5",
+    "types": [] // don't auto-discover @types/node, it results in a ///<reference in the .d.ts output
+  },
+  "exclude": [
+    "../../node_modules",
+    "../build"
+  ],
+  "compileOnSave": false
+}
