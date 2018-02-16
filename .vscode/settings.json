@@ -12,6 +12,7 @@
   },
   "stylefmt.config": "./client/.config/stylelint.config.js",
   "stylelint.enable": true,
+  "tslint.alwaysShowRuleFailuresAsWarnings": true,
   "tslint.autoFixOnSave": true,
   "tslint.configFile": "./client/.config/tslint.config.js",
   "tslint.enable": true,
