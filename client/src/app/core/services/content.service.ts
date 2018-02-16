@@ -48,7 +48,7 @@ export abstract class ContentService<T extends IContent> {
   }
 
   public update(id: string, content: T): Observable<{} | T> {
-    return this.http.post(`/api/${this.content}/${id}`, content)
+    return this.http.put(`/api/${this.content}/${id}`, content)
       .catch(this.handleError);
   }
 

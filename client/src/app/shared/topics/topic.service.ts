@@ -8,9 +8,10 @@ import { SocketService } from '../../core/services/socket.service';
 import { IArticle } from '../articles/shared/article.service';
 
 export interface ITopic {
-  id: string,
-  title: string,
-  articles: string[] | IArticle[],
+  id?: string,
+  title?: string,
+  order?: number,
+  articles?: string[] | IArticle[],
 }
 
 @Injectable()

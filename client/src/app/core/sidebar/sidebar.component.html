@@ -33,15 +33,16 @@
     <li class="c-sidebar--navigation-topic"
       [attr.draggable]="state.editing"
       aria-grabbed="false"
-      (dragstart)="onDragStart($event)"
+      (dragstart)="onDragStart($event, topic)"
       (dragenter)="onDragEnter($event)"
       (dragover)="onDragOver($event)"
       (dragleave)="onDragLeave($event)"
       (drop)="onDragDrop($event, topic)"
       (dragend)="onDragEnd($event)"
-      *ngFor="let topic of topics | async">
+      *ngFor="let topic of topics">
 
       <a [routerLink]="[state.instance, 'topic', topic.id]"
+        draggable="false"
         routerLinkActive
         #rla="routerLinkActive"
         [attr.aria-current]="rla.isActive">{{topic.title}}</a>

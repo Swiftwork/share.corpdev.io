@@ -6,6 +6,20 @@ module.exports = () => {
 
   const router = express.Router();
 
+  const reOrder = (index, target) => {
+    if (index == target) return;
+    const descend = index < target;
+    const lower = descend ? index : target;
+    const upper = descend ? target : index;
+    return rdb.getBetween('topics', lower, upper, { index: 'order', rightBound: descend ? 'open' : 'closed' })
+      .then((topics) => {
+        const mover = topics.find((topic) => topic.order == index);
+        topics.forEach((topic) => topic.order += descend ? -1 : 1);
+        mover.order = target + (descend ? -1 : 0);
+        rdb.updateMulti('topics', topics);
+      });
+  }
+
   router.get('/', (request, response) => {
     rdb.getAll('topics')
       .then((topics) => {
@@ -14,7 +28,7 @@ module.exports = () => {
   });
 
   router.get('/nested', (request, response) => {
-    rdb.getAllNested('topics', null, 'articles')
+    rdb.getAllNested('topics', 'articles', null, { index: 'order' })
       .then((topics) => {
         response.json(topics);
       });
@@ -48,15 +62,24 @@ module.exports = () => {
   router.put('/:id', auth.authorize, (request, response) => {
     rdb.get('topics', request.params.id)
       .then((topic) => {
-        let updateTopic = {
+        const group = [];
+        const updateTopic = {
+          id: topic.id,
           title: request.body.title || topic.title,
           articles: request.body.articles || topic.articles
         };
 
-        rdb.update('topic', topic.id, updateTopic)
-          .then((results) => {
-            response.json(results);
-          });
+        if (typeof request.body.order == 'number')
+          group.push(reOrder(topic.order, request.body.order));
+
+        group.push(rdb.update('topics', updateTopic));
+
+        Promise.all(group).then((results) => {
+          response.json(results);
+        }).catch((err) => {
+          console.error(err);
+          response.send(500);
+        });
       });
   });
 

@@ -84,40 +84,40 @@
 
     &-topic, &-article {
       &.over-above, &.over-below {
-        background-color: rgba(0, 0, 0, 0.05);
-
         * {
           pointer-events: none;
         }
 
         &::after {
+          position: absolute;
           display: block;
+          content: '';
+          width: calc(100% - 2vr);
+          left: 1vr;
           text-align: center;
+          border-top: 4px dotted black;
+          transition: border var(--t_animation);
         }
       }
 
       &.over-above::after {
-        content: '(ﾉಥДಥ)ﾉ︵┻━┻･/';
+        top: -2px;
+        border-color: rgba(0, 0, 0, 0.2);
       }
 
       &.over-below::after {
-        content: '┬──┬ ノ( ゜-゜ノ)';
-      }
-
-      &[aria-grabbed=true] {
-        opacity: 0.6;
-        transform: scale(0.9);
-        background: none;
+        bottom: -2px;
+        border-color: rgba(0, 0, 0, 0.2);
       }
 
       &[draggable=true] {
-        transition-property: opacity, transform;
+        transition-property: transform;
         transition-duration: var(--t_animation);
 
         &::before {
           position: absolute;
           content: '\2630';
-          top: 0.6rem;
+          top: 1.8rem;
           left: 1vr;
           color: rgba(0, 0, 0, 0.3);
           cursor: grab;
@@ -130,23 +130,27 @@
     }
 
     &-topic {
-      margin-top: 1vr;
+      padding: 0.5vr 0;
 
       &-delete {
         position: absolute;
-        top: 0.6rem;
+        top: 1.5rem;
         right: 1vr;
         margin: 0 !important;
         padding: 0 0.5vr !important;
         color: rgba(0, 0, 0, 0.3);
         font-style: normal;
-        font-size: 1.5em !important;
+        font-size: 2em !important;
       }
 
       > a {
         color: rgba(0, 0, 0, 0.4);
         font-size: 0.75em;
         text-transform: uppercase;
+
+        &:focus {
+          color: white;
+        }
       }
     }
 

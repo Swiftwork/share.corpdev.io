@@ -6,7 +6,7 @@ module.exports.connection = rdb.connect(environment.DATABASE)
 
     /* HELPERS */
 
-    getMulti = (tableName, ids) => rdb.table(tableName).getAll(rdb.args(ids));
+    const getMulti = (tableName, ids) => rdb.table(tableName).getAll(rdb.args(ids));
 
     /* METHODS */
 
@@ -24,16 +24,27 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.getAll = (tableName, filter) => {
-      const table = filter ? rdb.table(tableName).filter(filter) : rdb.table(tableName);
+    module.exports.getAll = (tableName, filter, orderBy) => {
+      let table = rdb.table(tableName);
+      if (filter) table = table.filter(filter);
+      if (orderBy) table = table.orderBy(orderBy);
       return table.run(connection)
         .then((cursor) => {
           return cursor.toArray();
         });
     };
 
-    module.exports.getAllNested = (tableName, filter, secondTableName) => {
-      const table = filter ? rdb.table(tableName).filter(filter) : rdb.table(tableName);
+    module.exports.getBetween = (tableName, lower, upper, options) => {
+      return rdb.table(tableName).between(lower, upper, options).run(connection)
+        .then((cursor) => {
+          return cursor.toArray();
+        });
+    };
+
+    module.exports.getAllNested = (tableName, secondTableName, filter, orderBy) => {
+      let table = rdb.table(tableName);
+      if (filter) table = table.filter(filter);
+      if (orderBy) table = table.orderBy(orderBy);
       return table.map((doc1) => {
         const merge = {};
         merge[secondTableName] = doc1(secondTableName).map((doc2) => {
@@ -74,8 +85,10 @@ module.exports.connection = rdb.connect(environment.DATABASE)
         });
     };
 
-    module.exports.subscribeAll = (tableName, options, filter) => {
-      const table = filter ? rdb.table(tableName).filter(filter) : rdb.table(tableName);
+    module.exports.subscribeAll = (tableName, options, filter, orderBy) => {
+      let table = rdb.table(tableName);
+      if (filter) table = table.filter(filter);
+      if (orderBy) table = table.orderBy(orderBy);
       return table.changes().run(connection)
         .then((cursor) => {
           return cursor;
@@ -90,7 +103,6 @@ module.exports.connection = rdb.connect(environment.DATABASE)
     };
 
     module.exports.update = (tableName, document) => {
-      console.log(document);
       return rdb.table(tableName).get(document.id).update(document).run(connection)
         .then((result) => {
           return result;

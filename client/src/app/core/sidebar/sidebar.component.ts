@@ -20,7 +20,7 @@ export class SidebarComponent {
   @ViewChild('editorRef') editorRef: ElementRef;
 
   public title: string;
-  public topics: Observable<{} | ITopic | ITopic[]>;
+  public topics: ITopic[];
   public state = {
     instance: '',
     editing: false,
@@ -28,7 +28,7 @@ export class SidebarComponent {
 
   public topicsState = {
     model: '',
-    dragging: null as ITopic,
+    grabbed: null as ITopic,
     creating: false,
   };
 
@@ -44,14 +44,21 @@ export class SidebarComponent {
   }
 
   ngOnInit() {
-    /*
-    this.topicService.store.subscribe((topics) => {
-      this.topics = Array.from(topics.values());
-    });
-    */
-
     this.state.instance = 'code';
-    this.topics = this.topicService.getAllNested();
+    this.topicService.getAllNested().subscribe((topics: ITopic[]) => {
+      this.topics = topics;
+    });
+
+    this.topicService.store.subscribe((topics) => {
+      if (!Array.isArray(this.topics)) return;
+      this.topics.forEach((topic) => {
+        const newTopic = topics.get(topic.id);
+        if (!newTopic) return;
+        delete newTopic.articles;
+        Object.assign(topic, newTopic);
+      });
+      this.topics.sort((a, b) => a.order - b.order);
+    });
   }
 
   ngAfterViewInit() {
@@ -76,10 +83,12 @@ export class SidebarComponent {
   /*=== DRAGGABLE ===*/
 
   onDragStart(event: DragEvent, topic: ITopic) {
-    const target = event.target as HTMLElement;
+    const draggable = this.getDraggable(event);
+    if (!draggable) return false;
     event.dataTransfer.dropEffect = 'move';
-    this.topicsState.dragging = topic;
-    this.renderer.setAttribute(target, 'aria-grabbed', 'true');
+    this.topicsState.grabbed = topic;
+    this.renderer.setAttribute(draggable, 'aria-grabbed', 'true');
+    return true;
   }
 
   onDragEnter(event: DragEvent) {
@@ -87,8 +96,7 @@ export class SidebarComponent {
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
-    const target = event.target as HTMLElement;
-    const draggable = target.closest('[draggable]');
+    const draggable = this.getDraggable(event);
     if (!draggable) return false;
     if (draggable.clientHeight / 2 > event.layerY) {
       this.renderer.addClass(draggable, 'over-above');
@@ -101,27 +109,43 @@ export class SidebarComponent {
   }
 
   onDragLeave(event: DragEvent) {
-    const target = event.target as HTMLElement;
-    if (target.hasAttribute('draggable')) {
-      this.renderer.removeClass(target, 'over-above');
-      this.renderer.removeClass(target, 'over-below');
+    const draggable = this.getDraggable(event);
+    if (draggable) {
+      this.renderer.removeClass(draggable, 'over-above');
+      this.renderer.removeClass(draggable, 'over-below');
     }
   }
 
   onDragDrop(event: DragEvent, topic: ITopic) {
     event.stopPropagation();
-    const target = event.target as HTMLElement;
-    this.renderer.removeClass(target, 'over-above');
-    this.renderer.removeClass(target, 'over-below');
+    const draggable = this.getDraggable(event);
+    if (draggable) {
+      this.renderer.removeClass(draggable, 'over-above');
+      this.renderer.removeClass(draggable, 'over-below');
+    }
+    const above = draggable.clientHeight / 2 > event.layerY;
+    this.topicService.update(this.topicsState.grabbed.id, {
+      order: above ? topic.order : topic.order + 1,
+    }).subscribe();
 
-    //const index = this.topics.indexOf(topic);
     return false;
   }
 
   onDragEnd(event: DragEvent) {
-    const original = event.target as HTMLElement;
-    this.topicsState.dragging = null;
-    this.renderer.setAttribute(original, 'aria-grabbed', 'false');
+    const draggable = this.getDraggable(event);
+    if (draggable) {
+      this.renderer.setAttribute(draggable, 'aria-grabbed', 'false');
+    }
+    this.topicsState.grabbed = null;
+  }
+
+  private getDraggable(event: Event): HTMLElement {
+    let target = event.target as HTMLElement;
+    if (!target.hasAttribute('draggable'))
+      target = target.parentElement;
+    if (!target.hasAttribute('draggable'))
+      return undefined;
+    return target;
   }
 
   /*=== TOPICS ===*/
