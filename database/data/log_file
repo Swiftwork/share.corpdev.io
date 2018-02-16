@@ -1635,3 +1635,44 @@
 2018-02-15T17:15:50.332871000 11635.748228s notice: All client connections closed.
 2018-02-15T17:15:50.332883000 11635.748240s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
 2018-02-15T17:15:50.406079000 11635.821435s notice: Storage engine shut down.
+2018-02-16T10:00:15.579390000 0.058846s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2018-02-16T10:00:15.587353000 0.066804s notice: Running on Darwin 17.4.0 x86_64
+2018-02-16T10:00:15.587405000 0.066854s notice: Loading data from directory /Volumes/Projects/GIT/share.corpdev.io/database/data
+2018-02-16T10:00:15.615843000 0.095292s info: Automatically using cache size of 100 MB
+2018-02-16T10:00:15.615854000 0.095303s warn: Cache size does not leave much memory for server and query overhead (available memory: 711 MB).
+2018-02-16T10:00:15.615864000 0.095312s warn: Cache size is very low and may impact performance.
+2018-02-16T10:00:15.616999000 0.096448s notice: Listening for intracluster connections on port 29015
+2018-02-16T10:00:15.706235000 0.185681s notice: Listening for client driver connections on port 28015
+2018-02-16T10:00:15.706604000 0.186050s notice: Listening for administrative HTTP connections on port 8080
+2018-02-16T10:00:15.706608000 0.186053s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-02-16T10:00:15.706610000 0.186056s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-02-16T10:00:15.706766000 0.186212s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-02-16T10:00:15.706769000 0.186215s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-02-16T10:00:15.706772000 0.186217s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2018-02-16T10:00:16.591606000 1.071027s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2018-02-16T10:00:16.746523000 1.225938s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 55.
+2018-02-16T10:00:16.756335000 1.235749s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 55. Latest log index is 161.
+2018-02-16T10:00:17.213728000 1.693129s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: Starting a new Raft election for term 15.
+2018-02-16T10:00:17.221950000 1.701351s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: This server is Raft leader for term 15. Latest log index is 42.
+2018-02-16T10:00:17.274696000 1.754095s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Starting a new Raft election for term 15.
+2018-02-16T10:00:17.282016000 1.761415s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: This server is Raft leader for term 15. Latest log index is 42.
+2018-02-16T10:00:17.539916000 2.019308s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: Starting a new Raft election for term 15.
+2018-02-16T10:00:17.550522000 2.029913s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: This server is Raft leader for term 15. Latest log index is 42.
+2018-02-16T10:00:17.599074000 2.078464s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: Starting a new Raft election for term 15.
+2018-02-16T10:00:17.615972000 2.095361s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: This server is Raft leader for term 15. Latest log index is 42.
+2018-02-16T12:27:26.755734000 6408.866940s info: Table ffc8adcb-f3ec-4ec9-878e-efb6893cc58b: Starting a new Raft election for term 1.
+2018-02-16T12:27:26.757932000 6408.869132s info: Table ffc8adcb-f3ec-4ec9-878e-efb6893cc58b: Added replica on this server.
+2018-02-16T12:27:26.771937000 6408.883136s info: Table ffc8adcb-f3ec-4ec9-878e-efb6893cc58b: This server is Raft leader for term 1. Latest log index is 0.
+2018-02-16T12:27:42.936749000 6425.047945s notice: Removing file /Volumes/Projects/GIT/share.corpdev.io/database/data/ffc8adcb-f3ec-4ec9-878e-efb6893cc58b
+2018-02-16T12:27:42.936758000 6425.047953s info: Table ffc8adcb-f3ec-4ec9-878e-efb6893cc58b: Deleted the table.
+2018-02-16T12:27:49.566273000 6431.677468s info: Table 7cde65cd-d955-448e-995e-45b51be3a195: Starting a new Raft election for term 1.
+2018-02-16T12:27:49.566446000 6431.677641s info: Table 7cde65cd-d955-448e-995e-45b51be3a195: Added replica on this server.
+2018-02-16T12:27:49.581328000 6431.692523s info: Table 7cde65cd-d955-448e-995e-45b51be3a195: This server is Raft leader for term 1. Latest log index is 0.
+2018-02-16T13:07:07.317088000 8789.428889s error: Failed to parse one or more lines from the log file, the contents of the `logs` system table will be incomplete. The following parse error occurred: cannot parse log message (2) while parsing ">>>>>>> 1a72607804f2f9ede9950ea70ec41280a418f85b"
+2018-02-16T13:07:43.065750000 8825.177543s warn: Received invalid clustering header from [::1]:55502, closing connection -- something might be connecting to the wrong port.
+2018-02-16T13:07:43.381098000 8825.492890s warn: Received invalid clustering header from [::1]:55503, closing connection -- something might be connecting to the wrong port.
+2018-02-16T13:07:48.399534000 8830.511325s warn: Received invalid clustering header from [::1]:55524, closing connection -- something might be connecting to the wrong port.
+2018-02-16T13:07:48.933169000 8831.044960s warn: Received invalid clustering header from [::1]:55529, closing connection -- something might be connecting to the wrong port.
+2018-02-16T13:08:17.619413000 8859.731201s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Configuration is changing.
+2018-02-16T16:41:09.410500000 21553.305900s notice: Removing file /Volumes/Projects/GIT/share.corpdev.io/database/data/7cde65cd-d955-448e-995e-45b51be3a195
+2018-02-16T16:41:09.410530000 21553.305921s info: Table 7cde65cd-d955-448e-995e-45b51be3a195: Deleted the table.
