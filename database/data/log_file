@@ -1676,3 +1676,25 @@
 2018-02-16T13:08:17.619413000 8859.731201s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Configuration is changing.
 2018-02-16T16:41:09.410500000 21553.305900s notice: Removing file /Volumes/Projects/GIT/share.corpdev.io/database/data/7cde65cd-d955-448e-995e-45b51be3a195
 2018-02-16T16:41:09.410530000 21553.305921s info: Table 7cde65cd-d955-448e-995e-45b51be3a195: Deleted the table.
+2018-02-20T14:42:52.945811200 0.008791s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2018-02-20T14:42:52.964646100 0.027508s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2018-02-20T14:42:52.964804000 0.027808s notice: Loading data from directory D:\\Git\\share.corpdev.io\\database\\data
+2018-02-20T14:42:52.976866200 0.039816s info: Automatically using cache size of 4694 MB
+2018-02-20T14:42:52.978871500 0.041648s notice: Listening for intracluster connections on port 29015
+2018-02-20T14:42:53.041152400 0.104354s notice: Listening for client driver connections on port 28015
+2018-02-20T14:42:53.041152401 0.104743s notice: Listening for administrative HTTP connections on port 8080
+2018-02-20T14:42:53.041152402 0.104744s notice: Listening on cluster address: 127.0.0.1
+2018-02-20T14:42:53.041152403 0.104745s notice: Listening on driver address: 127.0.0.1
+2018-02-20T14:42:53.041152404 0.104753s notice: Listening on http address: 127.0.0.1
+2018-02-20T14:42:53.041152405 0.104754s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-02-20T14:42:53.041152406 0.104754s notice: Server ready, "EAGLE_xz5" bb42f45f-92af-40f2-a5f5-35831404b895
+2018-02-20T14:42:54.941773200 2.004837s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: Starting a new Raft election for term 16.
+2018-02-20T14:42:54.942274000 2.005116s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: Starting a new Raft election for term 16.
+2018-02-20T14:42:54.942274001 2.005141s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: Starting a new Raft election for term 56.
+2018-02-20T14:42:54.942274002 2.005163s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: Starting a new Raft election for term 16.
+2018-02-20T14:42:54.942274003 2.005192s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: Starting a new Raft election for term 16.
+2018-02-20T14:42:54.944780800 2.007575s info: Table 4ef75fbb-e266-477a-bc0c-f4beb473f157: This server is Raft leader for term 16. Latest log index is 45.
+2018-02-20T14:42:54.944780801 2.007631s info: Table 4e5a3199-f535-47c2-a4fe-c3e8353742e7: This server is Raft leader for term 16. Latest log index is 45.
+2018-02-20T14:42:54.944780802 2.007652s info: Table ec53e458-4399-4f28-b28d-03540bbfe253: This server is Raft leader for term 56. Latest log index is 164.
+2018-02-20T14:42:54.944780803 2.007671s info: Table 34367275-492b-47f9-88ab-4f57976ac97b: This server is Raft leader for term 16. Latest log index is 46.
+2018-02-20T14:42:54.945783600 2.008742s info: Table 8efa503a-2bd4-44c4-b157-8b332037b98e: This server is Raft leader for term 16. Latest log index is 45.
