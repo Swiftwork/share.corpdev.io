@@ -2,9 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach to client",
+      "url": "http://localhost:3000/*",
+      "webRoot": "${workspaceRoot}/client/src",
+      "port": 9222,
+      "sourceMaps": true
+    },
+    {
       "type": "node",
       "request": "launch",
-      "name": "Start debug",
+      "name": "Launch server and client",
       "program": "${workspaceRoot}/server/index.js",
       "env": {
         "NODE_ENV": "development",
