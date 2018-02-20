@@ -25,7 +25,7 @@ export class ArticleService extends ContentService<IArticle> {
     protected appState: AppState,
   ) {
     super('articles', http, socketService, appState);
-    this.get().subscribe(this.storeData);
+    this.get().subscribe();
   }
 
   protected format(article: IArticle): IArticle {

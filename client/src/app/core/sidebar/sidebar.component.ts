@@ -1,6 +1,5 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
 
 import { AppState } from '../../app.state';
 import { ArticleService } from '../../shared/articles/shared/article.service';
@@ -41,18 +40,27 @@ export class SidebarComponent {
     public contentToolsService: ContentToolsService,
   ) {
     this.title = 'code';
+    this.topics = [];
   }
 
   ngOnInit() {
     this.state.instance = 'code';
+    /* TODO: Called too many times
+    this.topicService.store.subscribe(() => {
+      this.topicService.getAllNested().subscribe((topics: ITopic[]) => {
+        this.topics = topics;
+      });
+    });
+    */
+
     this.topicService.getAllNested().subscribe((topics: ITopic[]) => {
       this.topics = topics;
     });
 
     this.topicService.store.subscribe((topics) => {
-      if (!Array.isArray(this.topics)) return;
+      /* TODO: rewrite */
       this.topics.forEach((topic) => {
-        const newTopic = topics.get(topic.id);
+        const newTopic = Object.assign({}, topics.get(topic.id));
         if (!newTopic) return;
         delete newTopic.articles;
         Object.assign(topic, newTopic);

@@ -23,7 +23,7 @@ export class TopicService extends ContentService<ITopic> {
     protected appState: AppState,
   ) {
     super('topics', http, socketService, appState);
-    this.get().subscribe(this.storeData);
+    this.get().subscribe();
   }
 
   public getAllNested(): Observable<{} | ITopic | ITopic[]> {

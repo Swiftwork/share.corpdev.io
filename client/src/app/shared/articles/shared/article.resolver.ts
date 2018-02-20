@@ -23,7 +23,7 @@ export class ArticleResolver implements Resolve<{} | IArticle | IArticle[]> {
           return articles;
         });
       } else {
-        return [];
+        return Observable.of([]);
       }
     });
   }

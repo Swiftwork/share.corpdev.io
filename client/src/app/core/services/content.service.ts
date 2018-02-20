@@ -55,7 +55,7 @@ export abstract class ContentService<T extends IContent> {
   public get(id?: string): Observable<{} | T | T[]> {
     const cached = this._store.getValue();
     const ids = (id ? id : '').split(',');
-    const allCached = ids.reduce((sum, value) => (!cached.has(id) ? false : sum), true);
+    const allCached = ids.reduce((sum, value) => (!cached.has(value) ? false : sum), true);
     if (allCached) {
       if (ids.length === 1)
         return Observable.of(cached.get(id));
