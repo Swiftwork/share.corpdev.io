@@ -1,10 +1,11 @@
 .c-app {
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
   grid: 'sidebar topbar' 'sidebar main';
-  grid-template-rows: 3vr auto;
+  grid-template-rows: 3vr 1fr;
   grid-template-columns: minmax(12vr, 2fr) 10fr;
   background-image: linear-gradient(to bottom right, color(var(--c_color_beta) a(7%)), color(var(--c_color_gamma) a(7%)));
+  background-attachment: fixed;
 
   .c-topbar {
     position: relative;
