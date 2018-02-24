@@ -11,10 +11,7 @@ module.exports.connection = rdb.connect(environment.DATABASE)
     /* METHODS */
 
     module.exports.get = (tableName, id) => {
-      return rdb.table(tableName).get(id).run(connection)
-        .then((result) => {
-          return result;
-        });
+      return rdb.table(tableName).get(id).run(connection);
     };
 
     module.exports.getMulti = (tableName, ids) => {
@@ -72,57 +69,36 @@ module.exports.connection = rdb.connect(environment.DATABASE)
     };
 
     module.exports.subscribe = (tableName, id) => {
-      return rdb.table(tableName).get(id).changes().run(connection)
-        .then((cursor) => {
-          return cursor;
-        });
+      return rdb.table(tableName).get(id).changes().run(connection);
     };
 
     module.exports.subscribeMulti = (tableName, ids) => {
-      return getMulti(tableName, ids).changes().run(connection)
-        .then((cursor) => {
-          return cursor;
-        });
+      return getMulti(tableName, ids).changes().run(connection);
     };
 
     module.exports.subscribeAll = (tableName, options, filter, orderBy) => {
       let table = rdb.table(tableName);
       if (filter) table = table.filter(filter);
       if (orderBy) table = table.orderBy(orderBy);
-      return table.changes().run(connection)
-        .then((cursor) => {
-          return cursor;
-        });
+      return table.changes().run(connection);
     };
 
     module.exports.insert = (tableName, documents) => {
-      return rdb.table(tableName).insert(documents).run(connection)
-        .then((result) => {
-          return result;
-        });
+      return rdb.table(tableName).insert(documents).run(connection);
     };
 
     module.exports.update = (tableName, document) => {
-      return rdb.table(tableName).get(document.id).update(document).run(connection)
-        .then((result) => {
-          return result;
-        });
+      return rdb.table(tableName).get(document.id).update(document).run(connection);
     };
 
     module.exports.updateMulti = (tableName, documents) => {
       return rdb.expr(documents).forEach(document =>
         rdb.table(tableName).get(document('id')).update(document))
-        .run(connection)
-        .then((result) => {
-          return result;
-        });
+        .run(connection);
     };
 
     module.exports.delete = (tableName, id) => {
-      return rdb.table(tableName).get(id).delete().run(connection)
-        .then((result) => {
-          return result;
-        });
+      return rdb.table(tableName).get(id).delete().run(connection);
     };
 
     module.exports.deleteMulti = (tableName, ids) => {

@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt-nodejs');
 const token = require('./token');
 
-module.exports.authorize = (request, response, next) => {
+module.exports.authorize = (req, res, next) => {
   let bearer = '';
-  if (request.headers['authorization']) {
-    const map = request.headers['authorization'].split(' ');
+  if (req.headers['authorization']) {
+    const map = req.headers['authorization'].split(' ');
     bearer = map[map.indexOf('Bearer') + 1]
   }
   token.verify(bearer, next);
@@ -13,11 +13,11 @@ module.exports.authorize = (request, response, next) => {
 
 module.exports.hash_password = (password) => {
   return new Promise((resolve, reject) => {
-    bcrypt.genSalt(10, (error, salt) => {
-      if (error) return reject(error);
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) return reject(error);
 
-      bcrypt.hash(password, salt, null, (error, hash) => {
-        if (error) return reject(error);
+      bcrypt.hash(password, salt, null, (err, hash) => {
+        if (err) return reject(err);
         return resolve(hash);
       });
     });
@@ -26,8 +26,8 @@ module.exports.hash_password = (password) => {
 
 module.exports.authenticate = (password, hash) => {
   return new Promise((resolve, reject) => {
-    bcrypt.compare(password, hash, (error, response) => {
-      if (error) return reject(error);
+    bcrypt.compare(password, hash, (err, response) => {
+      if (err) return reject(err);
       return resolve(response);
     });
   });

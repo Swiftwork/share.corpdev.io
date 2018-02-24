@@ -6,20 +6,6 @@ module.exports = () => {
 
   const router = express.Router();
 
-  const reOrder = (index, target) => {
-    if (index == target) return;
-    const descend = index < target;
-    const lower = descend ? index : target;
-    const upper = descend ? target : index;
-    return rdb.getBetween('topics', lower, upper, { index: 'order', rightBound: descend ? 'open' : 'closed' })
-      .then((topics) => {
-        const mover = topics.find((topic) => topic.order == index);
-        topics.forEach((topic) => topic.order += descend ? -1 : 1);
-        mover.order = target + (descend ? -1 : 0);
-        rdb.updateMulti('topics', topics);
-      });
-  }
-
   router.get('/', (request, response) => {
     rdb.getAll('topics')
       .then((topics) => {
@@ -89,6 +75,22 @@ module.exports = () => {
         response.json(results);
       });
   });
+
+  /* HELPERS */
+
+  function reOrder(index, target) {
+    if (index == target) return;
+    const descend = index < target;
+    const lower = descend ? index : target;
+    const upper = descend ? target : index;
+    return rdb.getBetween('topics', lower, upper, { index: 'order', rightBound: descend ? 'open' : 'closed' })
+      .then((topics) => {
+        const mover = topics.find((topic) => topic.order == index);
+        topics.forEach((topic) => topic.order += descend ? -1 : 1);
+        mover.order = target + (descend ? -1 : 0);
+        rdb.updateMulti('topics', topics);
+      });
+  }
 
   return router;
 }

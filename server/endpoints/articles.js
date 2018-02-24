@@ -1,70 +1,54 @@
 const express = require('express');
 const rdb = require('../lib/database.js');
 const auth = require('../lib/auth.js');
+const { asyncMiddleware } = require('../lib/utils.js');
 
 module.exports = () => {
 
   const router = express.Router();
 
-  router.get('/', (request, response) => {
-    rdb.getAll('articles')
-      .then((articles) => {
-        response.json(articles);
-      });
-  });
+  router.get('/', asyncMiddleware(async (req, res, next) => {
+    const articles = await rdb.getAll('articles');
+    res.json(articles);
+  }));
 
-  router.get('/:id', (request, response, next) => {
-    const ids = request.params.id.split(',');
+  router.get('/:id', asyncMiddleware(async (req, res, next) => {
+    const ids = req.params.id.split(',');
     let find;
     if (ids.length > 1) {
       find = rdb.getMulti('articles', ids)
     } else {
       find = rdb.get('articles', ids[0]);
     }
-    find.then((article) => {
-      if (!article) {
-        let notFoundError = new Error('Article not found');
-        notFoundError.status = 404;
-        return next(notFoundError);
-      }
+    const articles = await find;
+    res.json(articles);
+  }));
 
-      response.json(article);
-    });
-  });
-
-  router.post('/', auth.authorize, (request, response) => {
+  router.post('/', auth.authorize, asyncMiddleware(async (req, res, next) => {
     let newArticle = {
-      title: request.body.title,
-      articles: request.body.articles || [],
+      title: req.body.title,
+      articles: req.body.articles || [],
     };
+    const changeset = await rdb.insert('articles', newArticle);
+    res.json(changeset);
+  }));
 
-    rdb.insert('articles', newArticle)
-      .then((result) => {
-        response.json(result);
-      });
-  });
+  router.put('/:id', auth.authorize, asyncMiddleware(async (req, res, next) => {
+    const article = await rdb.get('articles', req.params.id);
+    let updateArticle = {
+      id: article.id,
+      title: req.body.title || article.title,
+      preamble: req.body.preamble || article.preamble,
+      articles: req.body.articles || article.articles || [],
+    };
+    const changeset = await rdb.update('articles', updateArticle);
+    res.json(changeset);
+  }));
 
-  router.put('/:id', auth.authorize, (request, response) => {
-    rdb.get('articles', request.params.id)
-      .then((article) => {
-        let updateArticle = {
-          title: request.body.title || article.title,
-          articles: request.body.articles || article.articles
-        };
-
-        rdb.update('article', article.id, updateArticle)
-          .then((results) => {
-            response.json(results);
-          });
-      });
-  });
-
-  router.delete('/:id', auth.authorize, (request, response) => {
-    rdb.delete('articles', request.params.id)
-      .then((results) => {
-        response.json(results);
-      });
-  });
+  router.delete('/:id', auth.authorize, asyncMiddleware(async (req, res, next) => {
+    const changeset = await rdb.delete('articles', req.params.id);
+    res.json(changeset);
+  }));
 
   return router;
 }
