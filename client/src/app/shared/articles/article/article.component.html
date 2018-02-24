@@ -1,4 +1,4 @@
-<a [routerLink]="['code', 'article', id]">
+<a [routerLink]="!editing ? ['code', 'article', id] : undefined">
   <figure class="c-article--image"
     [ngStyle]="{'background': 'url('+image+')'}">
     <figcaption class="c-article--tags">{{tags.join(', ')}}</figcaption>
@@ -6,7 +6,16 @@
 
   <section>
     <time class="c-article--date">{{date | date: 'medium'}}</time>
-    <h3 class="c-article--title">{{title}}</h3>
-    <p class="c-article--preamble">{{preamble}}</p>
+    <h3 class="c-article--title"
+      *ngIf="!editing">{{title}}</h3>
+    <input class="c-article--title"
+      [(ngModel)]="title"
+      *ngIf="editing" />
+    <p class="c-article--preamble"
+      *ngIf="!editing">{{preamble}}</p>
+    <textarea class="c-article--preamble"
+      [autosize]
+      [(ngModel)]="preamble"
+      *ngIf="editing">{{preamble}}</textarea>
   </section>
 </a>

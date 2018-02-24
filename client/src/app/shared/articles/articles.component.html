@@ -1,9 +1,18 @@
-<c-article [title]="article.title"
+<c-article [id]="article.id"
+  [title]="article.title"
+  [preamble]="article.preamble"
   [route]="article.route"
   [image]="'https://unsplash.it/720/480?image=' + (1079 + i)"
+  [editing]="state.editing"
   *ngFor="let article of articles | async; let i = index">
 </c-article>
 
+<c-article [title]="newTitle"
+  [editing]="state.editing"
+  *ngIf="state.editing">
+</c-article>
+
+<!--
 <ng-container *ngIf="state.editing">
   <a class="c-sidebar--navigation-add"
     (click)="toggleCreateArticle()"
@@ -16,3 +25,4 @@
     (keyup.escape)="toggleCreateArticle()"
     *ngIf="state.creating"></c-text-input>
 </ng-container>
+-->

@@ -8,12 +8,12 @@ import { ContentService, IContent } from '../../../core/services/content.service
 import { SocketService } from '../../../core/services/socket.service';
 
 export interface IArticle extends IContent {
-  date: Date,
-  image: string,
-  preamble: string,
-  tags: string[],
-  title: string,
-  sections: ISection[],
+  date?: Date,
+  image?: string,
+  preamble?: string,
+  tags?: string[],
+  title?: string,
+  sections?: ISection[],
 }
 
 @Injectable()

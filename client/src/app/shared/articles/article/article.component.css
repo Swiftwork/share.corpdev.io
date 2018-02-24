@@ -30,7 +30,27 @@
     padding: 0 1vr;
   }
 
+  &--title, &--preamble {
+    display: block;
+    margin-bottom: 1vr;
+    width: 100%;
+    white-space: pre-wrap;
+    border: none;
+    outline: none !important;
+  }
+
   &--date {
     color: rgba(0, 0, 0, 0.7);
+  }
+
+  &--title {
+    font-family: inherit;
+    font-size: 3.2rem;
+    font-weight: bold;
+  }
+
+  &--preamble {
+    resize: none;
+    outline: none !important;
   }
 }
