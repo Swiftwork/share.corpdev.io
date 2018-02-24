@@ -9,11 +9,9 @@ module.exports = {
     const chokidar = require('chokidar');
     const watcher = chokidar.watch(['./server/endpoints', './server/lib']);
     watcher.on('ready', () => {
-      watcher.on('all', () => {
-        console.log('Clearing server module cache')
-        Object.keys(require.cache).forEach((id) => {
-          if (/[\/\\]app[\/\\]/.test(id)) delete require.cache[id]
-        });
+      watcher.on('all', (event, file) => {
+        console.log('Clearing server module cache');
+        delete require.cache[path.resolve(process.cwd(), file)];
       });
     });
 
